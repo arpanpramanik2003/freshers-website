@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
 
 export default function Prize() {
   const [titles, setTitles] = useState([]);
@@ -10,7 +11,7 @@ export default function Prize() {
 
   const fetchTitles = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/freshers-titles');
+      const response = await fetch(`${API_BASE_URL}/freshers-titles`);
       const data = await response.json();
       setTitles(data);
       setLoading(false);

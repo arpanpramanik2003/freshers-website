@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from '../config/api';
+
 
 export default function AdminApp() {
   const [token, setToken] = useState(null);
@@ -39,7 +41,7 @@ export default function AdminApp() {
     try {
       const endpoints = ['events', 'schedule', 'team', 'gallery', 'sponsors'];
       const promises = endpoints.map(endpoint => 
-        fetch(`http://127.0.0.1:5000/api/${endpoint}`).then(r => r.json())
+        fetch(`${API_BASE_URL}/${endpoint}`).then(r => r.json())
       );
       
       const results = await Promise.all(promises);
@@ -87,8 +89,8 @@ export default function AdminApp() {
             const formData = new FormData(e.target);
             const username = formData.get('username');
             const password = formData.get('password');
-            
-            fetch('http://127.0.0.1:5000/api/login', {
+
+            fetch(`${API_BASE_URL}/login`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ username, password }),
@@ -328,7 +330,7 @@ function EventsSection({ token }) {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/events');
+      const response = await fetch(`${API_BASE_URL}/events`);
       const data = await response.json();
       setEvents(data);
     } catch (error) {
@@ -340,8 +342,8 @@ function EventsSection({ token }) {
     e.preventDefault();
     try {
       const url = editingEvent 
-        ? `http://127.0.0.1:5000/api/admin/events/${editingEvent.id}`
-        : 'http://127.0.0.1:5000/api/admin/events';
+        ? `${API_BASE_URL}/admin/events/${editingEvent.id}`
+        : `${API_BASE_URL}/admin/events`;
       
       const response = await fetch(url, {
         method: editingEvent ? 'PUT' : 'POST',
@@ -383,7 +385,7 @@ function EventsSection({ token }) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/admin/events/${eventId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/events/${eventId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -570,7 +572,7 @@ function ScheduleSection({ token }) {
 
   const fetchSchedule = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/schedule');
+      const response = await fetch(`${API_BASE_URL}/schedule`);
       const data = await response.json();
       setSchedule(data);
     } catch (error) {
@@ -582,8 +584,8 @@ function ScheduleSection({ token }) {
     e.preventDefault();
     try {
       const url = editingItem 
-        ? `http://127.0.0.1:5000/api/admin/schedule/${editingItem.id}`
-        : 'http://127.0.0.1:5000/api/admin/schedule';
+        ? `${API_BASE_URL}/admin/schedule/${editingItem.id}`
+        : `${API_BASE_URL}/admin/schedule`;
       
       const response = await fetch(url, {
         method: editingItem ? 'PUT' : 'POST',
@@ -623,7 +625,7 @@ function ScheduleSection({ token }) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/admin/schedule/${itemId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/schedule/${itemId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -839,7 +841,7 @@ function TeamSection({ token }) {
 
   const fetchTeam = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/team');
+      const response = await fetch(`${API_BASE_URL}/team`);
       const data = await response.json();
       setTeam(data);
     } catch (error) {
@@ -850,10 +852,10 @@ function TeamSection({ token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = editingMember 
-        ? `http://127.0.0.1:5000/api/admin/team/${editingMember.id}`
-        : 'http://127.0.0.1:5000/api/admin/team';
-      
+      const url = editingMember
+        ? `${API_BASE_URL}/admin/team/${editingMember.id}`
+        : `${API_BASE_URL}/admin/team`;
+
       const response = await fetch(url, {
         method: editingMember ? 'PUT' : 'POST',
         headers: {
@@ -893,7 +895,7 @@ function TeamSection({ token }) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/admin/team/${memberId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/team/${memberId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -1151,7 +1153,7 @@ function GallerySection({ token }) {
 
   const fetchGallery = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/gallery');
+      const response = await fetch(`${API_BASE_URL}/gallery`);
       const data = await response.json();
       setGallery(data);
     } catch (error) {
@@ -1163,8 +1165,8 @@ function GallerySection({ token }) {
     e.preventDefault();
     try {
       const url = editingItem 
-        ? `http://127.0.0.1:5000/api/admin/gallery/${editingItem.id}`
-        : 'http://127.0.0.1:5000/api/admin/gallery';
+        ? `${API_BASE_URL}/admin/gallery/${editingItem.id}`
+        : `${API_BASE_URL}/admin/gallery`;
       
       const response = await fetch(url, {
         method: editingItem ? 'PUT' : 'POST',
@@ -1203,7 +1205,7 @@ function GallerySection({ token }) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/admin/gallery/${itemId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/gallery/${itemId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -1524,7 +1526,7 @@ function SponsorsSection({ token }) {
 
   const fetchSponsors = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/sponsors');
+      const response = await fetch(`${API_BASE_URL}/sponsors`);
       const data = await response.json();
       setSponsors(data);
     } catch (error) {
@@ -1536,8 +1538,8 @@ function SponsorsSection({ token }) {
     e.preventDefault();
     try {
       const url = editingSponsor 
-        ? `http://127.0.0.1:5000/api/admin/sponsors/${editingSponsor.id}`
-        : 'http://127.0.0.1:5000/api/admin/sponsors';
+        ? `${API_BASE_URL}/admin/sponsors/${editingSponsor.id}`
+        : `${API_BASE_URL}/admin/sponsors`;
       
       const response = await fetch(url, {
         method: editingSponsor ? 'PUT' : 'POST',
@@ -1576,7 +1578,7 @@ function SponsorsSection({ token }) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/admin/sponsors/${sponsorId}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/sponsors/${sponsorId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -1736,7 +1738,7 @@ function MessagesSection({ token }) {
   const fetchMessages = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/admin/contact-messages', {
+      const response = await fetch(`${API_BASE_URL}/admin/contact-messages`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {
@@ -2063,7 +2065,7 @@ function FreshersTitlesSection({ token }) {
 
   const fetchTitles = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/freshers-titles');
+      const response = await fetch(`${API_BASE_URL}/freshers-titles`);
       const data = await response.json();
       
       // Ensure we have both mister and miss entries
@@ -2097,7 +2099,7 @@ function FreshersTitlesSection({ token }) {
 
   const createEmptyTitle = async (titleType) => {
     try {
-      await fetch('http://127.0.0.1:5000/api/admin/freshers-titles', {
+      await fetch(`${API_BASE_URL}/admin/freshers-titles`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -2123,7 +2125,7 @@ function FreshersTitlesSection({ token }) {
       
       if (existingTitle && existingTitle.id) {
         // Update existing
-        const response = await fetch(`http://127.0.0.1:5000/api/admin/freshers-titles/${existingTitle.id}`, {
+        const response = await fetch(`${API_BASE_URL}/admin/freshers-titles/${existingTitle.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -2141,7 +2143,7 @@ function FreshersTitlesSection({ token }) {
         }
       } else {
         // Create new
-        const response = await fetch('http://127.0.0.1:5000/api/admin/freshers-titles', {
+        const response = await fetch(`${API_BASE_URL}/admin/freshers-titles`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2184,7 +2186,7 @@ function FreshersTitlesSection({ token }) {
     try {
       const existingTitle = titles.find(t => t.title === titleType);
       if (existingTitle && existingTitle.id) {
-        const response = await fetch(`http://127.0.0.1:5000/api/admin/freshers-titles/${existingTitle.id}`, {
+        const response = await fetch(`${API_BASE_URL}/admin/freshers-titles/${existingTitle.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -2451,7 +2453,7 @@ function TShirtsGoodiesSection({ token }) {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/tshirts-goodies');
+      const response = await fetch(`${API_BASE_URL}/tshirts-goodies`);
       const data = await response.json();
       setData(data);
       setFormData({
@@ -2468,7 +2470,7 @@ function TShirtsGoodiesSection({ token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/admin/tshirts-goodies', {
+      const response = await fetch(`${API_BASE_URL}/admin/tshirts-goodies`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

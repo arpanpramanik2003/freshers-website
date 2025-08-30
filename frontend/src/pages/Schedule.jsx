@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
 
 export default function Schedule() {
   const [schedule, setSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/schedule")
+    fetch(`${API_BASE_URL}/schedule`)
       .then((res) => res.json())
       .then((data) => {
         setSchedule(data);

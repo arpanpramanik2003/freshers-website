@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
 
 export default function Team() {
   const [team, setTeam] = useState([]);
@@ -6,7 +7,7 @@ export default function Team() {
   const [showAll, setShowAll] = useState(false); // New state for show more
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/team")
+    fetch(`${API_BASE_URL}/team`)
       .then((res) => res.json())
       .then((data) => {
         setTeam(data);

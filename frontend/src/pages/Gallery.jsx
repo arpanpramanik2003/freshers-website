@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
 
 export default function Gallery() {
   const [gallery, setGallery] = useState([]);
@@ -6,7 +7,7 @@ export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/gallery")
+    fetch(`${API_BASE_URL}/gallery`)
       .then((res) => res.json())
       .then((data) => {
         setGallery(data);

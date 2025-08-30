@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
+
 
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/events")
+    fetch(`${API_BASE_URL}/events`)
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);

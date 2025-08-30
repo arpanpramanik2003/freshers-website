@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
 
 export default function TShirtsGoodies() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/tshirts-goodies")
+    fetch(`${API_BASE_URL}/tshirts-goodies`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);

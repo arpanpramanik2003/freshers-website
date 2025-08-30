@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from '../config/api';
 
 export default function Sponsors() {
   const [sponsors, setSponsors] = useState([]);
@@ -10,7 +11,7 @@ export default function Sponsors() {
 
   const fetchSponsors = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/sponsors");
+      const response = await fetch(`${API_BASE_URL}/sponsors`);
       const data = await response.json();
       
       if (data && data.length > 0) {
