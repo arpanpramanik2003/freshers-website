@@ -6,22 +6,38 @@ const BASE_DIR = path.dirname(__dirname);
 const DB_PATH = path.join(BASE_DIR, 'instance', 'freshers.db');
 
 // Initialize Sequelize
-const sequelize = process.env.NODE_ENV === 'production' 
-  ? new Sequelize(process.env.DATABASE_URL, {
-      dialect: 'postgres',
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false
-        }
-      },
-      logging: false
-    })
-  : new Sequelize({
-      dialect: 'sqlite',
-      storage: path.join(__dirname, '..', 'instance', 'freshers.db'),
-      logging: false
+const { Sequelize, DataTypes } = require('sequelize');
+const bcrypt = require('bcryptjs');
+const path = require('path');
+
+// Safe database configuration
+let sequelize;
+
+if (process.env.DATABASE_URL) {
+    // Production - Use PostgreSQL
+    const { parse } = require('pg-connection-string');
+    const config = parse(process.env.DATABASE_URL);
+    
+    sequelize = new Sequelize(config.database, config.user, config.password, {
+        host: config.host,
+        port: config.port,
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        },
+        logging: false
     });
+} else {
+    // Development - Use SQLite
+    sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: path.join(__dirname, '..', 'instance', 'freshers.db'),
+        logging: false
+    });
+}
 
 // Models variables
 let AdminUser, Event, ScheduleItem, TeamMember, FreshersTitle, TShirtsAndGoodies, GalleryItem, Sponsor, ContactMessage;
