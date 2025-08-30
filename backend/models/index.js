@@ -8,14 +8,9 @@ const DB_PATH = path.join(BASE_DIR, 'instance', 'freshers.db');
 // Safe database configuration
 let sequelize;
 
-if (process.env.DATABASE_URL) {
-    // Production - Use PostgreSQL
-    const { parse } = require('pg-connection-string');
-    const config = parse(process.env.DATABASE_URL);
-    
-    sequelize = new Sequelize(config.database, config.user, config.password, {
-        host: config.host,
-        port: config.port,
+if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
+    // Production - PostgreSQL only
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         dialectOptions: {
             ssl: {
@@ -26,10 +21,13 @@ if (process.env.DATABASE_URL) {
         logging: false
     });
 } else {
-    // Development - Use SQLite
+    // Development - SQLite
+    const BASE_DIR = path.dirname(__dirname);
+    const DB_PATH = path.join(BASE_DIR, 'instance', 'freshers.db');
+    
     sequelize = new Sequelize({
         dialect: 'sqlite',
-        storage: path.join(__dirname, '..', 'instance', 'freshers.db'),
+        storage: DB_PATH,
         logging: false
     });
 }
