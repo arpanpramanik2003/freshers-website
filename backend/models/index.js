@@ -5,11 +5,6 @@ const path = require('path');
 const BASE_DIR = path.dirname(__dirname);
 const DB_PATH = path.join(BASE_DIR, 'instance', 'freshers.db');
 
-// Initialize Sequelize
-const { Sequelize, DataTypes } = require('sequelize');
-const bcrypt = require('bcryptjs');
-const path = require('path');
-
 // Safe database configuration
 let sequelize;
 
