@@ -140,9 +140,6 @@ export default function AdminApp() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm">
-              Demo credentials: <span className="text-secondary">arpan / arpan</span>
-            </p>
           </div>
         </div>
       </div>
