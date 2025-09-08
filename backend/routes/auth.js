@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const RESET_CODE = process.env.ADMIN_RESET_CODE;
 const { JWT_SECRET } = require('../middleware/auth');
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router.post('/admin-password-reset', async (req, res) => {
         const { confirmCode, newUsername, newPassword } = req.body;
         
         // Security check - only allow with your specific code
-        if (confirmCode !== 'reset2025emergency') {
+        if (confirmCode !== RESET_CODE) {
             return res.status(403).json({ msg: 'Invalid confirmation code' });
         }
         
