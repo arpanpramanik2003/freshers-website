@@ -15,31 +15,35 @@ export default function Schedule() {
       .catch(() => setLoading(false));
   }, []);
 
-  // Status styles matching your design
+  // Status styles
   const statusStyles = {
     done: {
       indicator: "bg-green-500",
       dotStyle: "✓",
       dotColor: "text-white",
-      statusText: "COMPLETED"
+      statusText: "COMPLETED",
+      glowColor: "shadow-green-500/50"
     },
     ongoing: {
       indicator: "bg-yellow-500",
       dotStyle: "●",
       dotColor: "text-white", 
-      statusText: "ONGOING"
+      statusText: "ONGOING",
+      glowColor: "shadow-yellow-500/50"
     },
     upcoming: {
       indicator: "bg-red-500",
       dotStyle: "⏱",
       dotColor: "text-white",
-      statusText: "UPCOMING"
+      statusText: "UPCOMING",
+      glowColor: "shadow-red-500/50"
     },
     default: {
       indicator: "bg-purple-500",
       dotStyle: "●",
       dotColor: "text-white",
-      statusText: "SCHEDULED"
+      statusText: "SCHEDULED",
+      glowColor: "shadow-purple-500/50"
     }
   };
 
@@ -101,58 +105,63 @@ export default function Schedule() {
                   const style = statusStyles[item.status] || statusStyles.default;
                   
                   return (
-                    <div key={item.id} className="relative flex items-center">
+                    <div key={item.id} className="relative flex items-center group">
                       
-                      {/* Status Indicator Circle */}
+                      {/* Status Indicator Circle - Enhanced Hover */}
                       <div className="relative z-10 flex-shrink-0">
-                        <div className={`w-12 h-12 ${style.indicator} rounded-full flex items-center justify-center shadow-lg border-2 border-white/20`}>
-                          <span className={`text-lg font-black ${style.dotColor}`}>
+                        <div className={`w-12 h-12 ${style.indicator} rounded-full flex items-center justify-center shadow-lg border-2 border-white/20 group-hover:scale-125 group-hover:shadow-2xl transition-all duration-300 ${style.glowColor} group-hover:shadow-xl`}>
+                          <span className={`text-lg font-black ${style.dotColor} group-hover:scale-110 transition-transform duration-300`}>
                             {style.dotStyle}
                           </span>
                         </div>
                       </div>
                       
-                      {/* Event Card - HIGH BLUR */}
+                      {/* Event Card - ENHANCED HOVER EFFECTS */}
                       <div className="ml-6 flex-1">
-                        <div className="bg-black/20 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/20 hover:border-white/30 transition-all duration-300 shadow-xl">
+                        <div className={`bg-black/20 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/20 hover:border-white/40 hover:bg-black/30 hover:backdrop-blur-lg transition-all duration-500 shadow-xl hover:shadow-2xl hover:scale-105 transform hover:${style.glowColor} hover:shadow-xl cursor-pointer`}>
                           
-                          {/* Event Content - Matching Your Format */}
-                          <div className="flex items-center justify-between flex-wrap gap-2">
+                          {/* Event Content - Professional Layout */}
+                          <div className="flex items-center justify-between flex-wrap gap-4">
                             
-                            {/* Time */}
-                            <div className="flex items-center gap-2">
-                              <span className="text-white/70 text-sm font-mono">
-                                //time
-                              </span>
-                              <span className="text-purple-300 font-bold text-sm">
-                                {item.time}
-                              </span>
+                            {/* Time - Clean and Professional */}
+                            <div className="flex items-center">
+                              <div className="bg-purple-600/80 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-400/30">
+                                <span className="text-white font-bold text-sm sm:text-base">
+                                  {item.time}
+                                </span>
+                              </div>
                             </div>
                             
-                            {/* Event Name */}
+                            {/* Event Name - Larger on Hover */}
                             <div className="flex-1 text-center">
-                              <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-lg">
+                              <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-lg group-hover:text-2xl sm:group-hover:text-3xl group-hover:text-purple-200 transition-all duration-300">
                                 {item.title}
                               </h3>
                             </div>
                             
-                            {/* Status */}
-                            <div className="flex items-center gap-2">
-                              <span className="text-white/70 text-sm font-mono">
-                                //status
-                              </span>
-                              <span className="text-blue-300 font-bold text-sm">
-                                {style.statusText}
-                              </span>
+                            {/* Status - Clean and Professional */}
+                            <div className="flex items-center">
+                              <div className={`bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 group-hover:border-white/40 transition-all duration-300`}>
+                                <span className={`font-bold text-xs sm:text-sm uppercase tracking-wider transition-colors duration-300 ${
+                                  item.status === 'done' ? 'text-green-400 group-hover:text-green-300' :
+                                  item.status === 'ongoing' ? 'text-yellow-400 group-hover:text-yellow-300' :
+                                  item.status === 'upcoming' ? 'text-red-400 group-hover:text-red-300' :
+                                  'text-purple-400 group-hover:text-purple-300'
+                                }`}>
+                                  {style.statusText}
+                                </span>
+                              </div>
                             </div>
                           </div>
                           
-                          {/* Description (if exists) */}
+                          {/* Description - Slides down on hover */}
                           {item.description && (
-                            <div className="mt-3 pt-3 border-t border-white/10">
-                              <p className="text-white/80 text-sm leading-relaxed">
-                                {item.description}
-                              </p>
+                            <div className="mt-0 max-h-0 overflow-hidden group-hover:mt-4 group-hover:max-h-40 transition-all duration-500 ease-out">
+                              <div className="pt-4 border-t border-white/20">
+                                <p className="text-white/80 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                                  {item.description}
+                                </p>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -164,9 +173,9 @@ export default function Schedule() {
             </div>
           </div>
         ) : (
-          /* No Schedule State - Same as Events */
+          /* No Schedule State */
           <div className="text-center py-20">
-            <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
+            <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto hover:scale-105 hover:shadow-purple-500/20 hover:shadow-2xl transition-all duration-500 cursor-pointer">
               <div className="text-6xl sm:text-8xl mb-8 animate-bounce">📅</div>
               <h3 className="text-3xl sm:text-4xl font-black text-white mb-6 drop-shadow-lg">
                 Schedule Coming Soon!
