@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.95);
+  background-color: #0f0f23; /* Dark purple-blue background */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,60 +15,187 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #a78bfa; /* Purple-400 */
   text-decoration: inherit;
+  transition: color 0.3s ease;
 }
 a:hover {
-  color: #535bf2;
+  color: #60a5fa; /* Blue-400 */
 }
 
 body {
   margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%); /* Purple to blue gradient */
+  position: relative;
+}
+
+/* Stage lighting effect for body */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/stage-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.1; /* Very subtle background everywhere */
+  z-index: -1;
+  pointer-events: none;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2, h3, h4, h5, h6 {
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: 12px;
+  border: 1px solid rgba(147, 51, 234, 0.3); /* Purple border */
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(59, 130, 246, 0.2)); /* Purple to blue gradient */
+  color: #ffffff;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button:hover {
+  border-color: #a78bfa; /* Purple-400 */
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4));
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(147, 51, 234, 0.2);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
+
+/* Input styling to match theme */
+input, textarea, select {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(147, 51, 234, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #a78bfa;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.2);
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #9333ea, #3b82f6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #a855f7, #60a5fa);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(147, 51, 234, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(147, 51, 234, 0.3);
+  color: #ffffff;
+}
+
+/* Glow effects for special elements */
+.glow-purple {
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Animation for stage lighting effects */
+@keyframes stage-pulse {
+  0%, 100% {
+    opacity: 0.1;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  50% {
+    opacity: 0.2;
   }
 }
+
+.stage-pulse {
+  animation: stage-pulse 4s ease-in-out infinite;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 768px) {
+  body {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  }
+  
+  button {
+    padding: 0.7em 1.4em;
+    font-size: 0.9em;
+  }
+}
+
+/* Remove light mode preferences since we're going full dark theme */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* smooth scroll */
-html { scroll-behavior: smooth; }
 
+/* Smooth scroll */
+html { 
+  scroll-behavior: smooth; 
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  }
+  
+  .backdrop-blur-stage {
+    backdrop-filter: blur(10px) saturate(150%);
+  }
+  
+  .bg-stage-gradient {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(49, 46, 129, 0.8), rgba(30, 58, 138, 0.8));
+  }
+}
