@@ -31,167 +31,234 @@ export default function Prize() {
       icon: "👑",
       description: "The most charming gentleman",
       winner: getTitleData('mister'),
-      color: "from-red-500 via-yellow-400 to-red-500" // Updated to match theme
+      gradientHeader: "from-purple-600 via-blue-500 to-purple-700",
+      glowColor: "shadow-purple-500/30",
+      accentColor: "purple-400",
+      questionColor: "text-purple-300",
+      highlightColor: "text-purple-300"
     },
     {
       title: "Miss Freshers 2025", 
       icon: "👸",
       description: "The most graceful lady",
       winner: getTitleData('miss'),
-      color: "from-yellow-500 via-red-400 to-yellow-500" // Updated to match theme
+      gradientHeader: "from-blue-500 via-purple-600 to-blue-600",
+      glowColor: "shadow-blue-500/30", 
+      accentColor: "blue-400",
+      questionColor: "text-blue-300",
+      highlightColor: "text-blue-300"
     }
   ];
 
   if (loading) {
     return (
-      <section className="min-h-screen bg-gradient-to-br from-black via-red-900 to-yellow-600 relative overflow-hidden flex items-center justify-center px-4 py-8">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-red-900/40 to-yellow-600/20"></div>
-          <div className="absolute top-0 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-red-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-24 h-24 sm:w-48 sm:h-48 bg-yellow-400/10 rounded-full blur-2xl"></div>
-        </div>
-        
+      <section 
+        className="min-h-screen relative overflow-hidden flex items-center justify-center px-4 py-8"
+        style={{
+          backgroundImage: 'url(/stage-background.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-yellow-400 border-t-4 border-red-500 mx-auto mb-8"></div>
-          <h2 className="text-2xl font-bold text-white">Loading Winners...</h2>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-purple-400 border-t-4 border-blue-500 mx-auto mb-8"></div>
+          <h2 className="text-2xl font-bold text-white drop-shadow-lg">Loading Winners...</h2>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-black via-red-900 to-yellow-600 relative overflow-hidden px-4 py-8">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-red-900/40 to-yellow-600/20"></div>
-        <div className="absolute top-0 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-red-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-24 h-24 sm:w-48 sm:h-48 bg-yellow-400/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-10 right-5 sm:top-20 sm:right-20 w-2 h-2 sm:w-3 sm:h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-16 left-5 sm:bottom-32 sm:left-16 w-1 h-1 sm:w-2 sm:h-2 bg-red-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/4 left-3 sm:top-1/3 sm:left-10 w-1 h-1 bg-yellow-300 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
+    <section 
+      className="min-h-screen relative overflow-hidden px-4 py-16 sm:py-20"
+      style={{
+        backgroundImage: 'url(/stage-background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Light overlay for better readability */}
+      <div className="absolute inset-0 bg-black/30"></div>
+
+      {/* Floating animations - Enhanced */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 left-1/4 w-3 h-3 bg-purple-400 rounded-full animate-bounce opacity-60"></div>
+        <div className="absolute top-32 right-1/3 w-2 h-2 bg-blue-400 rounded-full animate-pulse opacity-50" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-40 left-1/5 w-4 h-4 bg-purple-500 rounded-full animate-ping opacity-40" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-32 right-1/4 w-2 h-2 bg-blue-300 rounded-full animate-bounce opacity-70" style={{animationDelay: '3s'}}></div>
+        <div className="absolute top-1/2 left-1/6 w-1 h-1 bg-purple-300 rounded-full animate-pulse opacity-50" style={{animationDelay: '4s'}}></div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
+        
         {/* Page Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-block mb-4 sm:mb-6">
-            <div className="bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 text-white px-4 py-2 sm:px-8 sm:py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-widest border-2 border-yellow-400/50 shadow-2xl">
-              ✨ Mister & Miss Freshers ✨
-            </div>
-          </div>
-          
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 leading-tight drop-shadow-2xl">
-            <span className="bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent block">
-              CROWNING
-            </span>
-            <span className="bg-gradient-to-r from-red-500 via-yellow-400 to-red-500 bg-clip-text text-transparent block">
-              CEREMONY
-            </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white drop-shadow-2xl">
+            PRIZES & CROWNS
           </h1>
-          
-          <p className="text-xl sm:text-2xl text-yellow-100 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Celebrating the <span className="text-yellow-300 font-bold">stars</span> of our freshers batch
+          <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
+            Celebrating the <span className="text-purple-300 font-bold">stars</span> of our freshers batch
           </p>
         </div>
 
-        {/* Winners Cards */}
-        <div className="pb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {/* Winners Cards - Main Container */}
+        <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl mb-12">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {titlesList.map((item, index) => (
-              <div key={index} className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-black/80 via-red-900/40 to-black/80 backdrop-blur-sm border-2 border-yellow-400/20 hover:border-yellow-400/60 shadow-2xl hover:scale-105 transition-all duration-300 group">
+              <div 
+                key={index} 
+                className="group cursor-pointer transform hover:scale-105 transition-all duration-500"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 
-                {/* Header with gradient */}
-                <div className={`bg-gradient-to-r ${item.color} p-6 sm:p-8 text-center relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-                  <div className="relative z-10">
-                    <div className="text-4xl sm:text-5xl mb-3">{item.icon}</div>
-                    <h3 className="text-xl sm:text-2xl font-black text-white mb-2">{item.title}</h3>
-                    <p className="text-white/90 text-base sm:text-lg">{item.description}</p>
+                {/* Winner Card */}
+                <div className={`relative overflow-hidden rounded-3xl bg-black/20 backdrop-blur-lg border border-white/20 hover:border-white/40 shadow-2xl hover:${item.glowColor} hover:shadow-2xl transition-all duration-500`}>
+                  
+                  {/* Animated Header */}
+                  <div className={`bg-gradient-to-r ${item.gradientHeader} p-6 sm:p-8 text-center relative overflow-hidden`}>
+                    {/* Animated shimmer effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    
+                    <div className="relative z-10">
+                      <div className="text-4xl sm:text-5xl mb-3 group-hover:scale-110 transition-transform duration-500">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-2 group-hover:text-blue-100 transition-colors duration-300 drop-shadow-lg">
+                        {item.title}
+                      </h3>
+                      <p className="text-white/90 text-base sm:text-lg group-hover:text-white transition-colors duration-300 drop-shadow-md">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                
-                {/* Card Content */}
-                <div className="p-6 sm:p-8 text-center">
-                  {item.winner.winner_name ? (
-                    <div>
-                      <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6">
-                        {item.winner.winner_image ? (
-                          <img
-                            src={item.winner.winner_image}
-                            alt={item.winner.winner_name}
-                            className="w-full h-full rounded-full object-cover border-4 border-yellow-400 shadow-2xl group-hover:scale-110 transition-transform duration-300"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-red-500/20 to-yellow-500/20 rounded-full flex items-center justify-center border-4 border-yellow-400 shadow-2xl">
-                            <span className="text-white text-3xl sm:text-4xl">{index === 0 ? '👤' : '👩'}</span>
+                  
+                  {/* Card Content */}
+                  <div className="p-6 sm:p-8 text-center">
+                    {item.winner.winner_name ? (
+                      /* Winner Announced */
+                      <div className="group-hover:-translate-y-2 transition-transform duration-500">
+                        <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-6">
+                          {/* Glow ring */}
+                          <div className={`absolute -inset-2 bg-gradient-to-r ${index === 0 ? 'from-purple-400 to-purple-600' : 'from-blue-400 to-blue-600'} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse`}></div>
+                          
+                          {item.winner.winner_image ? (
+                            <img
+                              src={item.winner.winner_image}
+                              alt={item.winner.winner_name}
+                              className="relative w-full h-full rounded-full object-cover border-4 border-white/30 shadow-2xl group-hover:scale-110 group-hover:border-white/50 transition-all duration-500"
+                            />
+                          ) : (
+                            <div className={`relative w-full h-full ${index === 0 ? 'bg-gradient-to-br from-purple-400/20 to-purple-500/20' : 'bg-gradient-to-br from-blue-400/20 to-blue-500/20'} rounded-full flex items-center justify-center border-4 border-white/30 shadow-2xl group-hover:border-white/50 transition-all duration-500`}>
+                              <span className="text-white text-4xl sm:text-5xl">
+                                {index === 0 ? '👤' : '👩'}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <h4 className={`text-2xl sm:text-3xl font-black text-white mb-4 ${index === 0 ? 'group-hover:text-purple-300' : 'group-hover:text-blue-300'} transition-colors duration-300 drop-shadow-lg`}>
+                          {item.winner.winner_name}
+                        </h4>
+                        
+                        {item.winner.winner_bio && (
+                          <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                            <p className="text-white/90 leading-relaxed text-sm sm:text-base">
+                              {item.winner.winner_bio}
+                            </p>
                           </div>
                         )}
                       </div>
-                      <h4 className="text-xl sm:text-2xl font-black text-white mb-3 group-hover:text-yellow-400 transition-colors duration-300">{item.winner.winner_name}</h4>
-                      {item.winner.winner_bio && (
-                        <p className="text-yellow-100/90 leading-relaxed text-sm sm:text-base">{item.winner.winner_bio}</p>
-                      )}
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="w-28 h-28 sm:w-32 sm:h-32 bg-gradient-to-br from-red-900/30 to-yellow-900/30 rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center border-4 border-dashed border-yellow-400/50">
-                        <span className="text-yellow-400/70 text-4xl sm:text-5xl">?</span>
+                    ) : (
+                      /* Winner TBA - FIXED VERSION */
+                      <div className="group-hover:-translate-y-2 transition-transform duration-500">
+                        <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-6">
+                          {/* Pulsing glow */}
+                          <div className={`absolute -inset-2 ${index === 0 ? 'bg-gradient-to-r from-purple-400/30 to-purple-600/30' : 'bg-gradient-to-r from-blue-400/30 to-blue-600/30'} rounded-full animate-pulse`}></div>
+                          
+                          <div className={`relative w-full h-full ${index === 0 ? 'bg-gradient-to-br from-black/40 to-purple-400/20' : 'bg-gradient-to-br from-black/40 to-blue-400/20'} rounded-full flex items-center justify-center border-4 ${index === 0 ? 'border-dashed border-purple-400/60' : 'border-dashed border-blue-400/60'} shadow-2xl`}>
+                            {/* FIXED: Question mark with proper color */}
+                            <span className={`${index === 0 ? 'text-purple-300' : 'text-blue-300'} text-5xl sm:text-6xl animate-bounce font-black drop-shadow-lg`}>
+                              ?
+                            </span>
+                          </div>
+                        </div>
+                        
+                        {/* FIXED: Better contrast for "To be announced soon" */}
+                        <div className="bg-black/50 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
+                          <div className="flex items-center justify-center mb-3">
+                            <span className="text-2xl mr-2 animate-pulse">✨</span>
+                            {/* FIXED: Better color and contrast */}
+                            <p className={`${index === 0 ? 'text-purple-200' : 'text-blue-200'} font-black text-lg sm:text-xl drop-shadow-lg`}>
+                              To be announced soon!
+                            </p>
+                            <span className="text-2xl ml-2 animate-pulse">✨</span>
+                          </div>
+                          {/* FIXED: "queen" text with proper purple color */}
+                          <p className="text-white text-base sm:text-lg drop-shadow-md">
+                            The crown awaits our <span className={`${index === 0 ? 'text-purple-300' : 'text-blue-300'} font-black drop-shadow-lg`}>
+                              {index === 0 ? 'king' : 'queen'}
+                            </span>
+                          </p>
+                        </div>
                       </div>
-                      <div className="bg-gradient-to-r from-yellow-500/10 to-red-500/10 rounded-xl p-4 sm:p-6 border border-yellow-400/30">
-                        <p className="text-yellow-300 font-bold text-base sm:text-lg mb-2">✨ To be announced soon!</p>
-                        <p className="text-yellow-100/80 text-sm sm:text-base">
-                          The crown awaits our {index === 0 ? 'king' : 'queen'}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  
+                  {/* Decorative corner elements */}
+                  <div className={`absolute top-0 right-0 w-20 h-20 ${index === 0 ? 'bg-purple-400/10' : 'bg-blue-400/10'} rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-transform duration-500`}></div>
+                  <div className={`absolute bottom-0 left-0 w-16 h-16 bg-purple-500/10 rounded-full translate-y-8 -translate-x-8 group-hover:scale-150 transition-transform duration-500`}></div>
                 </div>
-                
-                {/* Decorative elements */}
-                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-yellow-400/10 rounded-full -translate-y-8 translate-x-8"></div>
-                <div className="absolute bottom-0 left-0 w-12 h-12 sm:w-16 sm:h-16 bg-red-500/10 rounded-full translate-y-6 -translate-x-6"></div>
               </div>
             ))}
           </div>
         </div>
         
-        {/* Selection Process Information */}
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-red-900/20 via-black/40 to-yellow-900/20 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-yellow-400/20 shadow-2xl">
-            <h4 className="text-xl sm:text-2xl font-black text-yellow-400 mb-4 sm:mb-6 flex items-center justify-center">
-              <span className="mr-3">🎭</span> Selection Process
+        {/* Selection Process - Enhanced */}
+        <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
+          <div className="text-center max-w-4xl mx-auto">
+            <h4 className="text-2xl sm:text-3xl font-black text-white mb-6 flex items-center justify-center group cursor-pointer drop-shadow-lg">
+              <span className="mr-4 text-3xl sm:text-4xl group-hover:animate-spin transition-transform duration-500">🎭</span> 
+              Selection Process
+              <span className="ml-4 text-3xl sm:text-4xl group-hover:animate-spin transition-transform duration-500">🎭</span>
             </h4>
-            <p className="text-yellow-100/90 leading-relaxed text-base sm:text-lg mb-6 sm:mb-8">
-              Our Mister and Miss Freshers will be selected based on <span className="text-yellow-300 font-semibold">personality</span>, <span className="text-red-300 font-semibold">talent</span>, and <span className="text-yellow-300 font-semibold">stage presence</span>. 
+            
+            <p className="text-white/90 leading-relaxed text-base sm:text-lg lg:text-xl mb-8 lg:mb-12 drop-shadow-md">
+              Our Mister and Miss Freshers will be selected based on 
+              <span className="text-purple-300 font-bold"> personality</span>, 
+              <span className="text-blue-300 font-bold"> talent</span>, and 
+              <span className="text-purple-300 font-bold"> stage presence</span>. 
               Stay tuned for the crowning ceremony during our grand Bollywood Night!
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-              <div className="bg-red-500/20 rounded-xl p-4 sm:p-6 border border-red-400/50 hover:bg-red-500/30 transition-colors">
-                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">🏆</div>
-                <h5 className="font-bold text-white text-sm sm:text-base mb-1">Competition</h5>
-                <p className="text-red-300/80 text-xs sm:text-sm">Multiple rounds</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
+              <div className="bg-purple-500/20 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-purple-400/30 hover:border-purple-400/60 hover:bg-purple-500/30 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🏆</div>
+                <h5 className="font-black text-white text-base lg:text-lg mb-2 drop-shadow-md">Competition</h5>
+                <p className="text-purple-200 text-sm lg:text-base">Multiple exciting rounds</p>
               </div>
-              <div className="bg-yellow-500/20 rounded-xl p-4 sm:p-6 border border-yellow-400/50 hover:bg-yellow-500/30 transition-colors">
-                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">🎪</div>
-                <h5 className="font-bold text-white text-sm sm:text-base mb-1">Talent Show</h5>
-                <p className="text-yellow-300/80 text-xs sm:text-sm">Showcase skills</p>
+              
+              <div className="bg-blue-500/20 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-blue-400/30 hover:border-blue-400/60 hover:bg-blue-500/30 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🎪</div>
+                <h5 className="font-black text-white text-base lg:text-lg mb-2 drop-shadow-md">Talent Show</h5>
+                <p className="text-blue-200 text-sm lg:text-base">Showcase your skills</p>
               </div>
-              <div className="bg-gradient-to-br from-red-500/20 to-yellow-500/20 rounded-xl p-4 sm:p-6 border border-yellow-400/50 hover:from-red-500/30 hover:to-yellow-500/30 transition-colors">
-                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">👑</div>
-                <h5 className="font-bold text-white text-sm sm:text-base mb-1">Crowning</h5>
-                <p className="text-white/80 text-xs sm:text-sm">Grand finale</p>
+              
+              <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/30 hover:border-white/50 hover:from-purple-500/30 hover:to-blue-500/30 hover:scale-105 transition-all duration-300 group cursor-pointer">
+                <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">👑</div>
+                <h5 className="font-black text-white text-base lg:text-lg mb-2 drop-shadow-md">Crowning</h5>
+                <p className="text-white text-sm lg:text-base">Grand finale moment</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Gradient Transition */}
-      <div className="absolute bottom-0 left-0 w-full h-16 sm:h-24 bg-gradient-to-t from-black via-red-900/50 to-transparent"></div>
+        {/* Bottom padding */}
+        <div className="h-16 sm:h-20"></div>
+      </div>
     </section>
   );
 }
