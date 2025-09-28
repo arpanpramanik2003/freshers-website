@@ -47,8 +47,8 @@ export default function Events() {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      {/* Light overlay for better text readability while showing background */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         
@@ -69,31 +69,35 @@ export default function Events() {
                   className="group transform hover:scale-105 transition-all duration-300"
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
-                  {/* Event Card */}
-                  <div className="bg-purple-600/90 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl border border-purple-400/30">
+                  {/* Transparent Event Card */}
+                  <div className="bg-black/15 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-2xl border border-white/10 hover:border-white/20 transition-all duration-300">
                     
-                    {/* Event Image */}
-                    <div className="relative overflow-hidden h-48 sm:h-56">
+                    {/* Event Image with Padding */}
+                    <div className="relative overflow-hidden rounded-2xl mb-4 sm:mb-6">
                       <img 
                         src={event.image_url} 
                         alt={event.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        className="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-500" 
                         onError={(e) => {
-                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPi8vSU1BR0U8L3RleHQ+PC9zdmc+';
+                          // Fallback placeholder image with better styling
+                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZDFkNWRiIiByeD0iMTIiLz4KICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjc3NDgzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Ly9JTUFHRTU8L3RleHQ+Cjwvc3ZnPgo=';
                         }}
                       />
-                      
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     </div>
                     
                     {/* Event Content */}
-                    <div className="p-6 sm:p-8">
-                      <h3 className="text-xl sm:text-2xl font-black mb-3 text-white drop-shadow-lg">
+                    <div className="px-2">
+                      {/* Event Title */}
+                      <h3 className="text-xl sm:text-2xl font-black mb-2 text-white drop-shadow-lg">
                         {event.title}
                       </h3>
-                      <p className="text-white/90 leading-relaxed text-sm sm:text-base">
-                        {event.description || "...........SHORT DESCRIPTION"}
+                      
+                      {/* Dotted Line Separator */}
+                      <div className="border-b border-dotted border-white/30 mb-3"></div>
+                      
+                      {/* Event Description */}
+                      <p className="text-white/90 leading-relaxed text-sm sm:text-base font-medium">
+                        {event.description || "SHORT DESCRIPTION"}
                       </p>
                     </div>
                   </div>
@@ -103,7 +107,7 @@ export default function Events() {
           ) : (
             /* No Events State */
             <div className="text-center py-20">
-              <div className="bg-black/20 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
+              <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
                 <div className="text-6xl sm:text-8xl mb-8 animate-bounce">🎭</div>
                 <h3 className="text-3xl sm:text-4xl font-black text-white mb-6 drop-shadow-lg">
                   Events Coming Soon!
