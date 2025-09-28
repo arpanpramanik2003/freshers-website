@@ -69,11 +69,11 @@ export default function Events() {
                   className="group transform hover:scale-105 transition-all duration-300"
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
-                  {/* Transparent Event Card */}
-                  <div className="bg-black/15 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-2xl border border-white/10 hover:border-white/20 transition-all duration-300">
+                  {/* Transparent Event Card - Fixed Height */}
+                  <div className="bg-black/15 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-2xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full flex flex-col">
                     
                     {/* Event Image with Padding */}
-                    <div className="relative overflow-hidden rounded-2xl mb-4 sm:mb-6">
+                    <div className="relative overflow-hidden rounded-2xl mb-4 sm:mb-6 flex-shrink-0">
                       <img 
                         src={event.image_url} 
                         alt={event.title} 
@@ -85,20 +85,22 @@ export default function Events() {
                       />
                     </div>
                     
-                    {/* Event Content */}
-                    <div className="px-2">
-                      {/* Event Title */}
-                      <h3 className="text-xl sm:text-2xl font-black mb-2 text-white drop-shadow-lg">
+                    {/* Event Content - Fixed Layout */}
+                    <div className="px-2 flex-grow flex flex-col">
+                      {/* Event Title - Fixed Height */}
+                      <h3 className="text-xl sm:text-2xl font-black mb-2 text-white drop-shadow-lg line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem]">
                         {event.title}
                       </h3>
                       
                       {/* Dotted Line Separator */}
-                      <div className="border-b border-dotted border-white/30 mb-3"></div>
+                      <div className="border-b border-dotted border-white/30 mb-3 flex-shrink-0"></div>
                       
-                      {/* Event Description */}
-                      <p className="text-white/90 leading-relaxed text-sm sm:text-base font-medium">
-                        {event.description || "SHORT DESCRIPTION"}
-                      </p>
+                      {/* Event Description - EXACTLY 2 LINES */}
+                      <div className="flex-grow">
+                        <p className="text-white/90 leading-relaxed text-sm sm:text-base font-medium line-clamp-2 h-[2.5rem] sm:h-[3rem] overflow-hidden">
+                          {event.description || "SHORT DESCRIPTION"}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
