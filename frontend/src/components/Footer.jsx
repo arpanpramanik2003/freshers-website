@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { API_BASE_URL } from '../config/api';
 
-
 export default function Footer() {
   const [formData, setFormData] = useState({
     name: '',
@@ -47,114 +46,114 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-t from-black via-red-900 to-black text-white relative overflow-hidden">
+    <footer 
+      className="text-white relative overflow-hidden"
+      style={{
+        backgroundImage: 'url(/stage-background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Light overlay to keep background visible */}
+      <div className="absolute inset-0 bg-black/40"></div>
       
-      {/* Background Effects - Responsive positioning */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-red-900/40 to-yellow-600/20"></div>
-        <div className="absolute top-0 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-red-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-24 h-24 sm:w-48 sm:h-48 bg-yellow-400/10 rounded-full blur-2xl"></div>
-      </div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 py-3 sm:py-3">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
         
-        {/* Main Footer Content - Mobile optimized grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-4">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
           
           {/* Brand Section */}
           <div className="text-center md:text-left">
-            <div className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4">
-              <span className="bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent">BOLLYWOOD</span><br/>
-              <span className="bg-gradient-to-r from-red-500 to-yellow-400 bg-clip-text text-transparent">NIGHT</span>
+            <div className="text-2xl sm:text-3xl font-black mb-3">
+              <span className="text-white drop-shadow-lg">ABHIGRAHA 2025</span>
             </div>
-            <p className="text-yellow-100/90 leading-relaxed text-base sm:text-lg mb-4 sm:mb-6 max-w-md mx-auto md:mx-0">
-              The ultimate freshers celebration with glamour, talent, and unforgettable memories.
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base mb-6">
+              The ultimate fresher celebration with glamour, talent, unforgettable memories.
             </p>
             
-            {/* Social Media - Responsive sizing */}
-            <div className="flex gap-3 sm:gap-4 justify-center md:justify-start">
-              <a href="#" className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg sm:rounded-xl flex items-center justify-center transition-all transform hover:scale-110 border-2 border-yellow-400/30">
-                <span className="text-xl sm:text-2xl">📷</span>
+            {/* Social Media Icons */}
+            <div className="flex gap-3 justify-center md:justify-start">
+              <a 
+                href="mailto:abhigraha2k25@gmail.com" 
+                className="w-10 h-10 bg-red-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
+              >
+                <span className="text-white text-sm">📧</span>
               </a>
-              <a href="#" className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-500 to-yellow-700 hover:from-yellow-400 hover:to-yellow-600 rounded-lg sm:rounded-xl flex items-center justify-center transition-all transform hover:scale-110 border-2 border-red-400/30">
-                <span className="text-xl sm:text-2xl">📘</span>
+              <a 
+                href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 backdrop-blur-sm rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
+              >
+                <span className="text-white text-sm">📸</span>
               </a>
-              <a href="#" className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-red-600 to-yellow-600 hover:from-red-500 hover:to-yellow-500 rounded-lg sm:rounded-xl flex items-center justify-center transition-all transform hover:scale-110 border-2 border-white/30">
-                <span className="text-xl sm:text-2xl">📺</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Contact Info - Mobile optimized */}
-          <div className="text-center md:text-left">
-            <h4 className="text-xl sm:text-2xl font-black text-yellow-400 mb-4 sm:mb-6 uppercase tracking-wide">
-              Get In Touch
-            </h4>
-            <div className="space-y-3 sm:space-y-4">
-              <div className="flex items-center justify-center md:justify-start group">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-500 to-yellow-500 rounded-lg flex items-center justify-center mr-3 sm:mr-4 group-hover:scale-110 transition-transform flex-shrink-0">
-                  <span className="text-lg sm:text-xl">📧</span>
-                </div>
-                <span className="text-yellow-100 text-base sm:text-lg break-all">freshers@college.edu</span>
-              </div>
-              
-              <div className="flex items-center justify-center md:justify-start group">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-500 to-red-500 rounded-lg flex items-center justify-center mr-3 sm:mr-4 group-hover:scale-110 transition-transform flex-shrink-0">
-                  <span className="text-lg sm:text-xl">📱</span>
-                </div>
-                <span className="text-yellow-100 text-base sm:text-lg">+91 98765 43210</span>
-              </div>
-              
-              <div className="flex items-center justify-center md:justify-start group">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-600 to-yellow-400 rounded-lg flex items-center justify-center mr-3 sm:mr-4 group-hover:scale-110 transition-transform flex-shrink-0">
-                  <span className="text-lg sm:text-xl">📍</span>
-                </div>
-                <span className="text-yellow-100 text-base sm:text-lg">Main Auditorium</span>
+              <div className="w-10 h-10 bg-blue-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                <span className="text-white text-sm">📍</span>
               </div>
             </div>
           </div>
 
-          {/* Contact Form Toggle - Mobile optimized */}
+          {/* Contact Info */}
           <div className="text-center md:text-left">
-            <h4 className="text-xl sm:text-2xl font-black text-yellow-400 mb-4 sm:mb-6 uppercase tracking-wide">
-              Send Message
+            <div className="space-y-4">
+              <div className="flex items-center justify-center md:justify-start">
+                <div className="w-8 h-8 bg-red-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <span className="text-white text-sm">📧</span>
+                </div>
+                <span className="text-white text-sm break-all">abhigraha2k25@gmail.com</span>
+              </div>
+              
+              <div className="flex items-center justify-center md:justify-start">
+                <div className="w-8 h-8 bg-blue-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <span className="text-white text-sm">📍</span>
+                </div>
+                <span className="text-white text-sm">Main PlayGround</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form Toggle */}
+          <div className="text-center md:text-left">
+            <h4 className="text-lg font-black text-white mb-2 uppercase tracking-wide">
+              SEND MESSAGE
             </h4>
-            <p className="text-yellow-100/80 mb-4 sm:mb-6 text-sm sm:text-base">
-              Have questions? Send us a message and we'll get back to you.
+            <p className="text-gray-300 mb-4 text-sm">
+              Have questions?
             </p>
             <button
               onClick={() => setShowContactForm(!showContactForm)}
-              className="bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 hover:from-red-700 hover:via-red-600 hover:to-yellow-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-black text-sm sm:text-base uppercase tracking-wide transition-all transform hover:scale-105 border-2 border-yellow-400/50 shadow-xl w-full"
+              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-bold text-sm uppercase tracking-wide transition-all transform hover:scale-105 w-full md:w-auto"
             >
-              {showContactForm ? '✕ Close Form' : '✉ Contact Us'}
+              CONTACT US
             </button>
           </div>
         </div>
 
-        {/* Contact Form (Collapsible) - Mobile optimized */}
+        {/* Contact Form */}
         {showContactForm && (
-          <div className="bg-gradient-to-br from-black/80 via-red-900/40 to-black/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-8 mb-8 sm:mb-12 border-2 border-gradient-to-r border-yellow-400/30 shadow-2xl">
+          <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 sm:p-8 mb-8">
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div className="sm:col-span-1">
+                <div>
                   <input 
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl bg-black/60 border-2 border-red-500/40 focus:outline-none focus:border-yellow-400 text-yellow-100 placeholder-yellow-200/60 font-medium transition-colors text-sm sm:text-base"
+                    className="w-full p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 text-white placeholder-gray-300 font-medium transition-colors"
                     placeholder="Your Name"
                     required
                   />
                 </div>
                 
-                <div className="sm:col-span-1">
+                <div>
                   <input 
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl bg-black/60 border-2 border-red-500/40 focus:outline-none focus:border-yellow-400 text-yellow-100 placeholder-yellow-200/60 font-medium transition-colors text-sm sm:text-base"
+                    className="w-full p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 text-white placeholder-gray-300 font-medium transition-colors"
                     placeholder="Your Email"
                     required
                   />
@@ -167,7 +166,7 @@ export default function Footer() {
                   value={formData.message}
                   onChange={handleChange}
                   rows="4" 
-                  className="w-full p-3 sm:p-4 rounded-lg sm:rounded-xl bg-black/60 border-2 border-red-500/40 focus:outline-none focus:border-yellow-400 text-yellow-100 placeholder-yellow-200/60 font-medium resize-none transition-colors text-sm sm:text-base"
+                  className="w-full p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 text-white placeholder-gray-300 font-medium resize-none transition-colors"
                   placeholder="Your Message"
                   required
                 />
@@ -177,20 +176,20 @@ export default function Footer() {
                 <button 
                   type="submit" 
                   disabled={status === 'sending'}
-                  className="bg-gradient-to-r from-yellow-500 to-red-500 hover:from-yellow-600 hover:to-red-600 disabled:from-gray-600 disabled:to-gray-700 text-black font-black px-8 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base uppercase tracking-wide transition-all transform hover:scale-105 shadow-xl w-full sm:w-auto"
+                  className="bg-purple-600/90 hover:bg-purple-700/90 disabled:bg-gray-600/90 backdrop-blur-sm text-white font-black px-8 py-3 rounded-lg uppercase tracking-wide transition-all transform hover:scale-105 shadow-xl"
                 >
                   {status === 'sending' ? '⏳ SENDING...' : '🚀 SEND MESSAGE'}
                 </button>
                 
                 {status === 'success' && (
-                  <p className="text-yellow-400 mt-3 sm:mt-4 font-bold text-base sm:text-lg">
-                    ✅ Message sent successfully! We'll be in touch soon.
+                  <p className="text-green-400 mt-4 font-bold">
+                    ✅ Message sent successfully!
                   </p>
                 )}
                 
                 {status === 'error' && (
-                  <p className="text-red-400 mt-3 sm:mt-4 font-bold text-base sm:text-lg">
-                    ❌ Failed to send. Please try again or contact us directly.
+                  <p className="text-red-400 mt-4 font-bold">
+                    ❌ Failed to send. Please try again.
                   </p>
                 )}
               </div>
@@ -198,13 +197,10 @@ export default function Footer() {
           </div>
         )}
 
-        {/* Copyright - Mobile optimized */}
-        <div className="border-t border-gradient-to-r border-yellow-400/30 pt- sm:pt-2 text-center">
-          <p className="text-yellow-200/80 text-base sm:text-lg mb-2">
-            © {new Date().getFullYear()} <span className="bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent font-black">BOLLYWOOD NIGHT</span> • All Rights Reserved
-          </p>
-          <p className="text-yellow-300/60 text-xs sm:text-sm">
-            ✨ Made with passion for our amazing freshers ✨
+        {/* Copyright */}
+        <div className="text-center pt-6 border-t border-white/20">
+          <p className="text-gray-300 text-sm">
+            © {new Date().getFullYear()} <span className="text-white font-bold">BOLLYWOOD NIGHT</span> • All Rights Reserved
           </p>
         </div>
       </div>
