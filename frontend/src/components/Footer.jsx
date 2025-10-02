@@ -47,7 +47,7 @@ export default function Footer() {
 
   return (
     <footer 
-      className="text-white relative overflow-hidden"
+      className="text-white relative overflow-hidden py-16"
       style={{
         backgroundImage: 'url(/stage-background.jpg)',
         backgroundSize: 'cover',
@@ -55,93 +55,101 @@ export default function Footer() {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Light overlay to keep background visible */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      {/* Light overlay for better readability */}
+      <div className="absolute inset-0 bg-black/30"></div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
         
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
+        {/* Main Footer Container - Rounded Rectangle */}
+        <div className="bg-black/20 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl mb-8">
           
-          {/* Brand Section */}
-          <div className="text-center md:text-left">
-            <div className="text-2xl sm:text-3xl font-black mb-3">
-              <span className="text-white drop-shadow-lg">ABHIGRAHA 2025</span>
-            </div>
-            <p className="text-gray-300 leading-relaxed text-sm sm:text-base mb-6">
-              The ultimate fresher celebration with glamour, talent, unforgettable memories.
-            </p>
+          {/* Main Footer Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
             
-            {/* Social Media Icons */}
-            <div className="flex gap-3 justify-center md:justify-start">
-              <a 
-                href="mailto:abhigraha2k25@gmail.com" 
-                className="w-10 h-10 bg-red-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
-              >
-                <span className="text-white text-sm">📧</span>
-              </a>
-              <a 
-                href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 backdrop-blur-sm rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
-              >
-                <span className="text-white text-sm">📸</span>
-              </a>
-              <div className="w-10 h-10 bg-blue-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                <span className="text-white text-sm">📍</span>
+            {/* Left: Brand Section */}
+            <div className="text-center lg:text-left">
+              <div className="text-2xl sm:text-3xl font-black mb-4 text-white drop-shadow-lg">
+                ABHIGRAHA 2025
               </div>
+              <p className="text-white/80 leading-relaxed text-sm sm:text-base">
+                The ultimate fresher celebration with glamour, talent, unforgettable memories.
+              </p>
             </div>
-          </div>
 
-          {/* Contact Info */}
-          <div className="text-center md:text-left">
+            {/* Center: Contact Information */}
             <div className="space-y-4">
-              <div className="flex items-center justify-center md:justify-start">
-                <div className="w-8 h-8 bg-red-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                  <span className="text-white text-sm">📧</span>
+              {/* Email */}
+              <div className="flex items-center justify-center lg:justify-start">
+                <div className="w-10 h-10 bg-red-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                  <span className="text-white text-lg">📧</span>
                 </div>
-                <span className="text-white text-sm break-all">abhigraha2k25@gmail.com</span>
+                <a 
+                  href="mailto:abhigraha2k25@gmail.com"
+                  className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base font-medium"
+                >
+                  abhigraha2k25@gmail.com
+                </a>
               </div>
               
-              <div className="flex items-center justify-center md:justify-start">
-                <div className="w-8 h-8 bg-blue-600/90 backdrop-blur-sm rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                  <span className="text-white text-sm">📍</span>
+              {/* Instagram */}
+              <div className="flex items-center justify-center lg:justify-start">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                  <span className="text-white text-lg">📸</span>
                 </div>
-                <span className="text-white text-sm">Main PlayGround</span>
+                <a 
+                  href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base font-medium"
+                >
+                  @abhigraha_2k25
+                </a>
+              </div>
+              
+              {/* Location */}
+              <div className="flex items-center justify-center lg:justify-start">
+                <div className="w-10 h-10 bg-blue-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                  <span className="text-white text-lg">📍</span>
+                </div>
+                <span className="text-white text-sm sm:text-base font-medium">main playground</span>
               </div>
             </div>
-          </div>
 
-          {/* Contact Form Toggle */}
-          <div className="text-center md:text-left">
-            <h4 className="text-lg font-black text-white mb-2 uppercase tracking-wide">
-              SEND MESSAGE
-            </h4>
-            <p className="text-gray-300 mb-4 text-sm">
-              Have questions?
-            </p>
-            <button
-              onClick={() => setShowContactForm(!showContactForm)}
-              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-bold text-sm uppercase tracking-wide transition-all transform hover:scale-105 w-full md:w-auto"
-            >
-              CONTACT US
-            </button>
+            {/* Right: Contact Form Section */}
+            <div className="text-center lg:text-right">
+              <h4 className="text-lg sm:text-xl font-black text-white mb-2 uppercase tracking-wide">
+                SEND MESSAGE
+              </h4>
+              <p className="text-white/80 mb-6 text-sm sm:text-base">
+                Have questions?
+              </p>
+              <button
+                onClick={() => setShowContactForm(!showContactForm)}
+                className="bg-purple-600/90 hover:bg-purple-700/90 backdrop-blur-sm text-white px-8 py-3 rounded-full font-black text-sm uppercase tracking-wide transition-all transform hover:scale-105 shadow-lg border border-purple-500/30 flex items-center gap-2 mx-auto lg:ml-auto lg:mr-0"
+              >
+                <span>✉️</span>
+                CONTACT US
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Contact Form */}
+        {/* Contact Form - Enhanced */}
         {showContactForm && (
-          <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 sm:p-8 mb-8">
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="bg-black/20 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl mb-8 animate-fade-in">
+            <h3 className="text-2xl font-black text-white mb-6 text-center">
+              📝 Send us a Message
+            </h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <input 
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 text-white placeholder-gray-300 font-medium transition-colors"
+                    className="w-full p-4 rounded-xl bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-white placeholder-gray-300 font-medium transition-all"
                     placeholder="Your Name"
                     required
                   />
@@ -153,7 +161,7 @@ export default function Footer() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 text-white placeholder-gray-300 font-medium transition-colors"
+                    className="w-full p-4 rounded-xl bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-white placeholder-gray-300 font-medium transition-all"
                     placeholder="Your Email"
                     required
                   />
@@ -165,45 +173,81 @@ export default function Footer() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows="4" 
-                  className="w-full p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 text-white placeholder-gray-300 font-medium resize-none transition-colors"
+                  rows="5" 
+                  className="w-full p-4 rounded-xl bg-black/40 backdrop-blur-sm border border-white/20 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-white placeholder-gray-300 font-medium resize-none transition-all"
                   placeholder="Your Message"
                   required
                 />
               </div>
               
-              <div className="text-center">
-                <button 
-                  type="submit" 
-                  disabled={status === 'sending'}
-                  className="bg-purple-600/90 hover:bg-purple-700/90 disabled:bg-gray-600/90 backdrop-blur-sm text-white font-black px-8 py-3 rounded-lg uppercase tracking-wide transition-all transform hover:scale-105 shadow-xl"
-                >
-                  {status === 'sending' ? '⏳ SENDING...' : '🚀 SEND MESSAGE'}
-                </button>
+              <div className="text-center space-y-4">
+                <div className="flex gap-4 justify-center">
+                  <button 
+                    type="submit" 
+                    disabled={status === 'sending'}
+                    className="bg-purple-600/90 hover:bg-purple-700/90 disabled:bg-gray-600/90 backdrop-blur-sm text-white font-black px-8 py-3 rounded-full uppercase tracking-wide transition-all transform hover:scale-105 shadow-xl border border-purple-500/30"
+                  >
+                    {status === 'sending' ? (
+                      <span className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        SENDING...
+                      </span>
+                    ) : (
+                      '🚀 SEND MESSAGE'
+                    )}
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={() => setShowContactForm(false)}
+                    className="bg-gray-700/80 hover:bg-gray-600/80 backdrop-blur-sm text-white font-black px-6 py-3 rounded-full uppercase tracking-wide transition-all transform hover:scale-105 shadow-xl border border-gray-600/30"
+                  >
+                    Cancel
+                  </button>
+                </div>
                 
                 {status === 'success' && (
-                  <p className="text-green-400 mt-4 font-bold">
-                    ✅ Message sent successfully!
-                  </p>
+                  <div className="bg-green-500/20 backdrop-blur-sm border border-green-400/40 rounded-xl p-4 text-green-200">
+                    <span className="text-2xl mr-2">✅</span>
+                    Message sent successfully! We'll get back to you soon.
+                  </div>
                 )}
                 
                 {status === 'error' && (
-                  <p className="text-red-400 mt-4 font-bold">
-                    ❌ Failed to send. Please try again.
-                  </p>
+                  <div className="bg-red-500/20 backdrop-blur-sm border border-red-400/40 rounded-xl p-4 text-red-200">
+                    <span className="text-2xl mr-2">❌</span>
+                    Failed to send message. Please try again or contact us directly.
+                  </div>
                 )}
               </div>
             </form>
           </div>
         )}
 
-        {/* Copyright */}
-        <div className="text-center pt-6 border-t border-white/20">
-          <p className="text-gray-300 text-sm">
-            © {new Date().getFullYear()} <span className="text-white font-bold">BOLLYWOOD NIGHT</span> • All Rights Reserved
+        {/* Copyright - Also in rounded container */}
+        <div className="bg-black/15 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/10 shadow-xl text-center">
+          <p className="text-white/80 text-sm sm:text-base">
+            © {new Date().getFullYear()} <span className="text-white font-black">BOLLYWOOD NIGHT</span> • All Rights Reserved
           </p>
         </div>
       </div>
+
+      {/* Add fade-in animation CSS */}
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out;
+        }
+      `}</style>
     </footer>
   );
 }
