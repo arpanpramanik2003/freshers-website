@@ -2,14 +2,16 @@ const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 
-// FIXED: Bulletproof database configuration
+// RENDER-OPTIMIZED DATABASE CONFIGURATION
 let sequelize;
 
-// Check for Railway database URL (Railway provides this)
-const DATABASE_URL = process.env.DATABASE_URL || process.env.DATABASE_PRIVATE_URL;
+// Check for any PostgreSQL connection URL
+const DATABASE_URL = process.env.DATABASE_URL || 
+                    process.env.DATABASE_PRIVATE_URL || 
+                    process.env.DATABASE_PUBLIC_URL;
 
 if (DATABASE_URL) {
-    console.log('🐘 Using PostgreSQL (Railway)');
+    console.log('🐘 Using PostgreSQL Database');
     sequelize = new Sequelize(DATABASE_URL, {
         dialect: 'postgres',
         dialectOptions: {
