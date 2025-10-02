@@ -6,11 +6,9 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "build": "echo 'Build complete'",
     "create-admin": "node scripts/createAdmin.js",
-    "seed-sample": "node scripts/seedSample.js",
-    "postinstall": "npm run install-deps",
-    "install-deps": "if [ \"$NODE_ENV\" = \"production\" ]; then echo 'Production build'; else npm install sqlite3; fi"
-
+    "seed-sample": "node scripts/seedSample.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
