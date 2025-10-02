@@ -2,15 +2,15 @@ const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 
-const BASE_DIR = path.dirname(__dirname);
-const DB_PATH = path.join(BASE_DIR, 'instance', 'freshers.db');
-
-// Safe database configuration
+// FIXED: Bulletproof database configuration
 let sequelize;
 
-if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
-    // Production - PostgreSQL only
-    sequelize = new Sequelize(process.env.DATABASE_URL, {
+// Check for Railway database URL (Railway provides this)
+const DATABASE_URL = process.env.DATABASE_URL || process.env.DATABASE_PRIVATE_URL;
+
+if (DATABASE_URL) {
+    console.log('🐘 Using PostgreSQL (Railway)');
+    sequelize = new Sequelize(DATABASE_URL, {
         dialect: 'postgres',
         dialectOptions: {
             ssl: {
@@ -18,10 +18,16 @@ if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
                 rejectUnauthorized: false
             }
         },
-        logging: false
+        logging: process.env.NODE_ENV !== 'production' ? console.log : false,
+        pool: {
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
     });
 } else {
-    // Development - SQLite
+    console.log('📦 Using SQLite (Development)');
     const BASE_DIR = path.dirname(__dirname);
     const DB_PATH = path.join(BASE_DIR, 'instance', 'freshers.db');
     
