@@ -17,17 +17,31 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || ['http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: process.env.FRONTEND_URL ? 
+        [process.env.FRONTEND_URL, 'http://localhost:5173'] : 
+        ['http://localhost:5173', 'http://127.0.0.1:5173'],
     credentials: true
 }));
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Static file serving
 app.use('/uploads', express.static(UPLOAD_FOLDER));
 
+// Health check for Render
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        database: process.env.DATABASE_URL ? 'PostgreSQL' : 'SQLite',
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
+
 // Initialize database and start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000; // Render uses port 10000
 
 async function startServer() {
     try {
@@ -38,7 +52,11 @@ async function startServer() {
         await sequelize.authenticate();
         console.log('✅ Database connection established successfully');
         
-        await sequelize.sync({ alter: process.env.NODE_ENV !== 'production' });
+        // Sync database (be careful with alter in production)
+        await sequelize.sync({ 
+            alter: process.env.NODE_ENV !== 'production',
+            force: false 
+        });
         console.log('✅ Database synchronized successfully');
 
         // Import routes AFTER models are initialized
@@ -50,16 +68,6 @@ async function startServer() {
         app.use('/api', authRoutes);
         app.use('/api', publicRoutes);
         app.use('/api/admin', adminRoutes);
-
-        // Health check endpoint
-        app.get('/api/health', (req, res) => {
-            res.json({
-                status: 'ok',
-                database: process.env.DATABASE_URL ? 'PostgreSQL' : 'SQLite',
-                timestamp: new Date().toISOString(),
-                uptime: process.uptime()
-            });
-        });
 
         // Status endpoint
         app.get('/api/status', (req, res) => {
@@ -84,7 +92,7 @@ async function startServer() {
         const server = app.listen(PORT, '0.0.0.0', () => {
             console.log(`🚀 Server running on port ${PORT}`);
             console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-            console.log(`💾 Database: ${process.env.DATABASE_URL ? 'PostgreSQL (Railway)' : 'SQLite (Local)'}`);
+            console.log(`💾 Database: ${process.env.DATABASE_URL ? 'PostgreSQL (Render)' : 'SQLite (Local)'}`);
             console.log(`📁 Uploads: ${UPLOAD_FOLDER}`);
         });
 
