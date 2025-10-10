@@ -4,7 +4,16 @@ import { API_BASE_URL } from '../config/api';
 export default function Team() {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
+
+  // Role hierarchy with custom order and grouping
+  const roleHierarchy = [
+    { title: "LEADERSHIP", roles: ["PRESIDENT"], icon: "👑", color: "from-purple-600 to-purple-800" },
+    { title: "EXECUTIVE LEADERSHIP", roles: ["VICE-PRESIDENT"], icon: "🎖️", color: "from-blue-600 to-blue-800" },
+    { title: "CORE MANAGEMENT", roles: ["TREASURER", "SECRETARY"], icon: "💼", color: "from-green-600 to-green-800" },
+    { title: "DEPARTMENT HEADS", roles: ["EVENT MANAGER", "CULTURAL HEAD", "VOLUNTEER HEAD", "DECORATION HEAD", "MARKETING HEAD", "PHOTOGRAPHY HEAD", "SPONSOR HEAD"], icon: "🎯", color: "from-orange-600 to-red-600" },
+    { title: "SPECIALIZED ROLES", roles: ["CREATIVE MANAGER", "STUDENT COORDINATOR", "SOCIAL-MEDIA MANAGER", "HOSPITALITY", "EXECUTIVE HEAD"], icon: "⭐", color: "from-teal-600 to-cyan-600" },
+    { title: "TEAM MEMBERS", roles: ["EXECUTIVE MEMBERS"], icon: "👥", color: "from-indigo-600 to-purple-600" }
+  ];
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/team`)
@@ -15,6 +24,16 @@ export default function Team() {
       })
       .catch(() => setLoading(false));
   }, []);
+
+  // Group team members by role hierarchy
+  const groupedTeam = roleHierarchy.map(section => ({
+    ...section,
+    members: team.filter(member => 
+      section.roles.some(role => 
+        member.role?.toUpperCase().includes(role.toUpperCase())
+      )
+    )
+  })).filter(section => section.members.length > 0);
 
   if (loading) {
     return (
@@ -49,7 +68,7 @@ export default function Team() {
       {/* Light overlay for better readability */}
       <div className="absolute inset-0 bg-black/30"></div>
 
-      {/* Floating animations - Continuous */}
+      {/* Floating animations */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-60"></div>
         <div className="absolute top-40 right-1/3 w-3 h-3 bg-blue-400 rounded-full animate-bounce opacity-50" style={{animationDelay: '1s'}}></div>
@@ -69,84 +88,139 @@ export default function Team() {
           </p>
         </div>
 
-        {/* Team Members */}
+        {/* Team Hierarchy */}
         <div className="pb-16">
-          {team.length > 0 ? (
-            /* TRANSPARENT BACKGROUND CONTAINER */
-            <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
-              
-              {/* Team Grid - ALWAYS CENTERED */}
-              <div className="flex flex-wrap justify-center items-start gap-4 sm:gap-6 lg:gap-8">
-                {(showAll ? team : team.slice(0, 10)).map((member, index) => (
-                  <div
-                    key={member.id}
-                    className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500 animate-fadeInUp"
-                    style={{ 
-                      animationDelay: `${index * 0.15}s`,
-                      minWidth: '140px',
-                      maxWidth: '180px',
-                      flex: '0 0 auto'
-                    }}
-                  >
-                    {/* Team Member Card */}
-                    <div className="bg-gradient-to-br from-purple-600/20 via-blue-500/20 to-purple-800/20 backdrop-blur-sm rounded-3xl p-4 border border-purple-400/20 hover:border-purple-400/50 hover:shadow-purple-500/20 hover:shadow-2xl transition-all duration-500 group-hover:bg-gradient-to-br group-hover:from-purple-600/30 group-hover:via-blue-500/30 group-hover:to-purple-800/30">
-                      
-                      {/* Avatar with Glow Effect */}
-                      <div className="relative mb-4">
-                        {/* Hover glow ring */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-                        
-                        <div className="relative w-full aspect-square rounded-2xl overflow-hidden border-2 border-white/30 group-hover:border-blue-400/60 transition-all duration-500 shadow-xl group-hover:shadow-2xl">
-                          <img
-                            src={member.image_url || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K'}
-                            alt={member.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            onError={(e) => {
-                              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K';
-                            }}
-                          />
-                          
-                          {/* Gradient overlay on hover */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                      </div>
-
-                      {/* Member Info */}
-                      <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
-                        <h3 className="text-white font-bold text-sm sm:text-base mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
-                          {member.name}
-                        </h3>
-                        <p className="text-purple-300 text-xs sm:text-sm font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
-                          {member.role}
-                        </p>
-                        
-                        {/* Bio - Smooth expand */}
-                        {member.bio && (
-                          <div className="mt-2 max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-700 ease-out">
-                            <div className="pt-2 border-t border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                              <p className="text-white/80 text-xs leading-relaxed line-clamp-3">
-                                {member.bio}
-                              </p>
-                            </div>
-                          </div>
-                        )}
-                      </div>
+          {groupedTeam.length > 0 ? (
+            <div className="space-y-12 sm:space-y-16">
+              {groupedTeam.map((section, sectionIndex) => (
+                <div
+                  key={section.title}
+                  className="animate-fadeInUp"
+                  style={{ animationDelay: `${sectionIndex * 0.3}s` }}
+                >
+                  {/* Section Header */}
+                  <div className="text-center mb-8 sm:mb-12">
+                    <div className={`inline-block bg-gradient-to-r ${section.color} rounded-2xl px-6 py-3 sm:px-8 sm:py-4 shadow-2xl border border-white/20 backdrop-blur-sm`}>
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white flex items-center justify-center gap-3">
+                        <span className="text-2xl sm:text-3xl">{section.icon}</span>
+                        {section.title}
+                      </h2>
                     </div>
                   </div>
-                ))}
-              </div>
 
-              {/* See More/Less Button */}
-              {team.length > 10 && (
-                <div className="text-center mt-12">
-                  <button
-                    onClick={() => setShowAll(!showAll)}
-                    className="bg-gradient-to-r from-purple-600/90 via-blue-500/90 to-purple-700/90 hover:from-purple-700/90 hover:via-blue-600/90 hover:to-purple-800/90 backdrop-blur-sm text-white px-8 py-4 rounded-2xl font-black text-base sm:text-lg transition-all transform hover:scale-105 border border-purple-400/30 shadow-2xl hover:shadow-purple-500/30 uppercase tracking-wide"
-                  >
-                    {showAll ? '👥 Show Less' : `👥 Show All ${team.length} Members`}
-                  </button>
+                  {/* Section Members */}
+                  <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
+                    
+                    {/* Special Layout for Leadership (President/VP) */}
+                    {(section.title === "LEADERSHIP" || section.title === "EXECUTIVE LEADERSHIP") ? (
+                      <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
+                        {section.members.map((member, index) => (
+                          <div
+                            key={member.id}
+                            className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500"
+                            style={{ 
+                              animationDelay: `${(sectionIndex * 3 + index) * 0.15}s`,
+                              maxWidth: '280px'
+                            }}
+                          >
+                            {/* Presidential Card - Larger */}
+                            <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-sm rounded-3xl p-6 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500">
+                              
+                              {/* Avatar - Larger for leadership */}
+                              <div className="relative mb-6">
+                                <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                                
+                                <div className="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-3xl overflow-hidden border-3 border-white/40 group-hover:border-blue-400/70 transition-all duration-500 shadow-2xl">
+                                  <img
+                                    src={member.image_url || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K'}
+                                    alt={member.name}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onError={(e) => {
+                                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K';
+                                    }}
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Member Info - Larger text for leadership */}
+                              <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
+                                <h3 className="text-white font-black text-lg sm:text-xl mb-2 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500">
+                                  {member.name}
+                                </h3>
+                                <p className="text-purple-300 text-sm sm:text-base font-bold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 mb-3">
+                                  {member.role}
+                                </p>
+                                
+                                {member.bio && (
+                                  <p className="text-white/80 text-sm leading-relaxed">
+                                    {member.bio}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      /* Regular Grid Layout for Other Roles */
+                      <div className="flex flex-wrap justify-center items-start gap-4 sm:gap-6">
+                        {section.members.map((member, index) => (
+                          <div
+                            key={member.id}
+                            className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500 animate-fadeInUp"
+                            style={{ 
+                              animationDelay: `${(sectionIndex * 3 + index) * 0.15}s`,
+                              minWidth: '140px',
+                              maxWidth: '180px',
+                              flex: '0 0 auto'
+                            }}
+                          >
+                            {/* Regular Team Member Card */}
+                            <div className="bg-gradient-to-br from-purple-600/20 via-blue-500/20 to-purple-800/20 backdrop-blur-sm rounded-3xl p-4 border border-purple-400/20 hover:border-purple-400/50 hover:shadow-purple-500/20 hover:shadow-2xl transition-all duration-500">
+                              
+                              {/* Avatar */}
+                              <div className="relative mb-4">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                                
+                                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border-2 border-white/30 group-hover:border-blue-400/60 transition-all duration-500 shadow-xl">
+                                  <img
+                                    src={member.image_url || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K'}
+                                    alt={member.name}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onError={(e) => {
+                                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K';
+                                    }}
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Member Info */}
+                              <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
+                                <h3 className="text-white font-bold text-sm sm:text-base mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
+                                  {member.name}
+                                </h3>
+                                <p className="text-purple-300 text-xs sm:text-sm font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
+                                  {member.role}
+                                </p>
+                                
+                                {member.bio && (
+                                  <div className="mt-2 max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-700 ease-out">
+                                    <div className="pt-2 border-t border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                                      <p className="text-white/80 text-xs leading-relaxed line-clamp-3">
+                                        {member.bio}
+                                      </p>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
           ) : (
             /* No Team State */
@@ -161,7 +235,6 @@ export default function Team() {
                   <span className="block mt-2 text-purple-300 font-semibold">Stay tuned to meet our stars!</span>
                 </p>
 
-                {/* Decorative elements */}
                 <div className="flex justify-center gap-4 mt-8">
                   <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
                   <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
