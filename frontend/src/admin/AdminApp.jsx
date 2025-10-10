@@ -895,6 +895,27 @@ function TeamSection({ token }) {
     name: '', role: '', image_url: '', bio: ''
   });
 
+  // Predefined roles list
+  const availableRoles = [
+    'PRESIDENT',
+    'VICE-PRESIDENT', 
+    'TREASURER',
+    'SECRETARY',
+    'EVENT MANAGER',
+    'CULTURAL HEAD',
+    'VOLUNTEER HEAD',
+    'DECORATION HEAD',
+    'MARKETING HEAD',
+    'CREATIVE MANAGER',
+    'STUDENT COORDINATOR',
+    'PHOTOGRAPHY HEAD',
+    'SOCIAL-MEDIA MANAGER',
+    'HOSPITALITY',
+    'SPONSOR HEAD',
+    'EXECUTIVE HEAD',
+    'EXECUTIVE MEMBERS'
+  ];
+
   useEffect(() => {
     fetchTeam();
   }, []);
@@ -982,23 +1003,32 @@ function TeamSection({ token }) {
 
   const getRoleColor = (role) => {
     const lowerRole = role?.toLowerCase() || '';
-    if (lowerRole.includes('president') || lowerRole.includes('head')) return 'bg-purple-100 text-purple-800 border-purple-200';
+    if (lowerRole.includes('president')) return 'bg-purple-100 text-purple-800 border-purple-200';
     if (lowerRole.includes('vice') || lowerRole.includes('deputy')) return 'bg-blue-100 text-blue-800 border-blue-200';
     if (lowerRole.includes('secretary') || lowerRole.includes('treasurer')) return 'bg-green-100 text-green-800 border-green-200';
-    if (lowerRole.includes('coordinator') || lowerRole.includes('manager')) return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    if (lowerRole.includes('head') || lowerRole.includes('manager')) return 'bg-orange-100 text-orange-800 border-orange-200';
+    if (lowerRole.includes('coordinator') || lowerRole.includes('executive')) return 'bg-yellow-100 text-yellow-800 border-yellow-200';
     return 'bg-gray-100 text-gray-800 border-gray-200';
   };
 
   const getRoleIcon = (role) => {
     const lowerRole = role?.toLowerCase() || '';
-    if (lowerRole.includes('president') || lowerRole.includes('head')) return '👑';
-    if (lowerRole.includes('vice') || lowerRole.includes('deputy')) return '🎖️';
+    if (lowerRole.includes('president')) return '👑';
+    if (lowerRole.includes('vice')) return '🎖️';
     if (lowerRole.includes('secretary')) return '📝';
     if (lowerRole.includes('treasurer')) return '💰';
-    if (lowerRole.includes('coordinator') || lowerRole.includes('manager')) return '🎯';
+    if (lowerRole.includes('manager') || lowerRole.includes('head')) return '🎯';
+    if (lowerRole.includes('coordinator')) return '⭐';
     if (lowerRole.includes('member')) return '👤';
-    return '⭐';
+    return '🎪';
   };
+
+  // Group team members by role for better overview
+  const groupedTeam = availableRoles.map(role => ({
+    role,
+    members: team.filter(member => member.role?.toUpperCase() === role),
+    count: team.filter(member => member.role?.toUpperCase() === role).length
+  })).filter(group => group.count > 0);
 
   return (
     <div className="p-6">
@@ -1026,14 +1056,22 @@ function TeamSection({ token }) {
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               required
             />
-            <input
-              type="text"
-              placeholder="Role/Position *"
+            
+            {/* ROLE DROPDOWN - Main Change */}
+            <select
               value={formData.role}
               onChange={(e) => setFormData({...formData, role: e.target.value})}
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               required
-            />
+            >
+              <option value="">Select Role/Position *</option>
+              {availableRoles.map((role) => (
+                <option key={role} value={role}>
+                  {role.replace(/-/g, ' ')}
+                </option>
+              ))}
+            </select>
+            
             <input
               type="url"
               placeholder="Photo URL (optional)"
@@ -1068,92 +1106,93 @@ function TeamSection({ token }) {
         </div>
       )}
 
-      {/* Team List */}
-      <div className="space-y-4">
-        {team.length > 0 ? (
-          team.map((member) => (
-            <div key={member.id} className="border rounded-lg p-5 hover:shadow-md transition-shadow bg-white">
-              <div className="flex justify-between items-start">
-                <div className="flex items-start gap-4 flex-1">
-                  <div className="flex-shrink-0">
-                    {member.image_url ? (
-                      <img
-                        src={member.image_url}
-                        alt={member.name}
-                        className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
-                      />
-                    ) : (
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center border-2 border-gray-200">
-                        <span className="text-2xl">👤</span>
+      {/* Hierarchical Team Display */}
+      {groupedTeam.length > 0 ? (
+        <div className="space-y-6">
+          {groupedTeam.map((group) => (
+            <div key={group.role} className="bg-white rounded-lg border shadow-sm">
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 px-6 py-3 border-b">
+                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                  {getRoleIcon(group.role)} {group.role.replace(/-/g, ' ')} 
+                  <span className="bg-primary text-white px-2 py-1 rounded-full text-xs">
+                    {group.count}
+                  </span>
+                </h3>
+              </div>
+              <div className="p-4 space-y-3">
+                {group.members.map((member) => (
+                  <div key={member.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0">
+                        {member.image_url ? (
+                          <img
+                            src={member.image_url}
+                            alt={member.name}
+                            className="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center border-2 border-gray-200">
+                            <span className="text-lg">👤</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getRoleColor(member.role)}`}>
-                        {getRoleIcon(member.role)} {member.role}
-                      </span>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{member.name}</h4>
+                        {member.bio && (
+                          <p className="text-sm text-gray-600 line-clamp-2">{member.bio}</p>
+                        )}
+                      </div>
                     </div>
-                    {member.bio && (
-                      <p className="text-gray-600 mb-3 leading-relaxed">{member.bio}</p>
-                    )}
-                    <div className="flex items-center text-sm text-gray-400">
-                      <span>ID: {member.id}</span>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleEdit(member)}
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium transition-colors"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(member.id)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm font-medium transition-colors"
+                      >
+                        🗑️ Delete
+                      </button>
                     </div>
                   </div>
-                </div>
-                
-                <div className="flex gap-2 ml-4">
-                  <button
-                    onClick={() => handleEdit(member)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1"
-                    title="Edit Team Member"
-                  >
-                    <span>✏️</span> Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(member.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1"
-                    title="Delete Team Member"
-                  >
-                    <span>🗑️</span> Delete
-                  </button>
-                </div>
+                ))}
               </div>
             </div>
-          ))
-        ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-            <div className="text-4xl mb-4">👥</div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">No Team Members Yet</h3>
-            <p className="text-gray-500 mb-4">Start by adding your first team member for Bollywood Night!</p>
-            <button
-              onClick={() => setShowForm(true)}
-              className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg font-medium"
-            >
-              + Add First Team Member
-            </button>
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+          <div className="text-4xl mb-4">👥</div>
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">No Team Members Yet</h3>
+          <p className="text-gray-500 mb-4">Start by adding your first team member for Bollywood Night!</p>
+          <button
+            onClick={() => setShowForm(true)}
+            className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg font-medium"
+          >
+            + Add First Team Member
+          </button>
+        </div>
+      )}
 
       {/* Team Statistics */}
       {team.length > 0 && (
         <div className="mt-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">👥 Team Overview</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div className="bg-white rounded-lg p-4 border">
               <div className="text-2xl font-bold text-purple-600">
-                {team.filter(m => m.role?.toLowerCase().includes('president') || m.role?.toLowerCase().includes('head')).length}
+                {groupedTeam.find(g => g.role === 'PRESIDENT')?.count || 0}
               </div>
-              <div className="text-sm text-gray-600">👑 Leadership</div>
+              <div className="text-sm text-gray-600">👑 President</div>
             </div>
             <div className="bg-white rounded-lg p-4 border">
               <div className="text-2xl font-bold text-blue-600">
-                {team.filter(m => m.role?.toLowerCase().includes('coordinator') || m.role?.toLowerCase().includes('manager')).length}
+                {groupedTeam.filter(g => g.role.includes('HEAD')).reduce((sum, g) => sum + g.count, 0)}
               </div>
-              <div className="text-sm text-gray-600">🎯 Coordinators</div>
+              <div className="text-sm text-gray-600">🎯 Heads</div>
             </div>
             <div className="bg-white rounded-lg p-4 border">
               <div className="text-2xl font-bold text-green-600">
@@ -1167,29 +1206,6 @@ function TeamSection({ token }) {
               </div>
               <div className="text-sm text-gray-600">👤 Total Members</div>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Common Roles Suggestions */}
-      {showForm && (
-        <div className="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">💡 Common Roles:</h4>
-          <div className="flex flex-wrap gap-2">
-            {[
-              'President', 'Vice President', 'Secretary', 'Treasurer', 
-              'Event Coordinator', 'Cultural Head', 'Technical Head', 
-              'Marketing Manager', 'Logistics Coordinator', 'Team Member'
-            ].map((role) => (
-              <button
-                key={role}
-                type="button"
-                onClick={() => setFormData({...formData, role})}
-                className="text-xs bg-white hover:bg-blue-100 text-blue-700 px-2 py-1 rounded border border-blue-200 transition-colors"
-              >
-                {role}
-              </button>
-            ))}
           </div>
         </div>
       )}
