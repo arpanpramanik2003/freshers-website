@@ -5,14 +5,14 @@ export default function Team() {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // FIXED: Combined Leadership section & better role hierarchy
+  // Role hierarchy with better organization
   const roleHierarchy = [
     { 
       title: "LEADERSHIP", 
       roles: ["PRESIDENT", "VICE-PRESIDENT"], 
       icon: "👑", 
       color: "from-purple-600 to-purple-800",
-      isLeadership: true  // Special flag for combined leadership layout
+      isLeadership: true
     },
     { title: "CORE MANAGEMENT", roles: ["TREASURER", "SECRETARY"], icon: "💼", color: "from-green-600 to-green-800" },
     { title: "DEPARTMENT HEADS", roles: ["EVENT MANAGER", "CULTURAL HEAD", "VOLUNTEER HEAD", "DECORATION HEAD", "MARKETING HEAD", "PHOTOGRAPHY HEAD", "SPONSOR HEAD"], icon: "🎯", color: "from-orange-600 to-red-600" },
@@ -30,7 +30,7 @@ export default function Team() {
       .catch(() => setLoading(false));
   }, []);
 
-  // Group team members by role hierarchy - FIXED: No duplication
+  // Group team members by role hierarchy - exact matching to prevent duplication
   const groupedTeam = roleHierarchy.map(section => ({
     ...section,
     members: team.filter(member => 
@@ -39,6 +39,11 @@ export default function Team() {
       )
     )
   })).filter(section => section.members.length > 0);
+
+  // FIXED: Better placeholder image as a proper data URL
+  const getPlaceholderImage = () => {
+    return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%239333ea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%233b82f6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grad)' rx='16'/%3E%3Ccircle cx='100' cy='70' r='30' fill='%23ffffff' opacity='0.8'/%3E%3Cpath d='M60 160 C 60 130 75 110 100 110 C 125 110 140 130 140 160 Z' fill='%23ffffff' opacity='0.8'/%3E%3Ctext x='50%25' y='185' font-family='Arial, sans-serif' font-size='14' fill='%23ffffff' text-anchor='middle' opacity='0.6'%3ETeam%3C/text%3E%3C/svg%3E";
+  };
 
   if (loading) {
     return (
@@ -116,9 +121,9 @@ export default function Team() {
                   {/* Section Members */}
                   <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
                     
-                    {/* FIXED: Combined Leadership Layout - Always side by side */}
+                    {/* Leadership Section - Always centered */}
                     {section.isLeadership ? (
-                      <div className="grid grid-cols-1 min-[500px]:grid-cols-2 gap-8 sm:gap-12 max-w-4xl mx-auto">
+                      <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
                         {section.members.map((member, index) => (
                           <div
                             key={member.id}
@@ -128,19 +133,19 @@ export default function Team() {
                             }}
                           >
                             {/* Presidential Card - Enhanced */}
-                            <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-sm rounded-3xl p-6 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500">
+                            <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-sm rounded-3xl p-6 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500 max-w-[280px]">
                               
-                              {/* Avatar - Responsive leadership size */}
+                              {/* Avatar - Leadership size */}
                               <div className="relative mb-6">
                                 <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
                                 
                                 <div className="relative w-28 h-28 sm:w-36 sm:h-36 mx-auto rounded-3xl overflow-hidden border-3 border-white/40 group-hover:border-blue-400/70 transition-all duration-500 shadow-2xl">
                                   <img
-                                    src={member.image_url || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K'}
+                                    src={member.image_url || getPlaceholderImage()}
                                     alt={member.name}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     onError={(e) => {
-                                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K';
+                                      e.target.src = getPlaceholderImage();
                                     }}
                                   />
                                 </div>
@@ -168,14 +173,17 @@ export default function Team() {
                         ))}
                       </div>
                     ) : (
-                      /* Regular Grid Layout for Other Roles - IMPROVED RESPONSIVE */
-                      <div className="grid grid-cols-2 min-[500px]:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4 sm:gap-6 justify-items-center">
+                      /* FIXED: Other Sections - Perfect Centering */
+                      <div className="flex flex-wrap justify-center items-start gap-4 sm:gap-6">
                         {section.members.map((member, index) => (
                           <div
                             key={member.id}
-                            className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500 animate-fadeInUp w-full max-w-[160px]"
+                            className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500 animate-fadeInUp"
                             style={{ 
-                              animationDelay: `${(sectionIndex * 3 + index) * 0.15}s`
+                              animationDelay: `${(sectionIndex * 3 + index) * 0.15}s`,
+                              minWidth: '140px',
+                              maxWidth: '180px',
+                              flex: '0 0 auto'
                             }}
                           >
                             {/* Regular Team Member Card */}
@@ -187,11 +195,11 @@ export default function Team() {
                                 
                                 <div className="relative w-full aspect-square rounded-2xl overflow-hidden border-2 border-white/30 group-hover:border-blue-400/60 transition-all duration-500 shadow-xl">
                                   <img
-                                    src={member.image_url || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA<c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K'}
+                                    src={member.image_url || getPlaceholderImage()}
                                     alt={member.name}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     onError={(e) => {
-                                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOTMzM2VhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgcng9IjE2Ii8+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNzAiIHI9IjMwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjgiLz4KICA8cGF0aCBkPSJNNjAgMTYwIEMgNjAgMTMwIDc1IDExMCAxMDAgMTEwIEMgMTI1IDExMCAxNDAgMTMwIDE0MCAxNjAgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSIxODUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC42Ij5UZWFtPC90ZXh0Pgo8L3N2Zz4K';
+                                      e.target.src = getPlaceholderImage();
                                     }}
                                   />
                                 </div>
@@ -199,10 +207,10 @@ export default function Team() {
 
                               {/* Member Info */}
                               <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
-                                <h3 className="text-white font-bold text-sm mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
+                                <h3 className="text-white font-bold text-sm sm:text-base mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
                                   {member.name}
                                 </h3>
-                                <p className="text-purple-300 text-xs font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
+                                <p className="text-purple-300 text-xs sm:text-sm font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
                                   {member.role}
                                 </p>
                                 
