@@ -6,9 +6,8 @@ export default function Team() {
   const [loading, setLoading] = useState(true);
   const [selectedMember, setSelectedMember] = useState(null);
 
-  // Exact role order - President and VP will be shown together without title
   const roleHierarchy = [
-    { title: "", roles: ["PRESIDENT", "VICE-PRESIDENT"], isLeadership: true }, // No title for VIPs
+    { title: "", roles: ["PRESIDENT", "VICE-PRESIDENT"], isLeadership: true },
     { title: "SECRETARY", roles: ["SECRETARY"] },
     { title: "TREASURER", roles: ["TREASURER"] },
     { title: "EVENT MANAGER", roles: ["EVENT MANAGER"] },
@@ -94,7 +93,7 @@ export default function Team() {
             OUR TEAM
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            The amazing people behind Bollywood Night
+            The amazing people behind ABHIGRAHA
           </p>
         </div>
 
@@ -107,7 +106,6 @@ export default function Team() {
                   className="animate-fadeInUp"
                   style={{ animationDelay: `${sectionIndex * 0.3}s` }}
                 >
-                  {/* Title - Only show for non-leadership roles */}
                   {!section.isLeadership && section.title && (
                     <div className="text-center mb-8 sm:mb-12">
                       <div className="inline-block relative">
@@ -121,21 +119,23 @@ export default function Team() {
                     </div>
                   )}
 
-                  {/* Leadership Section - President & VP side by side, NO TITLE */}
+                  {/* FIXED: Leadership Cards - Same Height with Fixed Dimensions */}
                   {section.isLeadership ? (
-                    <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 mb-12">
+                    <div className="flex flex-wrap justify-center items-stretch gap-8 sm:gap-12 mb-12">
                       {section.members.map((member) => (
                         <div
                           key={member.id}
                           onClick={() => setSelectedMember(member)}
                           className="group cursor-pointer transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
+                          style={{ width: '280px' }} /* FIXED WIDTH */
                         >
-                          <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500 max-w-[280px]">
+                          <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
                             
                             <div className="relative mb-6">
                               <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
                               
-                              <div className="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-3xl overflow-hidden border-4 border-white/40 group-hover:border-blue-400/70 transition-all duration-500 shadow-2xl">
+                              {/* FIXED: Exact square dimensions */}
+                              <div className="relative w-40 h-40 mx-auto rounded-3xl overflow-hidden border-4 border-white/40 group-hover:border-blue-400/70 transition-all duration-500 shadow-2xl">
                                 <img
                                   src={member.image_url || getPlaceholderImage()}
                                   alt={member.name}
@@ -147,11 +147,12 @@ export default function Team() {
                               </div>
                             </div>
 
-                            <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
-                              <h3 className="text-white font-black text-xl sm:text-2xl mb-2 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500">
+                            {/* FIXED: Name with line-clamp to prevent height variation */}
+                            <div className="text-center group-hover:-translate-y-1 transition-transform duration-500 flex-grow flex flex-col justify-center">
+                              <h3 className="text-white font-black text-xl sm:text-2xl mb-2 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2 min-h-[3.5rem]">
                                 {member.name}
                               </h3>
-                              <div className="inline-block bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-sm rounded-full px-4 py-2 border border-purple-400/40">
+                              <div className="inline-block bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-sm rounded-full px-4 py-2 mx-auto border border-purple-400/40">
                                 <p className="text-purple-200 text-sm sm:text-base font-bold uppercase tracking-wide">
                                   {member.role}
                                 </p>
@@ -162,8 +163,8 @@ export default function Team() {
                       ))}
                     </div>
                   ) : (
-                    /* Regular Member Cards */
-                    <div className="flex flex-wrap justify-center items-start gap-4 sm:gap-6">
+                    /* FIXED: Regular Member Cards - Same Height */
+                    <div className="flex flex-wrap justify-center items-stretch gap-4 sm:gap-6">
                       {section.members.map((member, index) => (
                         <div
                           key={member.id}
@@ -171,16 +172,16 @@ export default function Team() {
                           className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500 animate-fadeInUp"
                           style={{ 
                             animationDelay: `${(sectionIndex * 3 + index) * 0.15}s`,
-                            minWidth: '140px',
-                            maxWidth: '180px',
-                            flex: '0 0 auto'
+                            width: '160px' /* FIXED WIDTH */
                           }}
                         >
-                          <div className="bg-gradient-to-br from-purple-600/20 via-blue-500/20 to-purple-800/20 backdrop-blur-sm rounded-3xl p-4 border border-purple-400/20 hover:border-purple-400/50 hover:shadow-purple-500/20 hover:shadow-2xl transition-all duration-500">
+                          {/* FIXED: h-full makes all cards same height */}
+                          <div className="bg-gradient-to-br from-purple-600/20 via-blue-500/20 to-purple-800/20 backdrop-blur-sm rounded-3xl p-4 border border-purple-400/20 hover:border-purple-400/50 hover:shadow-purple-500/20 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
                             
                             <div className="relative mb-4">
                               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
                               
+                              {/* FIXED: Perfect square */}
                               <div className="relative w-full aspect-square rounded-2xl overflow-hidden border-2 border-white/30 group-hover:border-blue-400/60 transition-all duration-500 shadow-xl">
                                 <img
                                   src={member.image_url || getPlaceholderImage()}
@@ -193,10 +194,13 @@ export default function Team() {
                               </div>
                             </div>
 
-                            <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
-                              <h3 className="text-white font-bold text-sm sm:text-base mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
+                            {/* FIXED: Text container with min-height */}
+                            <div className="text-center group-hover:-translate-y-1 transition-transform duration-500 flex-grow flex flex-col justify-center">
+                              {/* FIXED: line-clamp-2 with min-height ensures same space */}
+                              <h3 className="text-white font-bold text-sm sm:text-base mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2 min-h-[2.5rem]">
                                 {member.name}
                               </h3>
+                              {/* FIXED: line-clamp-1 prevents role from wrapping */}
                               <p className="text-purple-300 text-xs font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
                                 {member.role}
                               </p>
@@ -217,7 +221,7 @@ export default function Team() {
                   Team Details Coming Soon!
                 </h3>
                 <p className="text-white/80 text-lg sm:text-xl leading-relaxed">
-                  Meet the amazing people working hard to make Bollywood Night unforgettable.
+                  Meet the amazing people working hard to make ABHIGRAHA unforgettable.
                   <span className="block mt-2 text-purple-300 font-semibold">Stay tuned to meet our stars!</span>
                 </p>
               </div>
@@ -226,7 +230,7 @@ export default function Team() {
         </div>
       </div>
 
-      {/* Modal Popup - Full screen on mobile, centered on desktop */}
+      {/* Modal Popup */}
       {selectedMember && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
@@ -236,7 +240,6 @@ export default function Team() {
             className="relative bg-gradient-to-br from-purple-600/40 via-blue-500/40 to-purple-800/40 backdrop-blur-xl rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-purple-400/30 shadow-2xl animate-fadeInUp"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
               onClick={() => setSelectedMember(null)}
               className="absolute top-4 right-4 w-10 h-10 bg-red-500/90 hover:bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl transition-all hover:scale-110"
@@ -244,7 +247,6 @@ export default function Team() {
               ✕
             </button>
 
-            {/* Large Image */}
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto mb-6 rounded-3xl overflow-hidden border-4 border-white/40 shadow-2xl">
               <img
                 src={selectedMember.image_url || getPlaceholderImage()}
@@ -256,7 +258,6 @@ export default function Team() {
               />
             </div>
 
-            {/* Member Details */}
             <div className="text-center">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 drop-shadow-lg">
                 {selectedMember.name}
@@ -268,7 +269,6 @@ export default function Team() {
                 </p>
               </div>
 
-              {/* Bio */}
               {selectedMember.bio && (
                 <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
                   <p className="text-white/90 text-base sm:text-lg leading-relaxed">
