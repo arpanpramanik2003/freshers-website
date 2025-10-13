@@ -231,7 +231,7 @@ export default function Prize() {
               <span className="text-purple-300 font-bold"> personality</span>, 
               <span className="text-blue-300 font-bold"> talent</span>, and 
               <span className="text-purple-300 font-bold"> stage presence</span>. 
-              Stay tuned for the crowning ceremony during our grand Bollywood Night!
+              Stay tuned for the crowning ceremony during our grand ABHIGRAHA!
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
