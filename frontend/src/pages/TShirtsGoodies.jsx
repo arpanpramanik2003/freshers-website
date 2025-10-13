@@ -73,7 +73,7 @@ export default function TShirtsGoodies() {
             MERCHANDISE
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Get your <span className="text-purple-300 font-bold">official</span> Bollywood Night merchandise and exclusive <span className="text-blue-300 font-bold">goodies</span>
+            Get your <span className="text-purple-300 font-bold">official</span> ABHIGRAHA merchandise and exclusive <span className="text-blue-300 font-bold">goodies</span>
           </p>
         </div>
 
