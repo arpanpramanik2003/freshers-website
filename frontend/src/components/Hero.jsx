@@ -121,8 +121,8 @@ export default function Hero() {
           </div>
         )}
 
-        {/* Action Buttons - Outside blur */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-2xl mx-auto pt-2">
+        {/* Action Buttons - WITH GOOGLE FORM BUTTON */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-3xl mx-auto pt-2">
           <Link
             to="/events"
             className="w-full sm:w-auto bg-purple-600/90 hover:bg-purple-700/90 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wide"
@@ -136,6 +136,16 @@ export default function Hero() {
           >
             MEET TEAM
           </Link>
+
+          {/* NEW: Google Form Button */}
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfkLr0MsWKZwFOlNmYqxRP04IOUq8JCHsKeT7RIdqXpFx9_Vg/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto bg-gradient-to-r from-blue-600/90 to-purple-600/90 hover:from-blue-700/90 hover:to-purple-700/90 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg transition-all transform hover:scale-105 shadow-2xl uppercase tracking-wide"
+          >
+            📝 REGISTER NOW
+          </a>
         </div>
       </div>
     </section>
