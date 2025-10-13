@@ -4,11 +4,11 @@ import { API_BASE_URL } from '../config/api';
 export default function Team() {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMember, setSelectedMember] = useState(null);
 
-  // Exact role order as per your requirement - using actual designations as titles
+  // Exact role order - President and VP will be shown together without title
   const roleHierarchy = [
-    { title: "PRESIDENT", roles: ["PRESIDENT"], isPresidential: true },
-    { title: "VICE-PRESIDENT", roles: ["VICE-PRESIDENT"], isPresidential: true },
+    { title: "", roles: ["PRESIDENT", "VICE-PRESIDENT"], isLeadership: true }, // No title for VIPs
     { title: "SECRETARY", roles: ["SECRETARY"] },
     { title: "TREASURER", roles: ["TREASURER"] },
     { title: "EVENT MANAGER", roles: ["EVENT MANAGER"] },
@@ -35,7 +35,6 @@ export default function Team() {
       .catch(() => setLoading(false));
   }, []);
 
-  // Group team members by role - exact matching
   const groupedTeam = roleHierarchy.map(section => ({
     ...section,
     members: team.filter(member => 
@@ -104,72 +103,71 @@ export default function Team() {
             <div className="space-y-12 sm:space-y-16">
               {groupedTeam.map((section, sectionIndex) => (
                 <div
-                  key={section.title}
+                  key={section.title || 'leadership'}
                   className="animate-fadeInUp"
                   style={{ animationDelay: `${sectionIndex * 0.3}s` }}
                 >
-                  {/* FIXED: Green Banner Title (matching your image) */}
-                  <div className="text-center mb-8 sm:mb-12">
-                    <div className="inline-block bg-gradient-to-r from-green-500 to-green-600 rounded-full px-8 py-3 sm:px-12 sm:py-4 shadow-2xl">
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white uppercase tracking-wide">
-                        {section.title}
-                      </h2>
+                  {/* Title - Only show for non-leadership roles */}
+                  {!section.isLeadership && section.title && (
+                    <div className="text-center mb-8 sm:mb-12">
+                      <div className="inline-block relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 rounded-2xl blur-xl opacity-50"></div>
+                        <div className="relative bg-gradient-to-r from-purple-600/90 via-blue-500/90 to-purple-700/90 backdrop-blur-sm rounded-2xl px-8 py-3 sm:px-12 sm:py-4 shadow-2xl border border-purple-400/30">
+                          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white uppercase tracking-wider">
+                            {section.title}
+                          </h2>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Presidential Cards - Special Large Layout */}
-                  {section.isPresidential ? (
-                    <div className="flex justify-center mb-12">
-                      <div className="w-full max-w-md">
-                        {section.members.map((member, index) => (
-                          <div
-                            key={member.id}
-                            className="group cursor-pointer transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
-                          >
-                            <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-md rounded-3xl p-8 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500">
+                  {/* Leadership Section - President & VP side by side, NO TITLE */}
+                  {section.isLeadership ? (
+                    <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 mb-12">
+                      {section.members.map((member) => (
+                        <div
+                          key={member.id}
+                          onClick={() => setSelectedMember(member)}
+                          className="group cursor-pointer transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
+                        >
+                          <div className="bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-purple-400/30 hover:border-purple-400/60 hover:shadow-purple-500/30 hover:shadow-2xl transition-all duration-500 max-w-[280px]">
+                            
+                            <div className="relative mb-6">
+                              <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
                               
-                              <div className="relative mb-6">
-                                <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-                                
-                                <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-3xl overflow-hidden border-4 border-white/40 group-hover:border-blue-400/70 transition-all duration-500 shadow-2xl">
-                                  <img
-                                    src={member.image_url || getPlaceholderImage()}
-                                    alt={member.name}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    onError={(e) => {
-                                      e.target.src = getPlaceholderImage();
-                                    }}
-                                  />
-                                </div>
+                              <div className="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-3xl overflow-hidden border-4 border-white/40 group-hover:border-blue-400/70 transition-all duration-500 shadow-2xl">
+                                <img
+                                  src={member.image_url || getPlaceholderImage()}
+                                  alt={member.name}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                  onError={(e) => {
+                                    e.target.src = getPlaceholderImage();
+                                  }}
+                                />
                               </div>
+                            </div>
 
-                              <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
-                                <h3 className="text-white font-black text-2xl sm:text-3xl mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500">
-                                  {member.name}
-                                </h3>
-                                <div className="inline-block bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-sm rounded-full px-4 py-2 mb-4 border border-purple-400/40">
-                                  <p className="text-purple-200 text-base sm:text-lg font-bold uppercase tracking-wide">
-                                    {member.role}
-                                  </p>
-                                </div>
-                                
-                                {member.bio && (
-                                  <p className="text-white/90 text-base leading-relaxed mt-4">
-                                    {member.bio}
-                                  </p>
-                                )}
+                            <div className="text-center group-hover:-translate-y-1 transition-transform duration-500">
+                              <h3 className="text-white font-black text-xl sm:text-2xl mb-2 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500">
+                                {member.name}
+                              </h3>
+                              <div className="inline-block bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-sm rounded-full px-4 py-2 border border-purple-400/40">
+                                <p className="text-purple-200 text-sm sm:text-base font-bold uppercase tracking-wide">
+                                  {member.role}
+                                </p>
                               </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   ) : (
-                    /* Regular Member Cards - Centered Grid */
+                    /* Regular Member Cards */
                     <div className="flex flex-wrap justify-center items-start gap-4 sm:gap-6">
                       {section.members.map((member, index) => (
                         <div
                           key={member.id}
+                          onClick={() => setSelectedMember(member)}
                           className="group cursor-pointer transform hover:scale-110 hover:-translate-y-3 transition-all duration-500 animate-fadeInUp"
                           style={{ 
                             animationDelay: `${(sectionIndex * 3 + index) * 0.15}s`,
@@ -199,19 +197,9 @@ export default function Team() {
                               <h3 className="text-white font-bold text-sm sm:text-base mb-1 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
                                 {member.name}
                               </h3>
-                              <p className="text-purple-300 text-xs sm:text-sm font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
+                              <p className="text-purple-300 text-xs font-semibold uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-500 line-clamp-1">
                                 {member.role}
                               </p>
-                              
-                              {member.bio && (
-                                <div className="mt-2 max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-700 ease-out">
-                                  <div className="pt-2 border-t border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                                    <p className="text-white/80 text-xs leading-relaxed line-clamp-3">
-                                      {member.bio}
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
                             </div>
                           </div>
                         </div>
@@ -232,19 +220,66 @@ export default function Team() {
                   Meet the amazing people working hard to make Bollywood Night unforgettable.
                   <span className="block mt-2 text-purple-300 font-semibold">Stay tuned to meet our stars!</span>
                 </p>
-
-                <div className="flex justify-center gap-4 mt-8">
-                  <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                  <div className="w-3 h-3 bg-purple-600 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-                </div>
               </div>
             </div>
           )}
         </div>
-
-        <div className="h-16 sm:h-20"></div>
       </div>
+
+      {/* Modal Popup - Full screen on mobile, centered on desktop */}
+      {selectedMember && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+          onClick={() => setSelectedMember(null)}
+        >
+          <div 
+            className="relative bg-gradient-to-br from-purple-600/40 via-blue-500/40 to-purple-800/40 backdrop-blur-xl rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-purple-400/30 shadow-2xl animate-fadeInUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-4 right-4 w-10 h-10 bg-red-500/90 hover:bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl transition-all hover:scale-110"
+            >
+              ✕
+            </button>
+
+            {/* Large Image */}
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto mb-6 rounded-3xl overflow-hidden border-4 border-white/40 shadow-2xl">
+              <img
+                src={selectedMember.image_url || getPlaceholderImage()}
+                alt={selectedMember.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.src = getPlaceholderImage();
+                }}
+              />
+            </div>
+
+            {/* Member Details */}
+            <div className="text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 drop-shadow-lg">
+                {selectedMember.name}
+              </h2>
+              
+              <div className="inline-block bg-gradient-to-r from-purple-500/40 to-blue-500/40 backdrop-blur-sm rounded-full px-6 py-2 mb-6 border border-purple-400/40">
+                <p className="text-purple-200 text-base sm:text-lg font-bold uppercase tracking-wide">
+                  {selectedMember.role}
+                </p>
+              </div>
+
+              {/* Bio */}
+              {selectedMember.bio && (
+                <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                  <p className="text-white/90 text-base sm:text-lg leading-relaxed">
+                    {selectedMember.bio}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
