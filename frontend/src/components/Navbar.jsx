@@ -194,7 +194,7 @@ export default function Navbar() {
                     <h3 className="text-2xl font-black text-white mb-2">
                       Admin Login
                     </h3>
-                    <p className="text-purple-300">Bollywood Night Dashboard</p>
+                    <p className="text-purple-300">ABHIGRAHA Dashboard</p>
                   </div>
                   
                   <form onSubmit={handleAdminLogin} className="space-y-4">
