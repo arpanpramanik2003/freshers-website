@@ -227,7 +227,7 @@ export default function Footer() {
         {/* Copyright - Also in rounded container */}
         <div className="bg-black/15 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/10 shadow-xl text-center">
           <p className="text-white/80 text-sm sm:text-base">
-            © {new Date().getFullYear()} <span className="text-white font-black">BOLLYWOOD NIGHT</span> • All Rights Reserved
+            © {new Date().getFullYear()} <span className="text-white font-black">ABHIGRAHA</span> • All Rights Reserved
           </p>
         </div>
       </div>
