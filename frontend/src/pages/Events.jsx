@@ -115,7 +115,7 @@ export default function Events() {
                   Events Coming Soon!
                 </h3>
                 <p className="text-white/80 text-lg sm:text-xl leading-relaxed">
-                  Amazing Bollywood Night events are being planned. 
+                  Amazing ABHIGRAHA events are being planned. 
                   <span className="block mt-2 text-purple-300 font-semibold">Stay tuned for the magic!</span>
                 </p>
                 
