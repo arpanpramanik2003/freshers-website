@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export default function PageLayout({ children, title, description, className = "", showHeader = true }) {
   useEffect(() => {
-    document.title = `${title} - Bollywood Night`;
+    document.title = `${title} - ABHIGRAHA`;
     window.scrollTo(0, 0);
   }, [title]);
 
