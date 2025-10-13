@@ -89,7 +89,7 @@ export default function Gallery() {
             GALLERY
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Highlights from past editions and <span className="text-purple-300 font-bold">unforgettable</span> memories from our <span className="text-blue-300 font-bold">ABHIGRAHAs</span>
+            Highlights from past editions and <span className="text-purple-300 font-bold">unforgettable</span> memories from our <span className="text-blue-300 font-bold">ABHIGRAHA</span>
           </p>
         </div>
 
