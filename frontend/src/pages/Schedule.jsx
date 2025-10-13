@@ -181,7 +181,7 @@ export default function Schedule() {
                 Schedule Coming Soon!
               </h3>
               <p className="text-white/80 text-lg sm:text-xl leading-relaxed">
-                Amazing Bollywood Night schedule is being finalized. 
+                Amazing ABHIGRAHA schedule is being finalized. 
                 <span className="block mt-2 text-purple-300 font-semibold">Stay tuned for the timeline!</span>
               </p>
               
