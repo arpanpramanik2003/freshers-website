@@ -90,7 +90,7 @@ export default function Sponsors() {
             OUR SPONSORS
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Thanks to our <span className="text-purple-300 font-bold">incredible sponsors</span> who make Bollywood Night <span className="text-blue-300 font-bold">possible</span>
+            Thanks to our <span className="text-purple-300 font-bold">incredible sponsors</span> who make ABHIGRAHA <span className="text-blue-300 font-bold">possible</span>
           </p>
         </div>
 
@@ -167,7 +167,7 @@ export default function Sponsors() {
                   Sponsor Slots Available!
                 </h3>
                 <p className="text-white/80 text-lg sm:text-xl leading-relaxed mb-8">
-                  Join us as a sponsor and be part of this amazing Bollywood Night celebration.
+                  Join us as a sponsor and be part of this amazing ABHIGRAHA celebration.
                   <span className="block mt-2 text-purple-300 font-semibold">Let's create magic together!</span>
                 </p>
                 
@@ -196,7 +196,7 @@ export default function Sponsors() {
             </h4>
             
             <p className="text-white/90 leading-relaxed text-base sm:text-lg lg:text-xl mb-8 lg:mb-12 drop-shadow-md">
-              Partner with Bollywood Night to reach a 
+              Partner with ABHIGRAHA to reach a 
               <span className="text-purple-300 font-bold"> vibrant community</span> and 
               showcase your brand to our 
               <span className="text-blue-300 font-bold"> enthusiastic audience</span>!
