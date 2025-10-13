@@ -56,13 +56,13 @@ export default function Hero() {
           </h2>
         </div>
 
-        {/* BLUR RECTANGLE for BOLLYWOOD NIGHT + Subtitle */}
+        {/* BLUR RECTANGLE for ABHIGRAHA + Subtitle */}
         <div className="bg-black/40 rounded-3xl px-6 py-6 sm:px-8 sm:py-8 mx-4 sm:mx-8 mb-4 sm:mb-6 border border-white/5">
 
-          {/* Main Title - BOLLYWOOD NIGHT in single line */}
+          {/* Main Title - ABHIGRAHA in single line */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3 sm:mb-4 leading-tight">
             <span className="text-white drop-shadow-2xl font-black">
-              <strong>BOLLYWOOD NIGHT</strong>
+              <strong>ABHIGRAHA</strong>
             </span>
           </h1>
 
