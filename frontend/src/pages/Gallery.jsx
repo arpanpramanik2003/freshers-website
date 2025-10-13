@@ -15,7 +15,7 @@ export default function Gallery() {
       })
       .catch(() => {
         const fallbackImages = [
-          { id: 1, image_url: "/images/g1.jpg", caption: "Bollywood Night" },
+          { id: 1, image_url: "/images/g1.jpg", caption: "ABHIGRAHA" },
           { id: 2, image_url: "/images/g2.jpg", caption: "Dance Performance" },
           { id: 3, image_url: "/images/g3.jpg", caption: "Cultural Show" },
           { id: 4, image_url: "/images/g4.jpg", caption: "Fashion Walk" },
@@ -89,7 +89,7 @@ export default function Gallery() {
             GALLERY
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-            Highlights from past editions and <span className="text-purple-300 font-bold">unforgettable</span> memories from our <span className="text-blue-300 font-bold">Bollywood Nights</span>
+            Highlights from past editions and <span className="text-purple-300 font-bold">unforgettable</span> memories from our <span className="text-blue-300 font-bold">ABHIGRAHAs</span>
           </p>
         </div>
 
@@ -133,7 +133,7 @@ export default function Gallery() {
                       {/* Caption overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <h4 className="font-bold text-white text-xs sm:text-sm drop-shadow-lg line-clamp-2">
-                          {item.caption || "Bollywood Night"}
+                          {item.caption || "ABHIGRAHA"}
                         </h4>
                         <p className="text-blue-200 text-xs mt-1 hidden sm:block">Click to view</p>
                       </div>
@@ -156,7 +156,7 @@ export default function Gallery() {
                   Gallery Coming Soon!
                 </h3>
                 <p className="text-white/80 text-lg sm:text-xl leading-relaxed">
-                  Amazing photos from Bollywood Night will be uploaded here.
+                  Amazing photos from ABHIGRAHA will be uploaded here.
                   <span className="block mt-2 text-purple-300 font-semibold">Stay tuned for the memories!</span>
                 </p>
                 
@@ -210,7 +210,7 @@ export default function Gallery() {
             {/* Caption with glassmorphism */}
             <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 bg-black/40 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
               <h4 className="text-white text-lg sm:text-xl md:text-2xl font-black text-center drop-shadow-lg">
-                {selectedImage.caption || "Bollywood Night Memory"}
+                {selectedImage.caption || "ABHIGRAHA Memory"}
               </h4>
               <p className="text-purple-200 text-sm sm:text-base text-center mt-1">
                 Image {gallery.findIndex(img => img.id === selectedImage.id) + 1} of {gallery.length}
