@@ -18,6 +18,7 @@ export default function Team() {
     { title: "SPONSOR HEAD", roles: ["SPONSOR HEAD"] },
     { title: "MARKETING HEAD", roles: ["MARKETING HEAD"] },
     { title: "DECORATION HEAD", roles: ["DECORATION HEAD"] },
+    { title: "CREATIVE MANAGER", roles: ["CREATIVE MANAGER"] },
     { title: "HOSPITALITY", roles: ["HOSPITALITY"] },
     { title: "PHOTOGRAPHY HEAD", roles: ["PHOTOGRAPHY HEAD"] },
     { title: "SOCIAL-MEDIA MANAGER", roles: ["SOCIAL-MEDIA MANAGER"] },
