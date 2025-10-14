@@ -18,8 +18,8 @@ export default function Team() {
     { title: "MARKETING HEAD", roles: ["MARKETING HEAD"] },
     { title: "STUDENT COORDINATOR", roles: ["STUDENT COORDINATOR"] },
     { title: "DECORATION HEAD", roles: ["DECORATION HEAD"] },
-    { title: "PHOTOGRAPHY HEAD", roles: ["PHOTOGRAPHY HEAD"] },
     { title: "SOCIAL-MEDIA MANAGER", roles: ["SOCIAL-MEDIA MANAGER"] },
+    { title: "PHOTOGRAPHY HEAD", roles: ["PHOTOGRAPHY HEAD"] },
     { title: "HOSPITALITY", roles: ["HOSPITALITY"] },
     { title: "CREATIVE MANAGER", roles: ["CREATIVE MANAGER"] },
     { title: "EXECUTIVE MEMBERS", roles: ["EXECUTIVE MEMBERS"] }
