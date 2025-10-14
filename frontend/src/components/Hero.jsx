@@ -12,7 +12,7 @@ export default function Hero() {
   const words = ["WELCOME", "FRESHERS"];
 
   useEffect(() => {
-    const target = new Date("2025-10-15T17:31:00");
+    const target = new Date("2025-11-13T16:30:00");
 
     const calculateTime = () => {
       const now = new Date();
@@ -153,10 +153,11 @@ export default function Hero() {
             </div>
           </div>
         ) : (
-          <div className="mb-4 sm:mb-6 animate-bounceIn" style={{ animationDelay: '0.6s' }}>
+          /* FIXED: Event Live - Removed conflicting animate-bounceIn */
+          <div className="mb-4 sm:mb-6 animate-fadeIn" style={{ animationDelay: '0.6s' }}>
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl sm:rounded-3xl blur-2xl opacity-60 animate-pulse"></div>
-              <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 backdrop-blur-sm text-white py-3 px-6 sm:py-4 sm:px-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-400/50 animate-bounce">
+              <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 backdrop-blur-sm text-white py-3 px-6 sm:py-4 sm:px-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-400/50">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-black flex items-center gap-3">
                   <span className="text-2xl animate-spin">🎭</span>
                   EVENT IS LIVE!
@@ -196,15 +197,15 @@ export default function Hero() {
             </div>
           </Link>
 
-          {/* Button 3: REGISTER NOW */}
+          {/* FIXED: Button 3: REGISTER NOW - Removed conflicting animate-pulse */}
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSfkLr0MsWKZwFOlNmYqxRP04IOUq8JCHsKeT7RIdqXpFx9_Vg/viewform"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative w-full sm:w-auto overflow-hidden animate-slideUp animate-pulse hover:animate-none"
+            className="group relative w-full sm:w-auto overflow-hidden animate-slideUp"
             style={{ animationDelay: '1.2s' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 rounded-2xl sm:rounded-3xl blur-lg opacity-60 group-hover:opacity-90 transition-opacity duration-300 animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 rounded-2xl sm:rounded-3xl blur-lg opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
             <div className="relative bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 hover:from-purple-600 hover:via-blue-600 hover:to-purple-700 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg transition-all transform group-hover:scale-110 shadow-2xl border-2 border-white/30 flex items-center justify-center gap-2">
               <span className="text-xl">📝</span>
               REGISTER NOW
@@ -214,7 +215,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Add custom animations to your index.css or tailwind config */}
+      {/* Add custom animations */}
       <style jsx>{`
         @keyframes fadeIn {
           from {
@@ -247,23 +248,6 @@ export default function Hero() {
           }
         }
 
-        @keyframes bounceIn {
-          0% {
-            opacity: 0;
-            transform: scale(0.3);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-          70% {
-            transform: scale(0.9);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-
         .animate-fadeIn {
           animation: fadeIn 0.8s ease-out forwards;
           opacity: 0;
@@ -276,11 +260,6 @@ export default function Hero() {
 
         .animate-scaleIn {
           animation: scaleIn 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-bounceIn {
-          animation: bounceIn 0.8s ease-out forwards;
           opacity: 0;
         }
       `}</style>
