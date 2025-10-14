@@ -66,17 +66,45 @@ export default function Navbar() {
         
         <div className="relative z-10 flex justify-between items-center w-full max-w-7xl mx-auto">
           
-          {/* Left: Logo - FIXED CENTERING */}
+          {/* Left: Dual Logos - FIXED: White background for college logo + Increased size */}
           <Link to="/" className="flex-shrink-0"> 
-            <div className="text-xl font-black text-center">
-              <div className="text-white drop-shadow-lg">ABHIGRAHA</div>
-              <div className="text-white drop-shadow-lg text-sm -mt-1">2K25</div>
+            <div className="flex items-center gap-3">
+              {/* ABHIGRAHA Logo - Circular - INCREASED SIZE */}
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-purple-400/50 shadow-lg hover:border-purple-400 transition-all hover:scale-105">
+                <img 
+                  src="/abhigraha-logo.jpg" 
+                  alt="ABHIGRAHA 2K25" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center hidden">
+                  <span className="text-white font-black text-xs">AB</span>
+                </div>
+              </div>
+              
+              {/* College Logo - Rectangle - FIXED: White background + Increased size */}
+              <div className="h-12 sm:h-14 w-auto rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-all bg-white">
+                <img 
+                  src="/college-logo.png" 
+                  alt="The Neotia University" 
+                  className="h-full w-auto object-contain px-3 py-1"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="h-full w-36 bg-white flex items-center justify-center hidden px-3">
+                  <span className="text-gray-800 font-bold text-xs">TNU</span>
+                </div>
+              </div>
             </div>
           </Link>
           
           {/* Center: Navigation Items - PERFECTLY CENTERED */}
           <div className="hidden lg:flex justify-center items-center flex-1">
-            {/* FIXED POSITIONING - Perfectly centered container */}
             <div className="bg-black/20 backdrop-blur-md rounded-full px-5 py-2.5 border border-white/10 shadow-2xl">
               <ul className="flex items-center gap-1">
                 {items.map(([label, path]) => (
