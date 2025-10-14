@@ -55,15 +55,13 @@ export default function Footer() {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Light overlay for better readability */}
       <div className="absolute inset-0 bg-black/30"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
         
-        {/* Main Footer Container - Rounded Rectangle */}
+        {/* Main Footer Container */}
         <div className="bg-black/20 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl mb-8">
           
-          {/* Main Footer Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
             
             {/* Left: Brand Section */}
@@ -76,12 +74,20 @@ export default function Footer() {
               </p>
             </div>
 
-            {/* Center: Contact Information */}
+            {/* Center: Contact Information with Custom Logos */}
             <div className="space-y-4">
-              {/* Email */}
+              {/* Email with Gmail Logo */}
               <div className="flex items-center justify-center lg:justify-start">
-                <div className="w-10 h-10 bg-red-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                  <span className="text-white text-lg">📧</span>
+                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4 flex-shrink-0 p-1.5 shadow-lg hover:scale-110 transition-transform">
+                  <img 
+                    src="/gmail.png" 
+                    alt="Gmail" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentElement.innerHTML = '<span class="text-red-500 text-lg">📧</span>';
+                    }}
+                  />
                 </div>
                 <a 
                   href="mailto:abhigraha2k25@gmail.com"
@@ -91,10 +97,18 @@ export default function Footer() {
                 </a>
               </div>
               
-              {/* Instagram */}
+              {/* Instagram with Custom Logo */}
               <div className="flex items-center justify-center lg:justify-start">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                  <span className="text-white text-lg">📸</span>
+                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4 flex-shrink-0 p-1.5 shadow-lg hover:scale-110 transition-transform">
+                  <img 
+                    src="/insta.png" 
+                    alt="Instagram" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentElement.innerHTML = '<span class="text-pink-500 text-lg">📸</span>';
+                    }}
+                  />
                 </div>
                 <a 
                   href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -108,20 +122,20 @@ export default function Footer() {
               
               {/* Location */}
               <div className="flex items-center justify-center lg:justify-start">
-                <div className="w-10 h-10 bg-blue-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                <div className="w-10 h-10 bg-blue-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg">
                   <span className="text-white text-lg">📍</span>
                 </div>
                 <span className="text-white text-sm sm:text-base font-medium">main playground</span>
               </div>
             </div>
 
-            {/* Right: Contact Form Section */}
+            {/* Right: Stay Connected Section */}
             <div className="text-center lg:text-right">
               <h4 className="text-lg sm:text-xl font-black text-white mb-2 uppercase tracking-wide">
-                SEND MESSAGE
+                STAY CONNECTED
               </h4>
-              <p className="text-white/80 mb-6 text-sm sm:text-base">
-                Have questions?
+              <p className="text-purple-300 mb-6 text-xs sm:text-sm font-semibold">
+                Get event updates & more!
               </p>
               <button
                 onClick={() => setShowContactForm(!showContactForm)}
@@ -224,7 +238,7 @@ export default function Footer() {
           </div>
         )}
 
-        {/* Copyright - Also in rounded container */}
+        {/* Copyright */}
         <div className="bg-black/15 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/10 shadow-xl text-center">
           <p className="text-white/80 text-sm sm:text-base">
             © {new Date().getFullYear()} <span className="text-white font-black">ABHIGRAHA</span> • All Rights Reserved
@@ -232,7 +246,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Add fade-in animation CSS */}
       <style jsx>{`
         @keyframes fade-in {
           from {
