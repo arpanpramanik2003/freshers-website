@@ -14,14 +14,14 @@ export default function Team() {
     { title: "CULTURAL HEAD", roles: ["CULTURAL HEAD"] },
     { title: "EXECUTIVE HEAD", roles: ["EXECUTIVE HEAD"] },
     { title: "VOLUNTEER HEAD", roles: ["VOLUNTEER HEAD"] },
-    { title: "STUDENT COORDINATOR", roles: ["STUDENT COORDINATOR"] },
     { title: "SPONSOR HEAD", roles: ["SPONSOR HEAD"] },
     { title: "MARKETING HEAD", roles: ["MARKETING HEAD"] },
+    { title: "STUDENT COORDINATOR", roles: ["STUDENT COORDINATOR"] },
     { title: "DECORATION HEAD", roles: ["DECORATION HEAD"] },
-    { title: "CREATIVE MANAGER", roles: ["CREATIVE MANAGER"] },
-    { title: "HOSPITALITY", roles: ["HOSPITALITY"] },
     { title: "PHOTOGRAPHY HEAD", roles: ["PHOTOGRAPHY HEAD"] },
     { title: "SOCIAL-MEDIA MANAGER", roles: ["SOCIAL-MEDIA MANAGER"] },
+    { title: "HOSPITALITY", roles: ["HOSPITALITY"] },
+    { title: "CREATIVE MANAGER", roles: ["CREATIVE MANAGER"] },
     { title: "EXECUTIVE MEMBERS", roles: ["EXECUTIVE MEMBERS"] }
   ];
 
