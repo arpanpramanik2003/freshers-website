@@ -70,7 +70,7 @@ export default function Navbar() {
           <Link to="/" className="flex-shrink-0"> 
             <div className="flex items-center gap-3">
               {/* ABHIGRAHA Logo - Circular - INCREASED SIZE */}
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-purple-400/50 shadow-lg hover:border-purple-400 transition-all hover:scale-105">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-purple-400/50 shadow-lg hover:border-purple-400 transition-all hover:scale-105">
                 <img 
                   src="/abhigraha-logo.jpg" 
                   alt="ABHIGRAHA 2K25" 
@@ -86,7 +86,7 @@ export default function Navbar() {
               </div>
               
               {/* College Logo - Rectangle - FIXED: White background + Increased size */}
-              <div className="h-12 sm:h-14 w-auto rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-all bg-white">
+              <div className="h-10 sm:h-12 w-auto rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-all bg-white">
                 <img 
                   src="/college-logo.png" 
                   alt="The Neotia University" 
