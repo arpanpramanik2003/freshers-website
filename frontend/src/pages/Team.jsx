@@ -8,20 +8,20 @@ export default function Team() {
 
   const roleHierarchy = [
     { title: "", roles: ["PRESIDENT", "VICE-PRESIDENT"], isLeadership: true },
-    { title: "SECRETARY", roles: ["SECRETARY"] },
     { title: "TREASURER", roles: ["TREASURER"] },
+    { title: "SECRETARY", roles: ["SECRETARY"] },
     { title: "EVENT MANAGER", roles: ["EVENT MANAGER"] },
     { title: "CULTURAL HEAD", roles: ["CULTURAL HEAD"] },
-    { title: "EXECUTIVE HEAD", roles: ["EXECUTIVE HEAD"] },
     { title: "VOLUNTEER HEAD", roles: ["VOLUNTEER HEAD"] },
-    { title: "SPONSOR HEAD", roles: ["SPONSOR HEAD"] },
-    { title: "MARKETING HEAD", roles: ["MARKETING HEAD"] },
-    { title: "STUDENT COORDINATOR", roles: ["STUDENT COORDINATOR"] },
     { title: "DECORATION HEAD", roles: ["DECORATION HEAD"] },
+    { title: "MARKETING HEAD", roles: ["MARKETING HEAD"] },
+    { title: "SPONSOR HEAD", roles: ["SPONSOR HEAD"] },
+    { title: "STUDENT COORDINATOR", roles: ["STUDENT COORDINATOR"] },
+    { title: "CREATIVE MANAGER", roles: ["CREATIVE MANAGER"] },
     { title: "SOCIAL-MEDIA MANAGER", roles: ["SOCIAL-MEDIA MANAGER"] },
     { title: "PHOTOGRAPHY HEAD", roles: ["PHOTOGRAPHY HEAD"] },
     { title: "HOSPITALITY", roles: ["HOSPITALITY"] },
-    { title: "CREATIVE MANAGER", roles: ["CREATIVE MANAGER"] },
+    { title: "EXECUTIVE HEAD", roles: ["EXECUTIVE HEAD"] },
     { title: "EXECUTIVE MEMBERS", roles: ["EXECUTIVE MEMBERS"] }
   ];
 
