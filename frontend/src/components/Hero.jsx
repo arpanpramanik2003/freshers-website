@@ -179,7 +179,7 @@ export default function Hero() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl sm:rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
             <div className="relative bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg transition-all transform group-hover:scale-105 shadow-2xl border border-purple-400/30 flex items-center justify-center gap-2">
-              <span className="text-xl">🎪</span>
+              {/* <span className="text-xl">🎪</span> */}
               VIEW EVENTS
             </div>
           </Link>
@@ -192,7 +192,7 @@ export default function Hero() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl sm:rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
             <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg transition-all transform group-hover:scale-105 shadow-2xl border border-blue-400/30 flex items-center justify-center gap-2">
-              <span className="text-xl">👥</span>
+              {/* <span className="text-xl">👥</span> */}
               MEET TEAM
             </div>
           </Link>
@@ -207,7 +207,7 @@ export default function Hero() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 rounded-2xl sm:rounded-3xl blur-lg opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
             <div className="relative bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 hover:from-purple-600 hover:via-blue-600 hover:to-purple-700 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg transition-all transform group-hover:scale-110 shadow-2xl border-2 border-white/30 flex items-center justify-center gap-2">
-              <span className="text-xl">📝</span>
+              {/* <span className="text-xl">📝</span> */}
               REGISTER NOW
               <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
             </div>
