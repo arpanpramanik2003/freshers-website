@@ -24,14 +24,13 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%); /* Purple to blue gradient */
-  position: relative;
+margin: 0;
+min-width: 320px;
+min-height: 100vh;
+background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%); /* Purple to blue gradient */
+position: relative;
 }
 
-/* Stage lighting effect for body */
 body::before {
   content: '';
   position: fixed;
@@ -199,6 +198,8 @@ html {
     background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(49, 46, 129, 0.8), rgba(30, 58, 138, 0.8));
   }
 }
+
+/*Line-clamp support */
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;
@@ -222,64 +223,3 @@ html {
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease-out forwards;
 }
-
-/* =================================================
-   ADMIN PANEL OVERRIDES - Light Theme
-   ================================================= */
-
-.admin-panel input,
-.admin-panel textarea, 
-.admin-panel select {
-  background: white !important;
-  border: 1px solid #d1d5db !important;
-  color: #1f2937 !important;
-  border-radius: 0.5rem !important;
-  padding: 0.75rem !important;
-  backdrop-filter: none !important;
-}
-
-.admin-panel input:focus,
-.admin-panel textarea:focus,
-.admin-panel select:focus {
-  border-color: #9333ea !important;
-  outline: none !important;
-  box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2) !important;
-  background: white !important;
-}
-
-.admin-panel input::placeholder,
-.admin-panel textarea::placeholder {
-  color: #9ca3af !important; /* Gray-400 for clearly visible placeholders */
-  opacity: 1 !important;
-}
-
-/* Admin panel specific button styling */
-.admin-panel .bg-primary {
-  background: #9333ea !important;
-}
-
-.admin-panel .bg-primary:hover {
-  background: #7c3aed !important;
-}
-
-/* Ensure admin background is light */
-.admin-panel {
-  background: #f9fafb !important;
-  color: #1f2937 !important;
-}
-
-.admin-panel h1, .admin-panel h2, .admin-panel h3 {
-  color: #1f2937 !important;
-  text-shadow: none !important;
-}
-
-/* Hide scrollbar but keep functionality */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
