@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Updated theme colors - Purple/Blue
+        // Updated theme colors - Purple/Pink
         primary: "#9333ea",   // Purple-600
-        secondary: "#3b82f6", // Blue-500  
-        accent: "#a78bfa",    // Purple-400
-        dark: "#0f0f23",      // Dark purple-blue
+        secondary: "#db2777", // Pink-600  
+        accent: "#c084fc",    // Purple-400
+        dark: "#1e1b4b",      // Dark purple
         light: "#ffffff",     // White
         
         // Stage lighting theme palette
@@ -26,19 +26,19 @@ export default {
           950: "#3b0764",
         },
         
-        // Blue accent colors
+        // Pink accent colors
         electric: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe", 
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",  // Secondary
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af", 
-          900: "#1e3a8a",
-          950: "#172554",
+          50: "#fdf2f8",
+          100: "#fce7f3",
+          200: "#fbcfe8", 
+          300: "#f9a8d4",
+          400: "#f472b6",
+          500: "#ec4899",
+          600: "#db2777",  // Secondary
+          700: "#be185d",
+          800: "#9f1239", 
+          900: "#831843",
+          950: "#500724",
         },
         
         // Glassmorphism support
@@ -53,8 +53,8 @@ export default {
       },
       
       backgroundImage: {
-        'stage-gradient': 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%)',
-        'stage-radial': 'radial-gradient(circle at center, #9333ea 0%, #3b82f6 50%, #1e3a8a 100%)',
+        'stage-gradient': 'linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%)',
+        'stage-radial': 'radial-gradient(circle at center, #9333ea 0%, #db2777 50%, #7c3aed 100%)',
         'stage-lights': "url('/stage-background.jpg')",
       },
       
@@ -64,10 +64,10 @@ export default {
       
       boxShadow: {
         'stage': '0 0 20px rgba(147, 51, 234, 0.3)',
-        'electric': '0 0 20px rgba(59, 130, 246, 0.3)',
-        'glow': '0 0 30px rgba(167, 139, 250, 0.4)',
+        'electric': '0 0 20px rgba(219, 39, 119, 0.3)',
+        'glow': '0 0 30px rgba(192, 132, 252, 0.4)',
         'stage-lg': '0 10px 30px rgba(147, 51, 234, 0.2)',
-        'electric-lg': '0 10px 30px rgba(59, 130, 246, 0.2)',
+        'electric-lg': '0 10px 30px rgba(219, 39, 119, 0.2)',
       },
       
       animation: {
