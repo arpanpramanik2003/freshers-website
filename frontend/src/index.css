@@ -5,7 +5,8 @@
 
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.95);
-  background-color: #0f0f23; /* Dark purple-blue background */
+  /* Purple-Pink gradient theme */
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,22 +14,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  /* Purple-Pink gradient - prevents white flash */
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 a {
   font-weight: 500;
-  color: #a78bfa; /* Purple-400 */
+  color: #c084fc; /* Purple-400 */
   text-decoration: inherit;
   transition: color 0.3s ease;
 }
 a:hover {
-  color: #60a5fa; /* Blue-400 */
+  color: #f472b6; /* Pink-400 */
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%) !important; /* Purple to blue gradient */
-  background-color: #1e1b4b !important; /* Fallback solid color */
+  /* Purple-Pink gradient theme */
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
   position: relative;
 }
 
@@ -40,16 +49,26 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Put a gradient as fallback, then image on top */
+  /* Purple-Pink gradient as fallback, then image */
   background:
-    linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%),
+    linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%),
     url('/stage-background.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-  opacity: 0.15; /* Match your subtle background, can tune */
+  opacity: 0.2;
   z-index: -1;
   pointer-events: none;
+}
+
+/* Mobile-specific: Remove background-attachment fixed to prevent white flash */
+@media (max-width: 768px) {
+  body, body::before {
+    background-attachment: scroll !important;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%) !important;
+  }
 }
 
 h1 {
@@ -66,12 +85,12 @@ h2, h3, h4, h5, h6 {
 
 button {
   border-radius: 12px;
-  border: 1px solid rgba(147, 51, 234, 0.3); /* Purple border */
+  border: 1px solid rgba(147, 51, 234, 0.3);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 600;
   font-family: inherit;
-  background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(59, 130, 246, 0.2)); /* Purple to blue gradient */
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(219, 39, 119, 0.2));
   color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -80,15 +99,15 @@ button {
 }
 
 button:hover {
-  border-color: #a78bfa; /* Purple-400 */
-  background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.4));
+  border-color: #c084fc;
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(219, 39, 119, 0.4));
   transform: translateY(-1px);
   box-shadow: 0 6px 12px rgba(147, 51, 234, 0.2);
 }
 
 button:focus,
 button:focus-visible {
-  outline: 2px solid #a78bfa;
+  outline: 2px solid #c084fc;
   outline-offset: 2px;
 }
 
@@ -102,16 +121,16 @@ input, textarea, select {
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: #a78bfa;
+  border-color: #c084fc;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.2);
+  box-shadow: 0 0 0 2px rgba(192, 132, 252, 0.2);
 }
 
 input::placeholder, textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Purple-Pink theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -121,22 +140,22 @@ input::placeholder, textarea::placeholder {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #9333ea, #3b82f6);
+  background: linear-gradient(135deg, #9333ea, #db2777);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #a855f7, #60a5fa);
+  background: linear-gradient(135deg, #a855f7, #f472b6);
 }
 
 /* Selection color */
 ::selection {
-  background: rgba(147, 51, 234, 0.3);
+  background: rgba(219, 39, 119, 0.4);
   color: #ffffff;
 }
 
 ::-moz-selection {
-  background: rgba(147, 51, 234, 0.3);
+  background: rgba(219, 39, 119, 0.4);
   color: #ffffff;
 }
 
@@ -145,8 +164,8 @@ input::placeholder, textarea::placeholder {
   box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
 }
 
-.glow-blue {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+.glow-pink {
+  box-shadow: 0 0 20px rgba(219, 39, 119, 0.3);
 }
 
 /* Animation for stage lighting effects */
@@ -163,19 +182,7 @@ input::placeholder, textarea::placeholder {
   animation: stage-pulse 4s ease-in-out infinite;
 }
 
-/* Mobile responsive improvements */
-@media (max-width: 768px) {
-  body {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-  }
-  
-  button {
-    padding: 0.7em 1.4em;
-    font-size: 0.9em;
-  }
-}
-
-/* Remove light mode preferences since we're going full dark theme */
+/* Remove light mode preferences */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -200,11 +207,11 @@ html {
   }
   
   .bg-stage-gradient {
-    background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(49, 46, 129, 0.8), rgba(30, 58, 138, 0.8));
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(219, 39, 119, 0.8), rgba(147, 51, 234, 0.8));
   }
 }
 
-/*Line-clamp support */
+/* Line-clamp support */
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;
