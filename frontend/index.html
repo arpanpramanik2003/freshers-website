@@ -5,7 +5,27 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="link_logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABHIGRAHA 2K25</title>
+  <title>ABHIGRAHA</title>
+  
+  <!-- CRITICAL: Inline style to prevent white flash BEFORE CSS loads -->
+  <style>
+    html {
+      background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    #root {
+      min-height: 100vh;
+      background: transparent;
+    }
+  </style>
 </head>
 
 <body>
