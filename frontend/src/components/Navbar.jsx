@@ -62,7 +62,7 @@ export default function Navbar() {
         }}
       >
         {/* Light overlay for better readability */}
-        <div className="absolute"></div>
+        <div className="absolute inset-0 bg-black/10"></div>
         
         <div className="relative z-10 flex justify-between items-center w-full max-w-7xl mx-auto">
           
