@@ -78,7 +78,7 @@ export default function Hero() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-black/20"></div>
+      <div className="absolute"></div>
 
       <div className={`relative z-10 text-center max-w-6xl mx-auto w-full space-y-4 sm:space-y-6 transition-all duration-1000 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
 
