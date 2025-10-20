@@ -5,8 +5,9 @@
 
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.95);
-  /* Purple-Pink gradient theme */
-  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
+
+  /* --- Gradient fallback (matches your ABHIGRAHA 2K25 banner) --- */
+  background: linear-gradient(90deg, #7e22ce 0%, #3b82f6 50%, #9333ea 100%) !important;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,33 +16,24 @@
 }
 
 html {
-  /* Purple-Pink gradient - prevents white flash */
-  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
+  /* Gradient fallback to prevent white flash before image loads */
+  background: linear-gradient(90deg, #7e22ce 0%, #3b82f6 50%, #9333ea 100%) !important;
   min-height: 100vh;
   margin: 0;
   padding: 0;
-}
-
-a {
-  font-weight: 500;
-  color: #c084fc; /* Purple-400 */
-  text-decoration: inherit;
-  transition: color 0.3s ease;
-}
-a:hover {
-  color: #f472b6; /* Pink-400 */
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* Purple-Pink gradient theme */
-  background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
   position: relative;
+
+  /* Same fallback as ABHIGRAHA 2K25 gradient */
+  background: linear-gradient(90deg, #7e22ce 0%, #3b82f6 50%, #9333ea 100%) !important;
 }
 
-/* Stage lighting effect for body */
+/* --- Stage Lighting / Fallback Image Layer --- */
 body::before {
   content: '';
   position: fixed;
@@ -49,49 +41,57 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Purple-Pink gradient as fallback, then image */
+
+  /* ✅ Fallback solid + gradient before image loads */
+  background-color: #4c1d95; /* deep purple tone */
   background:
-    linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%),
+    linear-gradient(90deg, #7e22ce 0%, #3b82f6 50%, #9333ea 100%),
     url('/stage-background.jpg');
+
   background-size: cover;
   background-position: center;
-  opacity: 0.2;
+  background-repeat: no-repeat;
+  opacity: 0.25;
   z-index: -1;
   pointer-events: none;
 }
 
-/* Mobile-specific: Remove background-attachment fixed to prevent white flash */
+/* Mobile fix – prevent white flash on scroll */
 @media (max-width: 768px) {
   body, body::before {
     background-attachment: scroll !important;
   }
-  
+
   body {
-    background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%) !important;
+    background: linear-gradient(90deg, #7e22ce 0%, #3b82f6 100%) !important;
   }
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Typography & Glow Styling */
+h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-h2, h3, h4, h5, h6 {
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+a {
+  font-weight: 500;
+  color: #c084fc;
+  text-decoration: inherit;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #f472b6;
 }
 
+/* Buttons */
 button {
   border-radius: 12px;
   border: 1px solid rgba(147, 51, 234, 0.3);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 600;
-  font-family: inherit;
-  background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(219, 39, 119, 0.2));
-  color: #ffffff;
+  background: linear-gradient(90deg, rgba(126, 34, 206, 0.3), rgba(59, 130, 246, 0.3));
+  color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
@@ -100,18 +100,11 @@ button {
 
 button:hover {
   border-color: #c084fc;
-  background: linear-gradient(135deg, rgba(147, 51, 234, 0.4), rgba(219, 39, 119, 0.4));
+  background: linear-gradient(90deg, rgba(126, 34, 206, 0.5), rgba(59, 130, 246, 0.5));
   transform: translateY(-1px);
-  box-shadow: 0 6px 12px rgba(147, 51, 234, 0.2);
+  box-shadow: 0 6px 12px rgba(126, 34, 206, 0.3);
 }
 
-button:focus,
-button:focus-visible {
-  outline: 2px solid #c084fc;
-  outline-offset: 2px;
-}
-
-/* Input styling to match theme */
 input, textarea, select {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(147, 51, 234, 0.3);
@@ -119,108 +112,64 @@ input, textarea, select {
   color: #ffffff;
   backdrop-filter: blur(10px);
 }
-
 input:focus, textarea:focus, select:focus {
   border-color: #c084fc;
   outline: none;
   box-shadow: 0 0 0 2px rgba(192, 132, 252, 0.2);
 }
-
 input::placeholder, textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Custom scrollbar - Purple-Pink theme */
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.2);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #9333ea, #db2777);
+  background: linear-gradient(135deg, #7e22ce, #3b82f6);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #a855f7, #f472b6);
+  background: linear-gradient(135deg, #9333ea, #2563eb);
 }
 
-/* Selection color */
+/* Text Selection */
 ::selection {
-  background: rgba(219, 39, 119, 0.4);
-  color: #ffffff;
+  background: rgba(126, 34, 206, 0.4);
+  color: #fff;
 }
-
 ::-moz-selection {
-  background: rgba(219, 39, 119, 0.4);
-  color: #ffffff;
+  background: rgba(126, 34, 206, 0.4);
+  color: #fff;
 }
 
-/* Glow effects for special elements */
-.glow-purple {
-  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
-}
-
-.glow-pink {
-  box-shadow: 0 0 20px rgba(219, 39, 119, 0.3);
-}
-
-/* Animation for stage lighting effects */
-@keyframes stage-pulse {
-  0%, 100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.2;
-  }
-}
-
-.stage-pulse {
-  animation: stage-pulse 4s ease-in-out infinite;
-}
-
-/* Remove light mode preferences */
+/* Tailwind layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scroll */
-html { 
-  scroll-behavior: smooth; 
-}
-
-/* Custom utility classes */
+/* Utilities */
 @layer utilities {
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
-  
   .text-shadow-lg {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
   }
-  
-  .backdrop-blur-stage {
-    backdrop-filter: blur(10px) saturate(150%);
-  }
-  
   .bg-stage-gradient {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(219, 39, 119, 0.8), rgba(147, 51, 234, 0.8));
+    background: linear-gradient(90deg, rgba(126, 34, 206, 0.8), rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.8));
   }
 }
 
-/* Line-clamp support */
-@layer utilities {
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
 }
 
+/* Fade-up animation */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -231,7 +180,6 @@ html {
     transform: translateY(0);
   }
 }
-
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease-out forwards;
 }
