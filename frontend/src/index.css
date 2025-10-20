@@ -1,10 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Root Theme === */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.95);
+
   /* Purple-Pink gradient theme */
   background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
 
@@ -14,32 +19,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* html { */
-  /* Purple-Pink gradient - prevents white flash */
-  /* background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important; */
-  /* min-height: 100vh; */
-  /* margin: 0; */
-  /* padding: 0; */
-/* } */
-
-a {
-  font-weight: 500;
-  color: #c084fc; /* Purple-400 */
-  text-decoration: inherit;
-  transition: color 0.3s ease;
-}
-a:hover {
-  color: #f472b6; /* Pink-400 */
-}
-
+/* === Page Base === */
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #1a0033; /* solid dark fallback */
+  background-color: #1a0033; /* fallback */
   background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%) fixed;
-  overscroll-behavior: none; /* prevent white overscroll on mobile */
+  overscroll-behavior: none; /* prevent white flash on mobile scroll bounce */
   color-scheme: dark;
 }
 
@@ -53,23 +41,25 @@ body::before {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0.25; /* subtle overlay */
+  opacity: 0.25;
   z-index: -1;
   pointer-events: none;
   will-change: transform;
 }
 
-/* Mobile-specific: Remove background-attachment fixed to prevent white flash */
+/* === Mobile Fix (prevents white overscroll & background tearing) === */
 @media (max-width: 768px) {
-  body, body::before {
+  body,
+  body::before {
     background-attachment: scroll !important;
   }
-  
+
   body {
     background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%) !important;
   }
 }
 
+/* === Typography === */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -82,6 +72,19 @@ h2, h3, h4, h5, h6 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+/* === Links === */
+a {
+  font-weight: 500;
+  color: #c084fc;
+  text-decoration: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #f472b6;
+}
+
+/* === Buttons === */
 button {
   border-radius: 12px;
   border: 1px solid rgba(147, 51, 234, 0.3);
@@ -110,8 +113,10 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* Input styling to match theme */
-input, textarea, select {
+/* === Inputs & Forms === */
+input,
+textarea,
+select {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(147, 51, 234, 0.3);
   border-radius: 8px;
@@ -119,17 +124,20 @@ input, textarea, select {
   backdrop-filter: blur(10px);
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   border-color: #c084fc;
   outline: none;
   box-shadow: 0 0 0 2px rgba(192, 132, 252, 0.2);
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Custom scrollbar - Purple-Pink theme */
+/* === Scrollbar === */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -147,18 +155,14 @@ input::placeholder, textarea::placeholder {
   background: linear-gradient(135deg, #a855f7, #f472b6);
 }
 
-/* Selection color */
-::selection {
-  background: rgba(219, 39, 119, 0.4);
-  color: #ffffff;
-}
-
+/* === Text Selection === */
+::selection,
 ::-moz-selection {
   background: rgba(219, 39, 119, 0.4);
   color: #ffffff;
 }
 
-/* Glow effects for special elements */
+/* === Glow Utilities === */
 .glow-purple {
   box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
 }
@@ -167,7 +171,7 @@ input::placeholder, textarea::placeholder {
   box-shadow: 0 0 20px rgba(219, 39, 119, 0.3);
 }
 
-/* Animation for stage lighting effects */
+/* === Stage Animation === */
 @keyframes stage-pulse {
   0%, 100% {
     opacity: 0.1;
@@ -181,39 +185,30 @@ input::placeholder, textarea::placeholder {
   animation: stage-pulse 4s ease-in-out infinite;
 }
 
-/* Remove light mode preferences */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Smooth scroll */
-html { 
-  scroll-behavior: smooth; 
+/* === Smooth Scroll & Interaction === */
+html {
+  scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
-
 }
 
-/* Custom utility classes */
+/* === Custom Utilities === */
 @layer utilities {
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
-  
+
   .text-shadow-lg {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
   }
-  
+
   .backdrop-blur-stage {
     backdrop-filter: blur(10px) saturate(150%);
   }
-  
+
   .bg-stage-gradient {
     background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(219, 39, 119, 0.8), rgba(147, 51, 234, 0.8));
   }
-}
 
-/* Line-clamp support */
-@layer utilities {
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -222,6 +217,7 @@ html {
   }
 }
 
+/* === Animations === */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
