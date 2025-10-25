@@ -54,7 +54,7 @@ export default function TShirtsGoodies() {
       }}
     >
       {/* Light overlay for better readability */}
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute"></div>
 
       {/* Floating animations - Enhanced */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
