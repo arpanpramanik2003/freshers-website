@@ -14,26 +14,15 @@ export default function Sponsors() {
       const response = await fetch(`${API_BASE_URL}/sponsors`);
       const data = await response.json();
       
+      // Only set sponsors if data exists from backend
       if (data && data.length > 0) {
         setSponsors(data);
       } else {
-        // Fallback sponsors for demo
-        setSponsors([
-          { id: 1, name: "TechNova", logo_url: "/images/s1.png" },
-          { id: 2, name: "Foodiez", logo_url: "/images/s2.png" },
-          { id: 3, name: "StyleHub", logo_url: "/images/s3.png" },
-          { id: 4, name: "MusicBeats", logo_url: "/images/s4.png" },
-        ]);
+        setSponsors([]); // Empty array if no sponsors
       }
     } catch (error) {
       console.error('Failed to fetch sponsors:', error);
-      // Fallback sponsors on error
-      setSponsors([
-        { id: 1, name: "TechNova", logo_url: "/images/s1.png" },
-        { id: 2, name: "Foodiez", logo_url: "/images/s2.png" },
-        { id: 3, name: "StyleHub", logo_url: "/images/s3.png" },
-        { id: 4, name: "MusicBeats", logo_url: "/images/s4.png" },
-      ]);
+      setSponsors([]); // Empty array on error
     } finally {
       setLoading(false);
     }
@@ -70,7 +59,7 @@ export default function Sponsors() {
       }}
     >
       {/* Light overlay for better readability */}
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute"></div>
 
       {/* Floating animations - Enhanced */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -128,6 +117,7 @@ export default function Sponsors() {
                         <img 
                           src={sponsor.logo_url} 
                           alt={sponsor.name}
+                          loading="lazy"
                           className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain group-hover:scale-110 transition-transform duration-500 filter brightness-90 group-hover:brightness-110"
                           onError={(e) => {
                             // Fallback to company initial if image fails
@@ -159,21 +149,17 @@ export default function Sponsors() {
               </div>
             </div>
           ) : (
-            /* No Sponsors State */
+            /* No Sponsors State - Similar to Events/Team/Gallery */
             <div className="text-center py-20">
-              <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto hover:scale-105 hover:shadow-purple-500/20 hover:shadow-2xl transition-all duration-500">
+              <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
                 <div className="text-6xl sm:text-8xl mb-8 animate-bounce">🤝</div>
                 <h3 className="text-3xl sm:text-4xl font-black text-white mb-6 drop-shadow-lg">
-                  Sponsor Slots Available!
+                  Sponsors Coming Soon!
                 </h3>
-                <p className="text-white/80 text-lg sm:text-xl leading-relaxed mb-8">
-                  Join us as a sponsor and be part of this amazing ABHIGRAHA celebration.
-                  <span className="block mt-2 text-purple-300 font-semibold">Let's create magic together!</span>
+                <p className="text-white/80 text-lg sm:text-xl leading-relaxed">
+                  Amazing partnerships are being planned for ABHIGRAHA.
+                  <span className="block mt-2 text-purple-300 font-semibold">Stay tuned for updates!</span>
                 </p>
-                
-                <button className="bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 hover:from-purple-700 hover:via-purple-600 hover:to-blue-700 backdrop-blur-sm text-white px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-lg sm:text-xl transition-all transform hover:scale-105 shadow-2xl border border-white/20 uppercase tracking-wide hover:shadow-purple-500/30">
-                  Contact Us to Sponsor
-                </button>
                 
                 {/* Decorative elements */}
                 <div className="flex justify-center gap-4 mt-8">
