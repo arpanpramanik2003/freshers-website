@@ -78,7 +78,7 @@ export default function Team() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute"></div>
 
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-60"></div>
