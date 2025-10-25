@@ -49,7 +49,7 @@ export default function Events() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute"></div>
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white drop-shadow-2xl">
