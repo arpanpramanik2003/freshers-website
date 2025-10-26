@@ -42,26 +42,29 @@ function App() {
     );
   }
 
-  return (
-    <Router>
-      <div className="bg-light text-dark min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 pt-12">
-          <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/prizes" element={<Prize />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/sponsors" element={<Sponsors />} />
-            <Route path="/tshirts-goodies" element={<TShirtsGoodies />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
-}
+return (
+  <Router>
+    <div className="bg-light text-dark min-h-screen flex flex-col" style={{
+      minHeight: '100vh',
+      minHeight: '-webkit-fill-available'
+    }}>
+      <Navbar />
+      <main className="flex-1 pt-12">
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/prizes" element={<Prize />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/tshirts-goodies" element={<TShirtsGoodies />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  </Router>
+);
+
 
 export default App;
