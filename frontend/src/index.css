@@ -55,16 +55,33 @@ body::before {
 
 /* === Mobile Fix (prevents white overscroll & background tearing) === */
 @media (max-width: 768px) {
-  body,
-  body::before {
-    background-attachment: scroll !important;
+  html {
+    height: 100%;
+    height: -webkit-fill-available;
   }
-
 
   body {
     background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%) !important;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  body::before {
+    background-attachment: scroll !important;
+    position: absolute !important;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  #root {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: calc(var(--vh, 1vh) * 100);
   }
 }
+
 
 
 /* === Typography === */
@@ -453,4 +470,33 @@ html {
 .admin-container textarea:read-only {
   background: rgba(249, 250, 251, 0.95) !important;
   cursor: default;
+}
+
+
+
+/* === Critical Mobile Viewport Fix === */
+@media (max-width: 768px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  body {
+    position: relative;
+  }
+  
+  /* Prevent white space on scroll */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+    z-index: -2;
+    pointer-events: none;
+  }
 }
