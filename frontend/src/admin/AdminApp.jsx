@@ -1935,14 +1935,13 @@ function MessagesSection({ token }) {
     const subject = encodeURIComponent('Thank you for your inquiry about Bollywood Night');
     const body = encodeURIComponent(`Dear ${message.name},
 
-Thank you for reaching out to us about our Bollywood Night event!
+Thank you for reaching out to us about our Freshers party (ABHIGRAHA 2K25)...
 
 We really appreciate your interest and will get back to you soon with more details.
 
 Best regards,
-Arpan Pramanik
-Bollywood Night Team
-arpan.pramanik23@tnu.in`);
+TEAM ABHIGRAHA
+abhigraha2k25@gmail.com`);
     
     const mailtoLink = `mailto:${message.email}?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
@@ -2163,7 +2162,7 @@ arpan.pramanik23@tnu.in`);
         <div className="text-sm text-gray-600 space-y-1">
           <p>• Click the <strong>📤 Reply</strong> button to open your email client</p>
           <p>• The email will be pre-filled with a thank you message</p>
-          <p>• Your email signature (arpan.pramanik23@tnu.in) is included</p>
+          <p>• Your email signature (abhigraha2k25@gmail.com) is included</p>
           <p>• Just add any specific details and send!</p>
         </div>
       </div>
