@@ -14,16 +14,23 @@ export default function Gallery() {
         setLoading(false);
       })
       .catch(() => {
-        const fallbackImages = [
-          { id: 1, image_url: "/images/g1.jpg", caption: "ABHIGRAHA" },
-          { id: 2, image_url: "/images/g2.jpg", caption: "Dance Performance" },
-          { id: 3, image_url: "/images/g3.jpg", caption: "Cultural Show" },
-          { id: 4, image_url: "/images/g4.jpg", caption: "Fashion Walk" },
-        ];
-        setGallery(fallbackImages);
+        setGallery([]);
         setLoading(false);
       });
   }, []);
+
+  // Group gallery items by year (similar to Team.jsx grouping by role)
+  const galleryByYear = gallery.reduce((acc, item) => {
+    const year = item.year || 2025;
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(item);
+    return acc;
+  }, {});
+
+  // Sort years in descending order (newest first)
+  const sortedYears = Object.keys(galleryByYear).sort((a, b) => b - a);
 
   const navigateImage = (direction) => {
     const currentIndex = gallery.findIndex(img => img.id === selectedImage.id);
@@ -69,7 +76,7 @@ export default function Gallery() {
       }}
     >
       {/* Light overlay for better readability */}
-      <div className="absolute"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Floating animations - Enhanced */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -93,60 +100,81 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* Gallery Content */}
-        <div className="pb-16">
-          {gallery.length > 0 ? (
-            /* Main Gallery Container */
-            <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
-              
-              {/* Photo Grid - Enhanced */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-                {gallery.map((item, index) => (
-                  <div 
-                    key={item.id} 
-                    className="group cursor-pointer transform hover:scale-105 transition-all duration-500"
-                    style={{animationDelay: `${index * 0.1}s`}}
-                  >
-                    {/* Photo Card */}
-                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600/20 via-blue-500/20 to-purple-800/20 backdrop-blur-sm border border-purple-400/20 hover:border-purple-400/50 hover:shadow-purple-500/20 hover:shadow-xl transition-all duration-500 group-hover:bg-gradient-to-br group-hover:from-purple-600/30 group-hover:via-blue-500/30 group-hover:to-purple-800/30"
-                      onClick={() => setSelectedImage(item)}
-                    >
-                      
-                      {/* Image Container - Fixed aspect ratio */}
-                      <div className="aspect-square overflow-hidden relative">
-                        {/* Glow effect on hover */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse -z-10"></div>
-                        
-                        <img 
-                          src={item.image_url} 
-                          alt={item.caption || `Gallery ${item.id}`} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          onError={(e) => {
-                            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ2FsbGVyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzkzMzNlYTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzkzMzNlYTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ2FsbGVyeUdyYWRpZW50KSIgcng9IjI0Ii8+CiAgPGNpcmNsZSBjeD0iMTUwIiBjeT0iMTIwIiByPSI0MCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHJlY3QgeD0iMTEwIiB5PSIxNzAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44IiByeD0iOCIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iMjYwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIG9wYWNpdHk9IjAuOCI+R2FsbGVyeTwvdGV4dD4KPC9zdmc+Cg==';
-                          }}
-                        />
-                        
-                        {/* Overlay gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      </div>
-                      
-                      {/* Caption overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h4 className="font-bold text-white text-xs sm:text-sm drop-shadow-lg line-clamp-2">
-                          {item.caption || "ABHIGRAHA"}
-                        </h4>
-                        <p className="text-blue-200 text-xs mt-1 hidden sm:block">Click to view</p>
-                      </div>
-                      
-                      {/* Click indicator */}
-                      <div className="absolute top-3 right-3 w-8 h-8 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-white text-lg">🔍</span>
+        {/* Gallery Content - Grouped by Year */}
+        <div className="pb-16 space-y-12 sm:space-y-16">
+          {sortedYears.length > 0 ? (
+            sortedYears.map((year) => (
+              <div key={year}>
+                {/* Year Banner - Similar to Team Section Role Headers */}
+                <div className="relative mb-6 sm:mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/30 to-transparent blur-sm"></div>
+                  <div className="relative bg-gradient-to-r from-purple-600/80 via-purple-500/80 to-pink-600/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 border-2 border-purple-400/50 shadow-2xl">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4">
+                      <div className="text-3xl sm:text-4xl">📅</div>
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg">
+                        {year}
+                      </h2>
+                      <div className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                        <span className="text-white font-bold text-sm sm:text-base">
+                          {galleryByYear[year].length} {galleryByYear[year].length === 1 ? 'Photo' : 'Photos'}
+                        </span>
                       </div>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                {/* Photo Grid for this Year */}
+                <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+                    {galleryByYear[year].map((item, index) => (
+                      <div 
+                        key={item.id} 
+                        className="group cursor-pointer transform hover:scale-105 transition-all duration-500"
+                        style={{animationDelay: `${index * 0.1}s`}}
+                      >
+                        {/* Photo Card */}
+                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600/20 via-blue-500/20 to-purple-800/20 backdrop-blur-sm border border-purple-400/20 hover:border-purple-400/50 hover:shadow-purple-500/20 hover:shadow-xl transition-all duration-500 group-hover:bg-gradient-to-br group-hover:from-purple-600/30 group-hover:via-blue-500/30 group-hover:to-purple-800/30"
+                          onClick={() => setSelectedImage(item)}
+                        >
+                          
+                          {/* Image Container - Fixed aspect ratio */}
+                          <div className="aspect-square overflow-hidden relative">
+                            {/* Glow effect on hover */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse -z-10"></div>
+                            
+                            <img 
+                              src={item.image_url} 
+                              alt={item.caption || `Gallery ${year}`} 
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                              onError={(e) => {
+                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ2FsbGVyeUdyYWRpZW50IiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzkzMzNlYTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMzYjgyZjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzkzMzNlYTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ2FsbGVyeUdyYWRpZW50KSIgcng9IjI0Ii8+CiAgPGNpcmNsZSBjeD0iMTUwIiBjeT0iMTIwIiByPSI0MCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPHJlY3QgeD0iMTEwIiB5PSIxNzAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44IiByeD0iOCIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iMjYwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIG9wYWNpdHk9IjAuOCI+R2FsbGVyeTwvdGV4dD4KPC9zdmc+Cg==';
+                              }}
+                            />
+                            
+                            {/* Overlay gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                          
+                          {/* Caption overlay */}
+                          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h4 className="font-bold text-white text-xs sm:text-sm drop-shadow-lg line-clamp-2">
+                              {item.caption || `ABHIGRAHA ${year}`}
+                            </h4>
+                            <p className="text-blue-200 text-xs mt-1 hidden sm:block">Click to view</p>
+                          </div>
+                          
+                          {/* Click indicator */}
+                          <div className="absolute top-3 right-3 w-8 h-8 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-white text-lg">🔍</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))
           ) : (
             /* No Gallery State */
             <div className="text-center py-20">
@@ -210,9 +238,10 @@ export default function Gallery() {
             {/* Caption with glassmorphism */}
             <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 bg-black/40 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
               <h4 className="text-white text-lg sm:text-xl md:text-2xl font-black text-center drop-shadow-lg">
-                {selectedImage.caption || "ABHIGRAHA Memory"}
+                {selectedImage.caption || `ABHIGRAHA ${selectedImage.year || 2025}`}
               </h4>
               <p className="text-purple-200 text-sm sm:text-base text-center mt-1">
+                {selectedImage.year && <span className="text-blue-300 font-bold">📅 {selectedImage.year} • </span>}
                 Image {gallery.findIndex(img => img.id === selectedImage.id) + 1} of {gallery.length}
               </p>
             </div>
