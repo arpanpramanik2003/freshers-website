@@ -10,8 +10,9 @@ export default function Events() {
     fetch(`${API_BASE_URL}/events`)
       .then((res) => res.json())
       .then((data) => {
-        // Keep original order - oldest first (ID: 1, 2, 3...)
-        setEvents(data);
+        // Sort by ID ascending (1, 2, 3, 4...) to show in order added
+        const sortedData = data.sort((a, b) => a.id - b.id);
+        setEvents(sortedData);
         setLoading(false);
       })
       .catch(() => setLoading(false));
