@@ -8,8 +8,8 @@ export default function Team() {
 
   const roleHierarchy = [
     { title: "", roles: ["PRESIDENT", "VICE-PRESIDENT"], isLeadership: true },
-    { title: "TREASURER", roles: ["TREASURER"] },
     { title: "SECRETARY", roles: ["SECRETARY"] },
+    { title: "TREASURER", roles: ["TREASURER"] },
     { title: "EVENT MANAGER", roles: ["EVENT MANAGER"] },
     { title: "CULTURAL HEAD", roles: ["CULTURAL HEAD"] },
     { title: "VOLUNTEER HEAD", roles: ["VOLUNTEER HEAD"] },
