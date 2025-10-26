@@ -294,7 +294,7 @@ export default function Gallery() {
       )}
 
       {/* Bottom padding */}
-      <div className="h-16 sm:h-20"></div>
+      {/* <div className="h-16 sm:h-20"></div> */}
       
       {/* Custom CSS for animations */}
       <style jsx>{`
