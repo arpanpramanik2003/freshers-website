@@ -10,6 +10,7 @@ export default function Events() {
     fetch(`${API_BASE_URL}/events`)
       .then((res) => res.json())
       .then((data) => {
+        // Keep original order - oldest first (ID: 1, 2, 3...)
         setEvents(data);
         setLoading(false);
       })
