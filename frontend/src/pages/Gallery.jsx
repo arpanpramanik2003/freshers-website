@@ -105,17 +105,16 @@ export default function Gallery() {
           {sortedYears.length > 0 ? (
             sortedYears.map((year) => (
               <div key={year}>
-                {/* Year Banner - Similar to Team Section Role Headers */}
+                {/* Year Banner - Smaller and No Emoji */}
                 <div className="relative mb-6 sm:mb-8">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/30 to-transparent blur-sm"></div>
-                  <div className="relative bg-gradient-to-r from-purple-600/80 via-purple-500/80 to-pink-600/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 border-2 border-purple-400/50 shadow-2xl">
-                    <div className="flex items-center justify-center gap-3 sm:gap-4">
-                      <div className="text-3xl sm:text-4xl">📅</div>
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg">
+                  <div className="relative bg-gradient-to-r from-purple-600/80 via-purple-500/80 to-pink-600/80 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-purple-400/50 shadow-2xl">
+                    <div className="flex items-center justify-center gap-2 sm:gap-3">
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-lg">
                         {year}
                       </h2>
-                      <div className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                        <span className="text-white font-bold text-sm sm:text-base">
+                      <div className="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                        <span className="text-white font-semibold text-xs sm:text-sm">
                           {galleryByYear[year].length} {galleryByYear[year].length === 1 ? 'Photo' : 'Photos'}
                         </span>
                       </div>
@@ -123,13 +122,13 @@ export default function Gallery() {
                   </div>
                 </div>
 
-                {/* Photo Grid for this Year */}
+                {/* Photo Grid for this Year - Center when single image */}
                 <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+                  <div className={`grid ${galleryByYear[year].length === 1 ? 'justify-center' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'} gap-4 sm:gap-6 lg:gap-8`}>
                     {galleryByYear[year].map((item, index) => (
                       <div 
                         key={item.id} 
-                        className="group cursor-pointer transform hover:scale-105 transition-all duration-500"
+                        className={`group cursor-pointer transform hover:scale-105 transition-all duration-500 ${galleryByYear[year].length === 1 ? 'max-w-md w-full' : ''}`}
                         style={{animationDelay: `${index * 0.1}s`}}
                       >
                         {/* Photo Card */}
@@ -241,7 +240,7 @@ export default function Gallery() {
                 {selectedImage.caption || `ABHIGRAHA ${selectedImage.year || 2025}`}
               </h4>
               <p className="text-purple-200 text-sm sm:text-base text-center mt-1">
-                {selectedImage.year && <span className="text-blue-300 font-bold">📅 {selectedImage.year} • </span>}
+                {selectedImage.year && <span className="text-blue-300 font-bold">{selectedImage.year} • </span>}
                 Image {gallery.findIndex(img => img.id === selectedImage.id) + 1} of {gallery.length}
               </p>
             </div>
