@@ -288,19 +288,35 @@ textarea::placeholder {
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* === Footer Fix for Mobile === */
-footer {
-  position: relative;
-  min-height: fit-content;
-}
+/* /* === Footer Fix for Mobile === */
+/* footer { */
+  /* position: relative; */
+  /* min-height: fit-content; */
+/* } */
 
+/* === Mobile White Space Fix (Keeps Fixed Background) === */
 @media (max-width: 768px) {
+  footer::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
+    background-image: inherit;
+    background-position: inherit;
+    background-repeat: inherit;
+    background-size: inherit;
+    background-attachment: fixed;
+    z-index: -1;
+  }
+  
   footer {
     background-attachment: scroll !important;
-    position: relative;
-    padding-bottom: env(safe-area-inset-bottom, 0) !important;
   }
 }
+
 
 
 /* ========================================
