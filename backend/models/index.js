@@ -152,7 +152,7 @@ function initializeModels() {
         timestamps: false
     });
 
-    // TShirtsAndGoodies Model (NEW)
+    // TShirtsAndGoodies Model
     TShirtsAndGoodies = sequelize.define('TShirtsAndGoodies', {
         id: {
             type: DataTypes.INTEGER,
@@ -167,7 +167,7 @@ function initializeModels() {
         timestamps: false
     });
 
-    // GalleryItem Model
+    // GalleryItem Model - UPDATED WITH YEAR FIELD
     GalleryItem = sequelize.define('GalleryItem', {
         id: {
             type: DataTypes.INTEGER,
@@ -175,7 +175,12 @@ function initializeModels() {
             autoIncrement: true
         },
         image_url: DataTypes.STRING(500),
-        caption: DataTypes.STRING(300)
+        caption: DataTypes.STRING(300),
+        year: {
+            type: DataTypes.INTEGER,
+            defaultValue: 2025,  // Default to current year
+            allowNull: false
+        }
     }, {
         tableName: 'gallery_items',
         timestamps: false
