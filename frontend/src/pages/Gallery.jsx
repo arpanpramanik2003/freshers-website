@@ -122,13 +122,13 @@ export default function Gallery() {
                   </div>
                 </div>
 
-                {/* Photo Grid for this Year - Center when single image */}
+                {/* Photo Grid for this Year - CENTERED like Team section */}
                 <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
-                  <div className={`grid ${galleryByYear[year].length === 1 ? 'justify-center' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'} gap-4 sm:gap-6 lg:gap-8`}>
+                  <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
                     {galleryByYear[year].map((item, index) => (
                       <div 
                         key={item.id} 
-                        className={`group cursor-pointer transform hover:scale-105 transition-all duration-500 ${galleryByYear[year].length === 1 ? 'max-w-md w-full' : ''}`}
+                        className="group cursor-pointer transform hover:scale-105 transition-all duration-500 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.5rem)] max-w-xs"
                         style={{animationDelay: `${index * 0.1}s`}}
                       >
                         {/* Photo Card */}
