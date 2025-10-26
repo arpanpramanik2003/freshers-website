@@ -288,6 +288,20 @@ textarea::placeholder {
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
+/* === Footer Fix for Mobile === */
+footer {
+  position: relative;
+  min-height: fit-content;
+}
+
+@media (max-width: 768px) {
+  footer {
+    background-attachment: scroll !important;
+    position: relative;
+    padding-bottom: env(safe-area-inset-bottom, 0) !important;
+  }
+}
+
 
 /* ========================================
    ADMIN PANEL SPECIFIC STYLES
