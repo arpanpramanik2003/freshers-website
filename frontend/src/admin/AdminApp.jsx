@@ -1932,7 +1932,7 @@ function MessagesSection({ token }) {
 
   // Reply email function
   const sendReplyEmail = (message) => {
-    const subject = encodeURIComponent('Thank you for your inquiry about ABHIGRAHA 2K25');
+    const subject = encodeURIComponent('ABHIGRAHA 2K25');  //Thank you for your enquiry about
     const body = encodeURIComponent(`Dear ${message.name},
 
 Thank you for reaching out to us about our Freshers party (ABHIGRAHA 2K25)...
