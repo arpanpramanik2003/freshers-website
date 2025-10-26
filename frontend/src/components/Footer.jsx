@@ -47,7 +47,7 @@ export default function Footer() {
 
   return (
     <footer 
-      className="text-white relative overflow-hidden py-16"
+      className="text-white relative overflow-hidden py-2"
       style={{
         backgroundImage: 'url(/stage-background.jpg)',
         backgroundSize: 'cover',
