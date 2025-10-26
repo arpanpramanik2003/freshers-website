@@ -24,7 +24,7 @@ export default function Events() {
   if (loading) {
     return (
       <section 
-        className="min-h-screen relative overflow-hidden flex items-center justify-center px-4 py-8"
+        className="min-h-screen relative overflow-hidden flex items-center justify-center px-4 py-10"
         style={{
           backgroundImage: 'url(/stage-background.jpg)',
           backgroundSize: 'cover',
@@ -167,7 +167,7 @@ export default function Events() {
           </div>
         )}
 
-        <div className="h-16 sm:h-20"></div>
+        {/* <div className="h-16 sm:h-20"></div> */}
       </div>
     </section>
   );
