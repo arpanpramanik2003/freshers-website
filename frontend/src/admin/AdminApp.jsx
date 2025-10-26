@@ -1219,9 +1219,15 @@ function GallerySection({ token }) {
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({
-    image_url: '', caption: ''
+    image_url: '', 
+    caption: '',
+    year: new Date().getFullYear() // Default to current year
   });
-  const [viewMode, setViewMode] = useState('grid'); // grid or list
+  const [viewMode, setViewMode] = useState('grid');
+  const [selectedYear, setSelectedYear] = useState('all'); // Filter by year
+
+  // Available years for dropdown
+  const availableYears = [2025, 2024, 2023, 2022, 2021, 2020];
 
   useEffect(() => {
     fetchGallery();
@@ -1270,7 +1276,8 @@ function GallerySection({ token }) {
     setEditingItem(item);
     setFormData({
       image_url: item.image_url || '',
-      caption: item.caption || ''
+      caption: item.caption || '',
+      year: item.year || new Date().getFullYear()
     });
     setShowForm(true);
   };
@@ -1303,18 +1310,50 @@ function GallerySection({ token }) {
   const resetForm = () => {
     setShowForm(false);
     setEditingItem(null);
-    setFormData({ image_url: '', caption: '' });
+    setFormData({ 
+      image_url: '', 
+      caption: '',
+      year: new Date().getFullYear()
+    });
   };
 
   const isValidImageUrl = (url) => {
     return url.match(/\.(jpeg|jpg|gif|png|svg|webp)$/i) || url.includes('images/');
   };
 
+  // Filter gallery by selected year
+  const filteredGallery = selectedYear === 'all' 
+    ? gallery 
+    : gallery.filter(item => item.year === parseInt(selectedYear));
+
+  // Group by year for stats
+  const galleryByYear = gallery.reduce((acc, item) => {
+    const year = item.year || 2025;
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(item);
+    return acc;
+  }, {});
+
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
         <h2 className="text-2xl font-bold text-gray-900">Gallery Management</h2>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
+          {/* Year Filter */}
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            className="px-4 py-2 border rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="all">📅 All Years</option>
+            {availableYears.map(year => (
+              <option key={year} value={year}>
+                {year} {galleryByYear[year] ? `(${galleryByYear[year].length})` : '(0)'}
+              </option>
+            ))}
+          </select>
+
+          {/* View Mode Toggle */}
           <div className="bg-gray-100 rounded-lg p-1 flex">
             <button
               onClick={() => setViewMode('grid')}
@@ -1333,6 +1372,7 @@ function GallerySection({ token }) {
               📋 List
             </button>
           </div>
+
           <button
             onClick={() => setShowForm(!showForm)}
             className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg font-medium"
@@ -1347,8 +1387,8 @@ function GallerySection({ token }) {
           <h3 className="text-lg font-semibold mb-4 text-gray-800">
             {editingItem ? '✏️ Edit Gallery Item' : '➕ Add New Image'}
           </h3>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-            <div>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">Image URL *</label>
               <input
                 type="url"
@@ -1384,9 +1424,25 @@ function GallerySection({ token }) {
               />
             </div>
 
+            {/* Year Selection Dropdown */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Year * 📅</label>
+              <select
+                value={formData.year}
+                onChange={(e) => setFormData({...formData, year: parseInt(e.target.value)})}
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+                required
+              >
+                {availableYears.map(year => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
+              <p className="text-xs text-gray-500 mt-1">Select the year this photo was taken</p>
+            </div>
+
             {/* Image Preview */}
             {formData.image_url && (
-              <div>
+              <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Preview</label>
                 <div className="border rounded-lg p-4 bg-white">
                   <img
@@ -1402,7 +1458,7 @@ function GallerySection({ token }) {
               </div>
             )}
 
-            <div className="flex gap-3">
+            <div className="md:col-span-2 flex gap-3">
               <button
                 type="submit"
                 className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
@@ -1425,11 +1481,11 @@ function GallerySection({ token }) {
 
       {/* Gallery Display */}
       <div className="space-y-4">
-        {gallery.length > 0 ? (
+        {filteredGallery.length > 0 ? (
           viewMode === 'grid' ? (
             /* Grid View */
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-              {gallery.map((item) => (
+              {filteredGallery.map((item) => (
                 <div key={item.id} className="relative group bg-white rounded-lg border overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="aspect-square relative overflow-hidden">
                     <img
@@ -1459,6 +1515,13 @@ function GallerySection({ token }) {
                       </div>
                     </div>
                   </div>
+                  {/* Year Badge */}
+                  <div className="absolute top-2 left-2 bg-purple-500 text-white text-xs px-2 py-1 rounded font-bold">
+                    {item.year || 2025}
+                  </div>
+                  <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                    #{item.id}
+                  </div>
                   {item.caption && (
                     <div className="p-2">
                       <p className="text-xs text-gray-600 truncate" title={item.caption}>
@@ -1466,16 +1529,13 @@ function GallerySection({ token }) {
                       </p>
                     </div>
                   )}
-                  <div className="absolute top-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
-                    #{item.id}
-                  </div>
                 </div>
               ))}
             </div>
           ) : (
             /* List View */
             <div className="space-y-3">
-              {gallery.map((item) => (
+              {filteredGallery.map((item) => (
                 <div key={item.id} className="bg-white border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0">
@@ -1491,6 +1551,10 @@ function GallerySection({ token }) {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm font-medium text-gray-500">ID: {item.id}</span>
+                        <span className="text-gray-300">•</span>
+                        <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded font-bold">
+                          📅 {item.year || 2025}
+                        </span>
                         <span className="text-gray-300">•</span>
                         <a
                           href={item.image_url}
@@ -1528,8 +1592,14 @@ function GallerySection({ token }) {
         ) : (
           <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
             <div className="text-4xl mb-4">📸</div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">No Gallery Images Yet</h3>
-            <p className="text-gray-500 mb-4">Start by adding your first image for Bollywood Night!</p>
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">
+              {selectedYear === 'all' ? 'No Gallery Images Yet' : `No Images from ${selectedYear}`}
+            </h3>
+            <p className="text-gray-500 mb-4">
+              {selectedYear === 'all' 
+                ? 'Start by adding your first image!' 
+                : `Add images for ${selectedYear} or select a different year.`}
+            </p>
             <button
               onClick={() => setShowForm(true)}
               className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg font-medium"
@@ -1540,47 +1610,22 @@ function GallerySection({ token }) {
         )}
       </div>
 
-      {/* Gallery Statistics */}
+      {/* Gallery Statistics by Year */}
       {gallery.length > 0 && (
         <div className="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 border border-purple-200">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">📊 Gallery Overview</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
-            <div className="bg-white rounded-lg p-4 border">
-              <div className="text-2xl font-bold text-purple-600">{gallery.length}</div>
-              <div className="text-sm text-gray-600">📸 Total Images</div>
-            </div>
-            <div className="bg-white rounded-lg p-4 border">
-              <div className="text-2xl font-bold text-blue-600">
-                {gallery.filter(item => item.caption && item.caption.trim() !== '').length}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {Object.keys(galleryByYear).sort((a, b) => b - a).map(year => (
+              <div key={year} className="bg-white rounded-lg p-4 border text-center">
+                <div className="text-2xl font-bold text-purple-600">{galleryByYear[year].length}</div>
+                <div className="text-sm text-gray-600">📅 {year}</div>
               </div>
-              <div className="text-sm text-gray-600">📝 With Captions</div>
-            </div>
-            <div className="bg-white rounded-lg p-4 border">
-              <div className="text-2xl font-bold text-green-600">
-                {gallery.filter(item => item.image_url.includes('http')).length}
-              </div>
-              <div className="text-sm text-gray-600">🌐 External URLs</div>
-            </div>
-            <div className="bg-white rounded-lg p-4 border">
-              <div className="text-2xl font-bold text-orange-600">
-                {gallery.filter(item => item.image_url.includes('/images/')).length}
-              </div>
-              <div className="text-sm text-gray-600">💻 Local Images</div>
+            ))}
+            <div className="bg-white rounded-lg p-4 border text-center">
+              <div className="text-2xl font-bold text-blue-600">{gallery.length}</div>
+              <div className="text-sm text-gray-600">📸 Total</div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Image URL Tips */}
-      {showForm && (
-        <div className="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">💡 Image URL Tips:</h4>
-          <ul className="text-sm text-gray-600 space-y-1">
-            <li>• <strong>Local images:</strong> /images/photo1.jpg, /images/gallery/pic.png</li>
-            <li>• <strong>External URLs:</strong> https://example.com/image.jpg</li>
-            <li>• <strong>Supported formats:</strong> .jpg, .png, .gif, .webp, .svg</li>
-            <li>• <strong>Recommended size:</strong> 800x600 pixels or larger for best quality</li>
-          </ul>
         </div>
       )}
     </div>
