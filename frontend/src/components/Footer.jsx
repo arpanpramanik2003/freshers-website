@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_BASE_URL } from '../config/api';
 
 export default function Footer() {
@@ -9,6 +9,18 @@ export default function Footer() {
   });
   const [status, setStatus] = useState('');
   const [showContactForm, setShowContactForm] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +64,7 @@ export default function Footer() {
         backgroundImage: 'url(/stage-background.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundAttachment: isMobile ? 'scroll' : 'fixed'
       }}
     >
       <div className="absolute"></div>
