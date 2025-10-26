@@ -43,7 +43,7 @@ export default function Events() {
 
   return (
     <section 
-      className="min-h-screen relative overflow-hidden px-4 py-16 sm:py-20"
+      className="min-h-screen relative overflow-hidden px-4 py-1 sm:py-1"
       style={{
         backgroundImage: 'url(/stage-background.jpg)',
         backgroundSize: 'cover',
