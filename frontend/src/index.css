@@ -11,8 +11,10 @@
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.95);
 
+
   /* Purple-Pink gradient theme */
   background: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #9333ea 100%) !important;
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,28 +24,17 @@
 
 
 /* === Page Base === */
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  scroll-behavior: smooth;
-  -webkit-tap-highlight-color: transparent;
-}
-
+html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #1a0033;
-  background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
-  overscroll-behavior: none;
+  background-color: #1a0033; /* fallback */
+  background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%) fixed;
+  overscroll-behavior: none; /* prevent white flash on mobile scroll bounce */
   color-scheme: dark;
 }
 
-#root {
-  height: 100%;
-  min-height: 100vh;
-}
 
 body::before {
   content: '';
@@ -64,37 +55,14 @@ body::before {
 
 /* === Mobile Fix (prevents white overscroll & background tearing) === */
 @media (max-width: 768px) {
-  html {
-    height: 100%;
-    min-height: 100%;
+  body,
+  body::before {
+    background-attachment: scroll !important;
   }
+
 
   body {
     background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%) !important;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    min-height: calc(var(--vh, 1vh) * 100);
-    position: relative;
-  }
-
-  #root {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    min-height: calc(var(--vh, 1vh) * 100);
-  }
-
-  body::before {
-    background-attachment: scroll !important;
-    position: absolute !important;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    min-height: calc(var(--vh, 1vh) * 100);
-    height: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    will-change: auto;
   }
 }
 
@@ -244,23 +212,34 @@ textarea::placeholder {
 }
 
 
+/* === Smooth Scroll & Interaction === */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
 /* === Custom Utilities === */
 @layer utilities {
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
+
   .text-shadow-lg {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
   }
+
 
   .backdrop-blur-stage {
     backdrop-filter: blur(10px) saturate(150%);
   }
 
+
   .bg-stage-gradient {
     background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(219, 39, 119, 0.8), rgba(147, 51, 234, 0.8));
   }
+
 
   .line-clamp-2 {
     display: -webkit-box;
@@ -288,36 +267,6 @@ textarea::placeholder {
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* /* === Footer Fix for Mobile === */
-/* footer { */
-  /* position: relative; */
-  /* min-height: fit-content; */
-/* } */
-
-/* === Mobile White Space Fix (Keeps Fixed Background) === */
-@media (max-width: 768px) {
-  footer::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    width: 100vw;
-    background-image: inherit;
-    background-position: inherit;
-    background-repeat: inherit;
-    background-size: inherit;
-    background-attachment: fixed;
-    z-index: -1;
-  }
-  
-  footer {
-    background-attachment: scroll !important;
-  }
-}
-
-
 
 /* ========================================
    ADMIN PANEL SPECIFIC STYLES
@@ -333,6 +282,7 @@ textarea::placeholder {
   font-weight: 500;
 }
 
+/* Admin Panel Placeholders - Dark text for visibility */
 .admin-container input::placeholder,
 .admin-container textarea::placeholder,
 .admin-container select::placeholder {
@@ -341,6 +291,7 @@ textarea::placeholder {
   font-weight: 400;
 }
 
+/* Admin Panel Select Dropdowns - Proper styling */
 .admin-container select {
   background: rgba(255, 255, 255, 0.95) !important;
   color: #1f2937 !important;
@@ -354,6 +305,7 @@ textarea::placeholder {
   padding-right: 2.5rem !important;
 }
 
+/* Admin Panel Select Options - Better visibility */
 .admin-container select option {
   background: #ffffff !important;
   color: #1f2937 !important;
@@ -361,11 +313,13 @@ textarea::placeholder {
   font-weight: 500;
 }
 
+/* Admin Panel Select Hover */
 .admin-container select:hover {
   background: rgba(255, 255, 255, 1) !important;
   border-color: #9333ea !important;
 }
 
+/* Admin Panel Select Focus - Purple border */
 .admin-container select:focus,
 .admin-container input:focus,
 .admin-container textarea:focus {
@@ -375,11 +329,13 @@ textarea::placeholder {
   background: rgba(255, 255, 255, 1) !important;
 }
 
+/* Admin Panel Input Focus - Better contrast */
 .admin-container input:focus::placeholder,
 .admin-container textarea:focus::placeholder {
   color: #9ca3af !important;
 }
 
+/* Admin Panel Disabled Inputs */
 .admin-container input:disabled,
 .admin-container textarea:disabled,
 .admin-container select:disabled {
@@ -389,35 +345,41 @@ textarea::placeholder {
   opacity: 0.7;
 }
 
+/* Admin Panel Labels - Better visibility */
 .admin-container label {
   color: #1f2937 !important;
   font-weight: 600 !important;
   text-shadow: none !important;
 }
 
+/* Admin Panel Required Field Indicator */
 .admin-container label::after {
   content: attr(data-required);
   color: #dc2626;
   margin-left: 0.25rem;
 }
 
+/* Admin Panel Text Area - Better styling */
 .admin-container textarea {
   resize: vertical;
   min-height: 80px;
   line-height: 1.5;
 }
 
+/* Admin Panel Number Input Arrows */
 .admin-container input[type="number"]::-webkit-inner-spin-button,
 .admin-container input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
 }
 
+/* Admin Panel Date/Time Inputs */
 .admin-container input[type="date"],
 .admin-container input[type="time"],
 .admin-container input[type="datetime-local"] {
   padding-right: 0.75rem;
 }
 
+/* Admin Panel File Input */
 .admin-container input[type="file"] {
   padding: 0.5rem;
   background: rgba(255, 255, 255, 0.95) !important;
@@ -438,6 +400,7 @@ textarea::placeholder {
   background: #7c3aed;
 }
 
+/* Admin Panel Checkbox & Radio - Better visibility */
 .admin-container input[type="checkbox"],
 .admin-container input[type="radio"] {
   width: 1.25rem;
@@ -453,6 +416,7 @@ textarea::placeholder {
   border-color: #9333ea !important;
 }
 
+/* Admin Panel Search Input */
 .admin-container input[type="search"] {
   padding-left: 2.5rem;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E") !important;
@@ -461,6 +425,7 @@ textarea::placeholder {
   background-size: 1.25rem !important;
 }
 
+/* Admin Panel Auto-fill background fix */
 .admin-container input:-webkit-autofill,
 .admin-container input:-webkit-autofill:hover,
 .admin-container input:-webkit-autofill:focus {
@@ -469,6 +434,7 @@ textarea::placeholder {
   border: 2px solid #e5e7eb !important;
 }
 
+/* Admin Panel Error States */
 .admin-container input:invalid:not(:placeholder-shown),
 .admin-container textarea:invalid:not(:placeholder-shown),
 .admin-container select:invalid:not(:placeholder-shown) {
@@ -476,11 +442,13 @@ textarea::placeholder {
   background: rgba(254, 242, 242, 0.95) !important;
 }
 
+/* Admin Panel Success States */
 .admin-container input:valid:not(:placeholder-shown),
 .admin-container textarea:valid:not(:placeholder-shown) {
   border-color: #16a34a !important;
 }
 
+/* Admin Panel Read-only Inputs */
 .admin-container input:read-only,
 .admin-container textarea:read-only {
   background: rgba(249, 250, 251, 0.95) !important;
