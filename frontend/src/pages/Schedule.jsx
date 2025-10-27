@@ -70,7 +70,7 @@ export default function Schedule() {
           backgroundAttachment: 'fixed'
         }}
       >
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-purple-900/30 to-black/60"></div> */}
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center">
           <div className="relative">
             <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-t-4 border-purple-400 border-r-4 border-r-transparent mx-auto mb-8 shadow-2xl shadow-purple-500/50"></div>
@@ -94,12 +94,10 @@ export default function Schedule() {
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Enhanced gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
         
-        {/* Ultra Modern Page Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <div className="inline-block mb-6">
             <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-md px-6 py-2 rounded-full border border-purple-400/30 shadow-xl">
@@ -109,7 +107,6 @@ export default function Schedule() {
             </div>
           </div>
           
-          {/* FIXED: Solid white text */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 text-white drop-shadow-2xl animate-fadeInUp">
             SCHEDULE
           </h1>
@@ -119,22 +116,16 @@ export default function Schedule() {
           </p>
         </div>
 
-        {/* Schedule Content */}
         {schedule.length > 0 ? (
-          /* Ultra Modern Timeline Container */
           <div className="bg-gradient-to-br from-black/30 via-purple-900/10 to-black/30 backdrop-blur-xl rounded-3xl p-4 sm:p-6 md:p-10 border border-white/10 shadow-2xl">
             
-            {/* Timeline */}
             <div className="relative">
-              {/* Animated Vertical Line with Glow */}
               <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 rounded-full shadow-lg shadow-purple-500/50"></div>
               
-              {/* Animated dots on the line */}
               <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-1 overflow-hidden">
                 <div className="animate-pulse absolute w-2 h-2 bg-white rounded-full -left-0.5 top-0 shadow-lg shadow-white/50"></div>
               </div>
               
-              {/* Timeline Items */}
               <div className="space-y-6 sm:space-y-8">
                 {schedule.map((item, index) => {
                   const style = statusStyles[item.status] || statusStyles.default;
@@ -146,33 +137,25 @@ export default function Schedule() {
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       
-                      {/* Enhanced Status Indicator Circle */}
                       <div className="relative z-10 flex-shrink-0">
-                        {/* Outer glow ring */}
                         <div className={`absolute inset-0 rounded-full ${style.indicator} opacity-20 blur-xl group-hover:opacity-40 transition-all duration-500 scale-150`}></div>
                         
-                        {/* Main circle */}
                         <div className={`relative w-12 h-12 sm:w-16 sm:h-16 ${style.indicator} rounded-full flex items-center justify-center shadow-2xl border-4 border-white/30 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 ${style.glowColor} group-hover:shadow-2xl`}>
                           <span className={`text-xl sm:text-2xl font-black ${style.dotColor} group-hover:scale-125 transition-transform duration-300`}>
                             {style.dotStyle}
                           </span>
                         </div>
                         
-                        {/* Pulse effect */}
                         <div className={`absolute inset-0 rounded-full ${style.indicator} opacity-0 group-hover:opacity-20 group-hover:scale-150 transition-all duration-700`}></div>
                       </div>
                       
-                      {/* Ultra Modern Event Card */}
                       <div className="ml-6 sm:ml-8 flex-1 min-w-0">
                         <div className={`bg-gradient-to-br from-black/40 via-black/30 to-black/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border ${style.borderColor} hover:border-white/40 transition-all duration-500 shadow-2xl hover:shadow-3xl group-hover:scale-[1.02] transform hover:${style.glowColor} hover:shadow-2xl cursor-pointer overflow-hidden`}>
                           
-                          {/* Animated background gradient on hover */}
                           <div className={`absolute inset-0 ${style.indicator} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                           
-                          {/* Mobile-First Responsive Layout */}
                           <div className="relative space-y-4">
                             
-                            {/* Time Badge - Top on Mobile, Inline on Desktop */}
                             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                               <div className={`${style.badgeBg} backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full border ${style.badgeBorder} shadow-lg group-hover:scale-105 transition-transform duration-300`}>
                                 <span className="text-white font-black text-sm sm:text-base flex items-center gap-2">
@@ -181,7 +164,6 @@ export default function Schedule() {
                                 </span>
                               </div>
                               
-                              {/* Status Badge - Mobile Friendly */}
                               <div className={`${style.badgeBg} backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full border ${style.badgeBorder} shadow-lg group-hover:scale-105 transition-transform duration-300`}>
                                 <span className={`font-black text-xs sm:text-sm uppercase tracking-wider ${
                                   item.status === 'done' ? 'text-green-300' :
@@ -194,14 +176,12 @@ export default function Schedule() {
                               </div>
                             </div>
                             
-                            {/* Event Title - FIXED: Solid White with purple tint on hover */}
                             <div className="mt-4">
                               <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg group-hover:text-purple-100 transition-colors duration-300 leading-tight break-words">
                                 {item.title}
                               </h3>
                             </div>
                             
-                            {/* Description - Enhanced Animation */}
                             {item.description && (
                               <div className="mt-4 overflow-hidden">
                                 <div className="pt-4 border-t border-white/10 group-hover:border-white/20 transition-colors duration-300">
@@ -212,7 +192,6 @@ export default function Schedule() {
                               </div>
                             )}
                             
-                            {/* Decorative corner accent */}
                             <div className={`absolute top-0 right-0 w-20 h-20 ${style.indicator} opacity-0 group-hover:opacity-10 blur-3xl transition-opacity duration-500 rounded-full`}></div>
                           </div>
                         </div>
@@ -223,7 +202,6 @@ export default function Schedule() {
               </div>
             </div>
             
-            {/* Timeline End Indicator */}
             <div className="flex justify-center mt-12">
               <div className="bg-gradient-to-r from-purple-600/30 to-pink-600/30 backdrop-blur-md px-8 py-3 rounded-full border border-purple-400/30 shadow-xl">
                 <span className="text-white/80 font-bold text-sm">
@@ -233,17 +211,14 @@ export default function Schedule() {
             </div>
           </div>
         ) : (
-      {/* Ultra Modern No Schedule State */}
           <div className="text-center py-12 sm:py-16">
             <div className="bg-gradient-to-br from-black/40 via-purple-900/20 to-black/40 backdrop-blur-2xl rounded-3xl p-8 sm:p-12 md:p-16 border border-white/10 shadow-2xl max-w-3xl mx-auto hover:scale-105 hover:border-purple-400/30 transition-all duration-700 cursor-pointer group">
               
-              {/* Animated icon */}
               <div className="relative inline-block mb-8">
                 <div className="text-7xl sm:text-8xl md:text-9xl animate-bounce">📅</div>
                 <div className="absolute inset-0 bg-purple-500 opacity-20 blur-3xl rounded-full animate-pulse"></div>
               </div>
               
-              {/* FIXED: Solid white text */}
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 drop-shadow-xl group-hover:text-purple-100 transition-colors duration-500">
                 Schedule Coming Soon!
               </h3>
@@ -256,7 +231,6 @@ export default function Schedule() {
                 ✨ Stay tuned for the epic timeline! ✨
               </p>
               
-              {/* Animated decorative elements */}
               <div className="flex justify-center gap-3 sm:gap-4 mt-10">
                 <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse shadow-lg shadow-purple-500/50"></div>
                 <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse shadow-lg shadow-blue-500/50" style={{animationDelay: '0.2s'}}></div>
