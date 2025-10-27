@@ -97,7 +97,7 @@ export default function Prize() {
         {/* Page Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white drop-shadow-2xl">
-            PRIZES & CROWNS
+            MR. & MS. FRESHERS
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
             Celebrating the <span className="text-purple-300 font-bold">stars</span> of our freshers batch
