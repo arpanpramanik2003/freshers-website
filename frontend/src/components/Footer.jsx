@@ -9,6 +9,7 @@ export default function Footer() {
   });
   const [status, setStatus] = useState('');
   const [showContactForm, setShowContactForm] = useState(false);
+  const [activeTooltip, setActiveTooltip] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +46,11 @@ export default function Footer() {
     });
   };
 
+  const handleIconClick = (type) => {
+    setActiveTooltip(activeTooltip === type ? null : type);
+    setTimeout(() => setActiveTooltip(null), 3000);
+  };
+
   return (
     <footer 
       className="text-white relative overflow-hidden py-2"
@@ -55,7 +61,7 @@ export default function Footer() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute "></div>
+      <div className="absolute"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
         
@@ -74,58 +80,144 @@ export default function Footer() {
               </p>
             </div>
 
-            {/* Center: Contact Information with Custom Logos */}
+            {/* Center: Contact Information - Mobile: Icons Only, Desktop: Full Info */}
             <div className="space-y-4">
-              {/* Email with Gmail Logo */}
-              <div className="flex items-center justify-center lg:justify-start">
-                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4 flex-shrink-0 p-1.5 shadow-lg hover:scale-110 transition-transform">
-                  <img 
-                    src="/gmail.png" 
-                    alt="Gmail" 
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<span class="text-red-500 text-lg">📧</span>';
-                    }}
-                  />
-                </div>
-                <a 
-                  href="mailto:abhigraha2k25@gmail.com"
-                  className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base font-medium"
-                >
-                  abhigraha2k25@gmail.com
-                </a>
-              </div>
               
-              {/* Instagram with Custom Logo */}
-              <div className="flex items-center justify-center lg:justify-start">
-                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4 flex-shrink-0 p-1.5 shadow-lg hover:scale-110 transition-transform">
-                  <img 
-                    src="/insta.png" 
-                    alt="Instagram" 
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<span class="text-pink-500 text-lg">📸</span>';
+              {/* Mobile View: Icon Grid (only icons, clickable for info) */}
+              <div className="flex justify-center gap-6 lg:hidden">
+                {/* Gmail Icon - Mobile */}
+                <div className="relative">
+                  <a 
+                    href="mailto:abhigraha2k25@gmail.com"
+                    className="block"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleIconClick('email');
                     }}
-                  />
+                  >
+                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-2 shadow-xl hover:scale-110 active:scale-95 transition-transform">
+                      <img 
+                        src="/gmail.png" 
+                        alt="Gmail" 
+                        className="w-full h-full object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.innerHTML = '<span class="text-red-500 text-2xl">📧</span>';
+                        }}
+                      />
+                    </div>
+                  </a>
+                  {activeTooltip === 'email' && (
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-xl border border-white/20 animate-fade-in">
+                      abhigraha2k25@gmail.com
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
+                    </div>
+                  )}
                 </div>
-                <a 
-                  href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base font-medium"
-                >
-                  @abhigraha_2k25
-                </a>
+
+                {/* Instagram Icon - Mobile */}
+                <div className="relative">
+                  <a 
+                    href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                    onClick={(e) => {
+                      handleIconClick('instagram');
+                    }}
+                  >
+                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-2 shadow-xl hover:scale-110 active:scale-95 transition-transform">
+                      <img 
+                        src="/insta.png" 
+                        alt="Instagram" 
+                        className="w-full h-full object-contain"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.innerHTML = '<span class="text-pink-500 text-2xl">📸</span>';
+                        }}
+                      />
+                    </div>
+                  </a>
+                  {activeTooltip === 'instagram' && (
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-xl border border-white/20 animate-fade-in">
+                      @abhigraha_2k25
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Location Icon - Mobile */}
+                <div className="relative">
+                  <button
+                    onClick={() => handleIconClick('location')}
+                    className="block"
+                  >
+                    <div className="w-14 h-14 bg-blue-500/80 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-transform">
+                      <span className="text-white text-3xl">📍</span>
+                    </div>
+                  </button>
+                  {activeTooltip === 'location' && (
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-xl border border-white/20 animate-fade-in">
+                      Main Playground
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
+                    </div>
+                  )}
+                </div>
               </div>
-              
-              {/* Location */}
-              <div className="flex items-center justify-center lg:justify-start">
-                <div className="w-10 h-10 bg-blue-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg">
-                  <span className="text-white text-lg">📍</span>
+
+              {/* Desktop View: Full Info with Icons (original layout) */}
+              <div className="hidden lg:block space-y-4">
+                {/* Email with Gmail Logo */}
+                <div className="flex items-center justify-center lg:justify-start">
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4 flex-shrink-0 p-1.5 shadow-lg hover:scale-110 transition-transform">
+                    <img 
+                      src="/gmail.png" 
+                      alt="Gmail" 
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<span class="text-red-500 text-lg">📧</span>';
+                      }}
+                    />
+                  </div>
+                  <a 
+                    href="mailto:abhigraha2k25@gmail.com"
+                    className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base font-medium"
+                  >
+                    abhigraha2k25@gmail.com
+                  </a>
                 </div>
-                <span className="text-white text-sm sm:text-base font-medium">main playground</span>
+                
+                {/* Instagram with Custom Logo */}
+                <div className="flex items-center justify-center lg:justify-start">
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4 flex-shrink-0 p-1.5 shadow-lg hover:scale-110 transition-transform">
+                    <img 
+                      src="/insta.png" 
+                      alt="Instagram" 
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<span class="text-pink-500 text-lg">📸</span>';
+                      }}
+                    />
+                  </div>
+                  <a 
+                    href="https://www.instagram.com/abhigraha_2k25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-purple-300 transition-colors text-sm sm:text-base font-medium"
+                  >
+                    @abhigraha_2k25
+                  </a>
+                </div>
+                
+                {/* Location */}
+                <div className="flex items-center justify-center lg:justify-start">
+                  <div className="w-10 h-10 bg-blue-500/80 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg">
+                    <span className="text-white text-lg">📍</span>
+                  </div>
+                  <span className="text-white text-sm sm:text-base font-medium">main playground</span>
+                </div>
               </div>
             </div>
 
