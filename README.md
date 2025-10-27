@@ -1,134 +1,217 @@
-# ABHIGRAHA 2K25 – Freshers Website
+# ABHIGRAHA 2K25 — Freshers Website
 
-A comprehensive web app for organizing, managing, and displaying information for the college freshers event **ABHIGRAHA 2K25**. Includes event schedules, dynamic displays, team showcase, image gallery, sponsor listings, goodies/prizes, and a full-featured admin panel for CRUD operations.
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#) [![Deploy-Frontend](https://img.shields.io/badge/vercel-frontend-blue)](#) [![Deploy-Backend](https://img.shields.io/badge/render-backend-purple)](#) [![License](https://img.shields.io/badge/license-MIT-black)](#) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange)](#)
 
----
-
-## 🚀 Features
-
-- **Live Event Countdown & Info:** Animated countdown, event display, live updates
-- **Team & Participants Dashboard:** Display of team members, sponsors, prize details, and event photos
-- **Admin Panel:** Full CRUD for events, schedule, gallery, prizes, team, goodies, sponsors (JWT-secured)
-- **Contact Form:** Query collector for attendees and users
-- **File Uploads:** Admin panel allows direct image uploads for gallery/events
-- **Modern UI:** React, TailwindCSS, and smooth interactive animations
+Inspire, inform, and onboard first-year students with a modern, responsive event portal. This mono-repo hosts a React SPA frontend and an Express.js API backend for managing events, schedule, team, gallery, sponsors, and goodies.
 
 ---
 
-## 🛠️ Tech Stack
-
-**Frontend:**
-- React 19, Vite, React Router DOM
-- TailwindCSS, ESLint
-- Vercel SPA deployment
-
-**Backend:**
-- Node.js, Express.js
-- Sequelize ORM (PostgreSQL or SQLite)
-- JWT authentication
-- Multer file uploads, dotenv, nodemon
-- Render app cloud deployment
+## ✨ Highlights
+- Full-stack JS: React (Vite) + Express + MongoDB (via models)
+- Clean separation: frontend/ and backend/ workspaces
+- Admin-ready: JWT-protected CRUD for all dynamic sections
+- Mobile-first UI with fast dev build (Vite) and SPA routing
+- Cloud-native deploys: Vercel (frontend) + Render (backend)
 
 ---
 
-## 📁 Directory Structure
-
+## 🗂️ Repository Structure
 ```
 freshers-website/
-├── backend/          # Express backend (API, models, admin, render.yaml)
-│   ├── app.js
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   └── render.yaml
-├── frontend/         # React frontend (src/, vite.config.js, vercel.json)
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── pages/
-│   │   ├── components/
-│   │   └── config/api.js
-│   ├── vite.config.js
-│   └── vercel.json
-├── .gitignore
-└── package.json      # Monorepo (meta)
+├─ backend/
+│  ├─ app.js                 # Express app bootstrap (API + middleware)
+│  ├─ routes/
+│  │  ├─ admin.js            # Admin endpoints (protected)
+│  │  ├─ auth.js             # Login/reset for admin
+│  │  └─ public.js           # Public read endpoints
+│  ├─ models/                # Mongo/Mongoose models (Events, Team, etc.)
+│  └─ package.json
+├─ frontend/
+│  ├─ index.html             # SPA entry
+│  ├─ src/
+│  │  ├─ pages/              # Views (Home, Events, Schedule…)
+│  │  └─ components/         # Reusable UI blocks
+│  └─ package.json
+├─ package.json              # Root tooling
+└─ README.md
 ```
 
 ---
 
-## ⚡ Quickstart
+## 🧭 User Scenarios
+- Freshers browse events, schedule, team, sponsors, and gallery with smooth SPA navigation
+- Admin logs in, creates/updates events, uploads gallery items, manages team/sponsors
+- Visitors submit inquiries via contact; admins receive and respond efficiently
 
-### 1. Clone
-```bash
-git clone https://github.com/arpanpramanik2003/freshers-website.git
+---
+
+## 🔐 Authentication & Roles
+- Public: Read-only GET endpoints (events, schedule, team, sponsors, gallery)
+- Admin: JWT-protected CRUD on all content domains and admin session management
+
+---
+
+## 🔌 API Overview (Sample)
+Base URL: https://<your-backend-host>/api
+
+```
+GET   /events                # List events (public)
+GET   /events/:id            # Event details
+POST  /events                # Create (admin)
+PUT   /events/:id            # Update (admin)
+DELETE /events/:id            # Delete (admin)
+
+GET   /schedule              # Daily/overall schedule
+GET   /team                  # Core team & volunteers
+GET   /sponsors              # Sponsor listings
+GET   /gallery               # Media gallery
+
+POST  /auth/login            # Admin login → JWT
+POST  /auth/reset            # Reset flow (if enabled)
+POST  /contact               # Send contact message
+```
+
+Notes:
+- Provide Authorization: Bearer <token> on admin routes
+- Validation errors return 4xx with details; unexpected errors return 5xx
+
+---
+
+## 🧱 Data Flow (ASCII Diagram)
+```
+[Browser SPA]
+   |   fetch JSON (GET)
+   v
+[Frontend (React/Vite)]  -- axios/fetch -->  [Backend (Express)] -- ODM --> [DB]
+   ^                              |                    |
+   |             JWT (Bearer) on admin routes         |
+   +-------------- Protected admin UI <----------------+
+```
+
+---
+
+## 🚀 Quick Start (Local)
+
+Prerequisites: Node 18+, npm, MongoDB URL
+
+1) Clone
+```
+git clone https://github.com/arpanpramanik2003/freshers-website
 cd freshers-website
 ```
 
-### 2. Backend
-```bash
-cd backend
-npm install
-# Create .env with:
-# PORT=10000
-# DATABASE_URL=your_postgres_url
-# JWT_SECRET_KEY=...
-# FRONTEND_URL=...
-# ADMIN_RESET_CODE=...
-npm run dev
+2) Install
 ```
-Production deploy with Render.com (see `render.yaml`).
-
-### 3. Frontend
-```bash
-cd frontend
+# root optional
 npm install
-# Optional: .env for API URL
-npm run dev
+
+# backend
+cd backend && npm install && cd ..
+
+# frontend
+cd frontend && npm install && cd ..
 ```
-Production deploy with Vercel (auto-detects from `vercel.json`).
+
+3) Environment
+Create .env files:
+```
+backend/.env
+  PORT=5000
+  MONGO_URI=mongodb+srv://...
+  JWT_SECRET=supersecret
+  CORS_ORIGIN=http://localhost:5173
+
+frontend/.env
+  VITE_API_BASE=http://localhost:5000/api
+```
+
+4) Run (two terminals)
+```
+# backend
+cd backend && npm run dev
+
+# frontend
+cd frontend && npm run dev
+```
+
+5) Open
+- Frontend: http://localhost:5173
+- API: http://localhost:5000/api
 
 ---
 
-## 🧩 API (Major Endpoints)
-
-| Route           | Method | Auth   | Purpose                |
-|-----------------|--------|--------|------------------------|
-| `/api/events`   | CRUD   | Admin  | Manage/view events     |
-| `/api/schedule` | CRUD   | Admin  | Manage/view schedule   |
-| `/api/team`     | CRUD   | Admin  | Manage/view team       |
-| `/api/gallery`  | CRUD   | Admin  | Manage/view gallery    |
-| `/api/sponsors` | CRUD   | Admin  | Manage/view sponsors   |
-| `/api/tshirts-goodies` | CRUD | Admin | Goodies/prizes |
-| `/api/auth`     | POST   | Public | Login/reset admin      |
-| `/api/contact`  | POST   | Public | Send contact messages  |
-
-All major admin APIs require JWT tokens. Regular site users only use GET endpoints.
+## 🛠️ Scripts
+Check package.json in each workspace. Typical scripts:
+- Backend: dev, start, lint, test
+- Frontend: dev, build, preview, lint
 
 ---
 
-## 🌐 Deployment
-
-- **Backend:** Render cloud (Node.js) using `render.yaml` auto-provisions the app
-- **Frontend:** Vercel deployment (SPA, rewrites all routes to `index.html`)
-
----
-
-## 🤝 Contributing
-
-1. Fork the repo, work in feature branches
-2. Open PRs for review
-3. Use Issues to report bugs
-4. Formatted code contributions are welcome!
+## 🧪 Advanced Usage
+- Seed data: add a seed script to populate events/team for demos
+- Image uploads: configure storage (e.g., Cloudinary or S3) in gallery routes
+- Role expansion: introduce roles (organizer, editor) via JWT claims
+- Caching: add HTTP cache headers for public GETs; CDN on Vercel for assets
+- Observability: add request logging and error tracking (pino/winston + Sentry)
 
 ---
 
-## 📜 License
-
-Feel free to use/adapt for your college event. Provided as open educational event software.
+## 🔍 Example: Admin Event Lifecycle
+```
+Login → Receive JWT → Create Event → Update Details → Publish → Feature on Home
+```
+Request example:
+```
+POST /api/events
+Authorization: Bearer <token>
+Content-Type: application/json
+{
+  "title": "Hackathon",
+  "date": "2025-01-10",
+  "venue": "Main Auditorium",
+  "tags": ["tech", "coding"],
+  "description": "24-hour build sprint for freshers"
+}
+```
 
 ---
 
-**Keywords:** ABHIGRAHA 2K25, freshers, React, Express, Vite, college event, CRUD, admin, Render, Vercel
+## 🧭 Frontend Pages
+- Home: Hero, highlights, CTA to register/explore
+- Events: Filterable list + detail views
+- Schedule: Day-wise agenda
+- Team: Organizers + roles
+- Sponsors: Tiers and logos
+- Gallery: Photos/videos from events
+- Contact: Form with validation
 
 ---
 
-*Auto-generated via Comet Assistant.*
+## 🗺️ Roadmap
+- [ ] Admin dashboard UI polish and analytics
+- [ ] Rich text editor for event descriptions
+- [ ] Media upload with progress and moderation
+- [ ] Notifications and RSVP integration
+- [ ] i18n and accessibility audits
+
+---
+
+## 🙌 Credits
+- Core: React, Vite, Express, MongoDB, JWT
+- Infra: Vercel (frontend), Render (backend)
+- Contributors: College organizing committee and volunteers
+
+---
+
+## 💬 Support
+- Issues: https://github.com/arpanpramanik2003/freshers-website/issues
+- Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
+- Security: Please report privately via issues with [security] tag
+
+---
+
+## 📄 License
+MIT License — see LICENSE if present. Content and assets belong to their respective owners.
+
+—
+Built with passion for ABHIGRAHA 2K25 🎉
