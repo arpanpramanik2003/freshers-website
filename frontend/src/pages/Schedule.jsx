@@ -99,13 +99,13 @@ export default function Schedule() {
       <div className="relative z-10 max-w-6xl mx-auto">
         
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
-          <div className="inline-block mb-6">
-            <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-md px-6 py-2 rounded-full border border-purple-400/30 shadow-xl">
-              <span className="text-purple-300 font-bold text-sm tracking-widest uppercase">
-                📅 Event Timeline
-              </span>
-            </div>
-          </div>
+          {/* <div className="inline-block mb-6"> */}
+            {/* <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-md px-6 py-2 rounded-full border border-purple-400/30 shadow-xl"> */}
+              {/* <span className="text-purple-300 font-bold text-sm tracking-widest uppercase"> */}
+                {/* 📅 Event Timeline */}
+              {/* </span> */}
+            {/* </div> */}
+          {/* </div> */}
           
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 text-white drop-shadow-2xl animate-fadeInUp">
             SCHEDULE
