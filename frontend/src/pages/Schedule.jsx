@@ -94,7 +94,7 @@ export default function Schedule() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50"></div>
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-purple-900/20 to-black/50"></div> */}
 
       <div className="relative z-10 max-w-6xl mx-auto">
         
