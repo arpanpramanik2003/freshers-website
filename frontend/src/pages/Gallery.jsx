@@ -214,28 +214,22 @@ export default function Gallery() {
           <div className="absolute inset-0 bg-black/80"></div>
           
           {/* Modal Container */}
-          <div className="relative w-full h-full max-w-6xl max-h-full flex items-center justify-center z-10">
+          <div className="relative w-full h-full max-w-6xl max-h-full flex flex-col items-center justify-center z-10">
             
             {/* Image Container */}
-            <div className="relative max-w-full max-h-full flex items-center justify-center">
+            <div className="relative max-w-full flex items-center justify-center flex-1">
               {/* Glow effect around modal image */}
               <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 via-blue-400/20 to-purple-600/20 rounded-3xl blur-2xl animate-pulse"></div>
               
               <img 
                 src={selectedImage.image_url} 
                 alt={selectedImage.caption}
-                className="relative max-w-full max-h-[85vh] sm:max-h-[90vh] w-auto h-auto object-contain rounded-2xl shadow-2xl border-2 border-purple-400/50 backdrop-blur-sm"
-                style={{
-                  minWidth: '300px',
-                  minHeight: '200px',
-                  maxWidth: '95vw',
-                  maxHeight: '90vh'
-                }}
+                className="relative max-w-full max-h-[70vh] sm:max-h-[80vh] w-auto h-auto object-contain rounded-2xl shadow-2xl border-2 border-purple-400/50 backdrop-blur-sm"
               />
             </div>
             
             {/* Caption with glassmorphism */}
-            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 bg-black/40 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+            <div className="w-full max-w-4xl bg-black/40 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20 mt-4">
               <h4 className="text-white text-lg sm:text-xl md:text-2xl font-black text-center drop-shadow-lg">
                 {selectedImage.caption || `ABHIGRAHA ${selectedImage.year || 2025}`}
               </h4>
@@ -244,6 +238,59 @@ export default function Gallery() {
                 Image {gallery.findIndex(img => img.id === selectedImage.id) + 1} of {gallery.length}
               </p>
             </div>
+            
+            {/* Navigation buttons - BELOW IMAGE on mobile, SIDES on desktop */}
+            {gallery.length > 1 && (
+              <>
+                {/* Mobile: Buttons below image */}
+                <div className="flex sm:hidden gap-4 mt-4 w-full max-w-xs justify-center">
+                  <button 
+                    className="w-16 h-16 bg-gradient-to-r from-purple-500/90 to-purple-600/90 hover:from-purple-600/90 hover:to-purple-700/90 backdrop-blur-sm text-white rounded-full flex items-center justify-center text-3xl font-bold shadow-2xl border-2 border-white/20 transition-all transform active:scale-95"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImage('prev');
+                    }}
+                    aria-label="Previous image"
+                  >
+                    ‹
+                  </button>
+                  
+                  <button 
+                    className="w-16 h-16 bg-gradient-to-r from-blue-500/90 to-blue-600/90 hover:from-blue-600/90 hover:to-blue-700/90 backdrop-blur-sm text-white rounded-full flex items-center justify-center text-3xl font-bold shadow-2xl border-2 border-white/20 transition-all transform active:scale-95"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImage('next');
+                    }}
+                    aria-label="Next image"
+                  >
+                    ›
+                  </button>
+                </div>
+
+                {/* Desktop: Buttons on sides */}
+                <button 
+                  className="hidden sm:flex absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-purple-500/90 to-purple-600/90 hover:from-purple-600/90 hover:to-purple-700/90 backdrop-blur-sm text-white rounded-full items-center justify-center text-2xl font-bold shadow-2xl border-2 border-white/20 transition-all transform hover:scale-110"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigateImage('prev');
+                  }}
+                  aria-label="Previous image"
+                >
+                  ‹
+                </button>
+                
+                <button 
+                  className="hidden sm:flex absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-blue-500/90 to-blue-600/90 hover:from-blue-600/90 hover:to-blue-700/90 backdrop-blur-sm text-white rounded-full items-center justify-center text-2xl font-bold shadow-2xl border-2 border-white/20 transition-all transform hover:scale-110"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigateImage('next');
+                  }}
+                  aria-label="Next image"
+                >
+                  ›
+                </button>
+              </>
+            )}
             
             {/* Close button */}
             <button 
@@ -256,33 +303,6 @@ export default function Gallery() {
             >
               ×
             </button>
-            
-            {/* Navigation buttons */}
-            {gallery.length > 1 && (
-              <>
-                <button 
-                  className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-purple-500/90 to-purple-600/90 hover:from-purple-600/90 hover:to-purple-700/90 backdrop-blur-sm text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-2xl border-2 border-white/20 transition-all transform hover:scale-110"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigateImage('prev');
-                  }}
-                  aria-label="Previous image"
-                >
-                  ‹
-                </button>
-                
-                <button 
-                  className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-gradient-to-r from-blue-500/90 to-blue-600/90 hover:from-blue-600/90 hover:to-blue-700/90 backdrop-blur-sm text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-2xl border-2 border-white/20 transition-all transform hover:scale-110"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigateImage('next');
-                  }}
-                  aria-label="Next image"
-                >
-                  ›
-                </button>
-              </>
-            )}
           </div>
           
           {/* Click outside to close */}
@@ -292,9 +312,6 @@ export default function Gallery() {
           ></div>
         </div>
       )}
-
-      {/* Bottom padding */}
-      {/* <div className="h-16 sm:h-20"></div> */}
       
       {/* Custom CSS for animations */}
       <style jsx>{`
