@@ -233,7 +233,7 @@ export default function Schedule() {
             </div>
           </div>
         ) : (
-          /* Ultra Modern No Schedule State */}
+      {/* Ultra Modern No Schedule State */}
           <div className="text-center py-12 sm:py-16">
             <div className="bg-gradient-to-br from-black/40 via-purple-900/20 to-black/40 backdrop-blur-2xl rounded-3xl p-8 sm:p-12 md:p-16 border border-white/10 shadow-2xl max-w-3xl mx-auto hover:scale-105 hover:border-purple-400/30 transition-all duration-700 cursor-pointer group">
               
