@@ -46,9 +46,14 @@ export default function Footer() {
     });
   };
 
-  const handleIconClick = (type) => {
-    setActiveTooltip(activeTooltip === type ? null : type);
-    setTimeout(() => setActiveTooltip(null), 3000);
+  const handleIconClick = (type, e) => {
+    e.preventDefault();
+    if (activeTooltip === type) {
+      setActiveTooltip(null);
+    } else {
+      setActiveTooltip(type);
+      setTimeout(() => setActiveTooltip(null), 3000);
+    }
   };
 
   return (
@@ -83,34 +88,32 @@ export default function Footer() {
             {/* Center: Contact Information - Mobile: Icons Only, Desktop: Full Info */}
             <div className="space-y-4">
               
-              {/* Mobile View: Icon Grid (only icons, clickable for info) */}
-              <div className="flex justify-center gap-6 lg:hidden">
+              {/* Mobile View: Icon Grid (smaller icons, clickable for info) */}
+              <div className="flex justify-center gap-4 lg:hidden">
                 {/* Gmail Icon - Mobile */}
                 <div className="relative">
-                  <a 
-                    href="mailto:abhigraha2k25@gmail.com"
-                    className="block"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleIconClick('email');
-                    }}
+                  <button
+                    onClick={(e) => handleIconClick('email', e)}
+                    className="block focus:outline-none"
                   >
-                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-2 shadow-xl hover:scale-110 active:scale-95 transition-transform">
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-2 shadow-lg hover:scale-110 active:scale-95 transition-transform">
                       <img 
                         src="/gmail.png" 
                         alt="Gmail" 
                         className="w-full h-full object-contain"
                         onError={(e) => {
                           e.target.style.display = 'none';
-                          e.target.parentElement.innerHTML = '<span class="text-red-500 text-2xl">📧</span>';
+                          e.target.parentElement.innerHTML = '<span class="text-red-500 text-xl">📧</span>';
                         }}
                       />
                     </div>
-                  </a>
+                  </button>
                   {activeTooltip === 'email' && (
-                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-xl border border-white/20 animate-fade-in">
-                      abhigraha2k25@gmail.com
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/95 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-2xl border border-white/30 animate-fade-in">
+                      <a href="mailto:abhigraha2k25@gmail.com" className="hover:text-purple-300">
+                        abhigraha2k25@gmail.com
+                      </a>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/95"></div>
                     </div>
                   )}
                 </div>
@@ -122,44 +125,42 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
-                    onClick={(e) => {
-                      handleIconClick('instagram');
-                    }}
                   >
-                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-2 shadow-xl hover:scale-110 active:scale-95 transition-transform">
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-2 shadow-lg hover:scale-110 active:scale-95 transition-transform">
                       <img 
                         src="/insta.png" 
                         alt="Instagram" 
                         className="w-full h-full object-contain"
                         onError={(e) => {
                           e.target.style.display = 'none';
-                          e.target.parentElement.innerHTML = '<span class="text-pink-500 text-2xl">📸</span>';
+                          e.target.parentElement.innerHTML = '<span class="text-pink-500 text-xl">📸</span>';
                         }}
                       />
                     </div>
                   </a>
-                  {activeTooltip === 'instagram' && (
-                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-xl border border-white/20 animate-fade-in">
-                      @abhigraha_2k25
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
-                    </div>
-                  )}
                 </div>
 
-                {/* Location Icon - Mobile */}
+                {/* Location Icon - Mobile (Fixed with better icon) */}
                 <div className="relative">
                   <button
-                    onClick={() => handleIconClick('location')}
-                    className="block"
+                    onClick={(e) => handleIconClick('location', e)}
+                    className="block focus:outline-none"
                   >
-                    <div className="w-14 h-14 bg-blue-500/80 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-transform">
-                      <span className="text-white text-3xl">📍</span>
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform">
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="white" 
+                        className="w-7 h-7"
+                      >
+                        <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                      </svg>
                     </div>
                   </button>
                   {activeTooltip === 'location' && (
-                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-xl border border-white/20 animate-fade-in">
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-black/95 backdrop-blur-md text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-50 shadow-2xl border border-white/30 animate-fade-in">
                       Main Playground
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/95"></div>
                     </div>
                   )}
                 </div>
