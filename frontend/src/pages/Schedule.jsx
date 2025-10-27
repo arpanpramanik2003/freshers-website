@@ -70,7 +70,7 @@ export default function Schedule() {
           backgroundAttachment: 'fixed'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-purple-900/30 to-black/60"></div>
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-purple-900/30 to-black/60"></div> */}
         <div className="relative z-10 text-center">
           <div className="relative">
             <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-t-4 border-purple-400 border-r-4 border-r-transparent mx-auto mb-8 shadow-2xl shadow-purple-500/50"></div>
