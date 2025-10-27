@@ -14,8 +14,8 @@ export default function Navbar() {
     ["EVENTS", "/events"],
     ["SCHEDULE", "/schedule"],
     ["TEAM", "/team"],
-    ["PRIZES", "/prizes"],
-    ["T-SHIRTS & GOODIES", "/tshirts-goodies"],
+    ["CROWNS", "/prizes"],
+    ["MERCHANDISE", "/tshirts-goodies"],
     ["GALLERY", "/gallery"],
     ["SPONSORS", "/sponsors"],
   ];
