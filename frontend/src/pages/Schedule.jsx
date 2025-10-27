@@ -99,7 +99,7 @@ export default function Schedule() {
 
       <div className="relative z-10 max-w-6xl mx-auto">
         
-        {/* Fixed Header - Solid White Text */}
+        {/* Ultra Modern Page Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <div className="inline-block mb-6">
             <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-md px-6 py-2 rounded-full border border-purple-400/30 shadow-xl">
@@ -109,7 +109,7 @@ export default function Schedule() {
             </div>
           </div>
           
-          {/* Changed to solid white text like Events section */}
+          {/* FIXED: Solid white text */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 text-white drop-shadow-2xl animate-fadeInUp">
             SCHEDULE
           </h1>
@@ -183,7 +183,7 @@ export default function Schedule() {
                               
                               {/* Status Badge - Mobile Friendly */}
                               <div className={`${style.badgeBg} backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full border ${style.badgeBorder} shadow-lg group-hover:scale-105 transition-transform duration-300`}>
-                                <span className={`font-black text-xs sm:text-sm uppercase tracking-wider transition-colors duration-300 ${
+                                <span className={`font-black text-xs sm:text-sm uppercase tracking-wider ${
                                   item.status === 'done' ? 'text-green-300' :
                                   item.status === 'ongoing' ? 'text-yellow-300' :
                                   item.status === 'upcoming' ? 'text-red-300' :
@@ -194,9 +194,9 @@ export default function Schedule() {
                               </div>
                             </div>
                             
-                            {/* Event Title - Fixed to White Text with Shadow */}
+                            {/* Event Title - FIXED: Solid White with purple tint on hover */}
                             <div className="mt-4">
-                              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg group-hover:text-purple-200 transition-all duration-500 leading-tight break-words">
+                              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg group-hover:text-purple-100 transition-colors duration-300 leading-tight break-words">
                                 {item.title}
                               </h3>
                             </div>
@@ -233,7 +233,7 @@ export default function Schedule() {
             </div>
           </div>
         ) : (
-          /* Ultra Modern No Schedule State - Fixed White Text */}
+          /* Ultra Modern No Schedule State */}
           <div className="text-center py-12 sm:py-16">
             <div className="bg-gradient-to-br from-black/40 via-purple-900/20 to-black/40 backdrop-blur-2xl rounded-3xl p-8 sm:p-12 md:p-16 border border-white/10 shadow-2xl max-w-3xl mx-auto hover:scale-105 hover:border-purple-400/30 transition-all duration-700 cursor-pointer group">
               
@@ -243,8 +243,8 @@ export default function Schedule() {
                 <div className="absolute inset-0 bg-purple-500 opacity-20 blur-3xl rounded-full animate-pulse"></div>
               </div>
               
-              {/* Fixed to solid white text */}
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 drop-shadow-xl group-hover:text-purple-200 transition-all duration-500">
+              {/* FIXED: Solid white text */}
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 drop-shadow-xl group-hover:text-purple-100 transition-colors duration-500">
                 Schedule Coming Soon!
               </h3>
               
