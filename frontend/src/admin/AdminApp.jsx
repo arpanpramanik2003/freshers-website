@@ -81,7 +81,7 @@ export default function AdminApp() {
         <div className="bg-black/60 backdrop-blur-lg rounded-2xl p-8 w-full max-w-md border border-secondary/30">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">🎭 Admin Panel</h1>
-            <p className="text-gray-300">Bollywood Night Dashboard</p>
+            <p className="text-gray-300">ABHIGRAHA 2K25 Dashboard</p>
           </div>
 
           <form onSubmit={(e) => {
