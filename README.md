@@ -1,216 +1,264 @@
-# ABHIGRAHA 2K25 — Freshers Website
+# ABHIGRAHA 2K25 — Freshers Event Portal
 
-[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#) [![Deploy-Frontend](https://img.shields.io/badge/vercel-frontend-blue)](#) [![Deploy-Backend](https://img.shields.io/badge/render-backend-purple)](#) [![License](https://img.shields.io/badge/license-MIT-black)](#) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange)](#)
+A full‑stack event management and discovery portal for ABHIGRAHA 2K25. This repository contains the frontend and supporting assets, along with documentation for the backend APIs, infrastructure, and deployment workflows.
 
-Inspire, inform, and onboard first-year students with a modern, responsive event portal. This mono-repo hosts a React SPA frontend and an Express.js API backend for managing events, schedule, team, gallery, sponsors, and goodies.
-
----
-
-## ✨ Highlights
-- Full-stack JS: React (Vite) + Express + MongoDB (via models)
-- Clean separation: frontend/ and backend/ workspaces
-- Admin-ready: JWT-protected CRUD for all dynamic sections
-- Mobile-first UI with fast dev build (Vite) and SPA routing
-- Cloud-native deploys: Vercel (frontend) + Render (backend)
+Live demo: TO_BE_ADDED • Status: Active development • License: MIT
 
 ---
 
-## 🗂️ Repository Structure
+## Overview
+
+ABHIGRAHA 2K25 is a campus‑wide fresher’s festival. The portal streamlines:
+- Public pages: home, events catalog, schedule, gallery, sponsors, team, contact
+- User flows: sign up/sign in, profile, event registration, RSVP, reminders
+- Organizer flows: event CRUD, schedule builder, attendee export, announcements
+- Admin flows: role management, content moderation, analytics snapshots
+
+Why this stack? We prioritized developer velocity, low operational overhead, and the ability to iterate on content and features quickly as the festival timeline evolves.
+
+---
+
+## Features
+
+- Events
+  - Filterable listing (tags, date, type) and SEO‑friendly detail pages
+  - Registration with capacity limits, waitlist and QR/Code check‑in
+- Schedule
+  - Day/time/venue grid, ICS export, timezone aware
+- Media
+  - Gallery with lazy image loading and video embeds
+  - Object storage via Dropbox (App Folder) with signed links
+- Content
+  - Markdown‑authored pages, sponsor tiers, team roster
+  - Rich text editor (planned) for event descriptions
+- Notifications
+  - Email templates and RSVP reminders (provider‑agnostic)
+- Security
+  - JWT session tokens, role‑based access control (RBAC)
+  - Rate limits, CORS, input validation, audit logs (for admin ops)
+- DX & Quality
+  - Vite + React fast refresh, ESLint/Prettier, CI build checks
+
+---
+
+## Monorepo/Repo Structure
+
 ```
 freshers-website/
-├─ backend/
-│  ├─ app.js                 # Express app bootstrap (API + middleware)
-│  ├─ routes/
-│  │  ├─ admin.js            # Admin endpoints (protected)
-│  │  ├─ auth.js             # Login/reset for admin
-│  │  └─ public.js           # Public read endpoints
-│  ├─ models/                # Mongo/Mongoose models (Events, Team, etc.)
-│  └─ package.json
-├─ frontend/
-│  ├─ index.html             # SPA entry
+├─ apps/
+│  ├─ web/                 # React + Vite frontend (this repo’s primary app)
+│  └─ admin/               # (optional) admin UI or routes
+├─ packages/
+│  ├─ ui/                  # shared components
+│  ├─ config/              # ESLint/Prettier/TS configs
+│  └─ utils/               # shared utilities
+├─ server/                 # Express/Node backend (API)
 │  ├─ src/
-│  │  ├─ pages/              # Views (Home, Events, Schedule…)
-│  │  └─ components/         # Reusable UI blocks
-│  └─ package.json
-├─ package.json              # Root tooling
+│  │  ├─ routes/
+│  │  ├─ controllers/
+│  │  ├─ services/
+│  │  ├─ models/           # DB models (PostgreSQL/Supabase)
+│  │  └─ middlewares/
+│  └─ prisma/              # or drizzle/knex schema & migrations (if used)
+├─ infra/
+│  ├─ vercel/              # frontend config
+│  ├─ render/              # backend config
+│  ├─ railway/             # legacy config
+│  └─ supabase/            # schema, policies, storage mapping
+├─ public/                 # static assets
+├─ .github/workflows/      # CI pipelines
 └─ README.md
 ```
 
----
-
-## 🧭 User Scenarios
-- Freshers browse events, schedule, team, sponsors, and gallery with smooth SPA navigation
-- Admin logs in, creates/updates events, uploads gallery items, manages team/sponsors
-- Visitors submit inquiries via contact; admins receive and respond efficiently
+Note: Folder names may vary based on how you split the project. This README documents both frontend and backend even if hosted separately.
 
 ---
 
-## 🔐 Authentication & Roles
-- Public: Read-only GET endpoints (events, schedule, team, sponsors, gallery)
-- Admin: JWT-protected CRUD on all content domains and admin session management
+## Tech Stack
+
+- Frontend: React, Vite, React Router, TailwindCSS (or CSS Modules), TanStack Query
+- Backend: Node.js, Express (or Fastify), JWT auth, Zod validation
+- Database: PostgreSQL (Railway → Render/Supabase migration)
+- ORM/Schema: Prisma or Drizzle (choose one); migrations tracked in repo
+- Storage: Dropbox App Folder for media with short‑lived signed URLs
+- Deployment: Vercel (frontend), Render (backend). Supabase optional for managed Postgres and auth/storage alternatives
+- CI/CD: GitHub Actions for type check, lint, build, and preview deployments
 
 ---
 
-## 🔌 API Overview (Sample)
-Base URL: https://<your-backend-host>/api
+## Infrastructure and Deployment Story
 
-```
-GET   /events                # List events (public)
-GET   /events/:id            # Event details
-POST  /events                # Create (admin)
-PUT   /events/:id            # Update (admin)
-DELETE /events/:id            # Delete (admin)
+We evolved infra pragmatically through the festival cycle:
 
-GET   /schedule              # Daily/overall schedule
-GET   /team                  # Core team & volunteers
-GET   /sponsors              # Sponsor listings
-GET   /gallery               # Media gallery
+1) Phase 1 — Bootstrap on Railway + PostgreSQL
+- Goal: move fast with a single‑click Postgres and Node service
+- Outcome: rapid prototyping, but hit free‑tier sleep limits and regional constraints
 
-POST  /auth/login            # Admin login → JWT
-POST  /auth/reset            # Reset flow (if enabled)
-POST  /contact               # Send contact message
-```
+2) Phase 2 — Backend to Render, DB to Managed Postgres
+- Reason: always‑on services, better autoscaling, predictable pricing
+- Options: Render PostgreSQL or external DB
+- Decision: API on Render; DB on Supabase or Render Postgres depending on team preference
 
-Notes:
-- Provide Authorization: Bearer <token> on admin routes
-- Validation errors return 4xx with details; unexpected errors return 5xx
+3) Phase 3 — Object Storage via Dropbox
+- Simpler than S3 for a small team; App Folder with scoped access
+- Files uploaded server‑side; public access via short‑lived signed links generated by backend
+
+4) Phase 4 — Frontend on Vercel
+- Fast static hosting + edge network, preview deployments per PR
+- Environment variables configured per environment (Preview/Production)
+
+5) Observability & Ops
+- Logs: Render dashboard + Vercel logs
+- Metrics: minimal, with API request logs and error reporting (Sentry optional)
+- Backups: Supabase automated backups; periodic dump for Render Postgres
+
+Environment Variables (representative)
+- FRONTEND
+  - VITE_API_BASE_URL
+  - VITE_PUBLIC_SITE_URL
+- BACKEND
+  - DATABASE_URL (Postgres connection)
+  - JWT_SECRET
+  - DROPBOX_APP_KEY, DROPBOX_APP_SECRET, DROPBOX_REFRESH_TOKEN
+  - CORS_ORIGIN (comma‑separated)
 
 ---
 
-## 🧱 Data Flow (ASCII Diagram)
-```
-[Browser SPA]
-   |   fetch JSON (GET)
-   v
-[Frontend (React/Vite)]  -- axios/fetch -->  [Backend (Express)] -- ODM --> [DB]
-   ^                              |                    |
-   |             JWT (Bearer) on admin routes         |
-   +-------------- Protected admin UI <----------------+
-```
+## Local Development Setup
 
----
+Prerequisites
+- Node.js 18+
+- PNPM (recommended) or npm/yarn
+- PostgreSQL 14+ (local or cloud) or Supabase project
+- Dropbox App (scoped to App Folder) for media
 
-## 🚀 Quick Start (Local)
-
-Prerequisites: Node 18+, npm, MongoDB URL
-
+Steps
 1) Clone
-```
-git clone https://github.com/arpanpramanik2003/freshers-website
-cd freshers-website
-```
+   - git clone https://github.com/arpanpramanik2003/freshers-website
+   - cd freshers-website
+2) Install deps
+   - pnpm install
+3) Configure envs
+   - cp .env.example .env (root and server/.env, apps/web/.env as needed)
+   - Fill values for DATABASE_URL, JWT_SECRET, VITE_API_BASE_URL, Dropbox creds
+4) Database
+   - Run migrations: pnpm -C server prisma migrate dev  (or drizzle kit)
+   - Seed (optional): pnpm -C server seed
+5) Start dev
+   - Frontend: pnpm -C apps/web dev
+   - Backend: pnpm -C server dev
+6) Open
+   - http://localhost:5173 (frontend)
+   - http://localhost:3000 (backend)
 
-2) Install
-```
-# root optional
-npm install
+Production Build
+- Frontend: pnpm -C apps/web build
+- Backend: pnpm -C server build && pnpm -C server start
 
-# backend
-cd backend && npm install && cd ..
-
-# frontend
-cd frontend && npm install && cd ..
-```
-
-3) Environment
-Create .env files:
-```
-backend/.env
-  PORT=5000
-  MONGO_URI=mongodb+srv://...
-  JWT_SECRET=supersecret
-  CORS_ORIGIN=http://localhost:5173
-
-frontend/.env
-  VITE_API_BASE=http://localhost:5000/api
-```
-
-4) Run (two terminals)
-```
-# backend
-cd backend && npm run dev
-
-# frontend
-cd frontend && npm run dev
-```
-
-5) Open
-- Frontend: http://localhost:5173
-- API: http://localhost:5000/api
+Docker (optional)
+- docker compose up --build
 
 ---
 
-## 🛠️ Scripts
-Check package.json in each workspace. Typical scripts:
-- Backend: dev, start, lint, test
-- Frontend: dev, build, preview, lint
+## API Overview (Backend)
+
+Base URL
+- Production: https://api.example.com
+- Preview/Local: http://localhost:3000
+
+Auth
+- POST /auth/register — email, password, name
+- POST /auth/login — returns JWT
+- GET /auth/me — current user profile (Authorization: Bearer <token>)
+
+Events
+- GET /events — list with query params: q, tag, dateFrom, dateTo, page, limit
+- GET /events/:id — event details
+- POST /events — create (admin/organizer)
+- PATCH /events/:id — update (admin/organizer)
+- DELETE /events/:id — delete (admin)
+
+Registrations
+- POST /events/:id/register — register current user
+- GET /events/:id/attendees — list (organizer/admin)
+- POST /events/:id/checkin — mark attendance with code/QR (organizer)
+
+Media
+- POST /media/upload — uploads to Dropbox, returns signed URL
+- GET /media/:id — metadata and temporary link
+
+Misc
+- GET /schedule — consolidated agenda
+- GET /team — organizers
+- GET /sponsors — sponsor tiers
+
+All mutating endpoints validate payloads (Zod) and enforce RBAC.
 
 ---
 
-## 🧪 Advanced Usage
-- Seed data: add a seed script to populate events/team for demos
-- Image uploads: configure storage (e.g., Cloudinary or S3) in gallery routes
-- Role expansion: introduce roles (organizer, editor) via JWT claims
-- Caching: add HTTP cache headers for public GETs; CDN on Vercel for assets
-- Observability: add request logging and error tracking (pino/winston + Sentry)
+## Frontend Pages and UX
+
+- Home: hero, highlights, CTA to register/explore
+- Events: filters, search, tags, detail pages with shareable links
+- Schedule: day‑wise agenda; add‑to‑calendar (ICS)
+- Team: organizers + roles
+- Sponsors: tiers and logos
+- Gallery: photos/videos; lazy loading
+- Contact: form with validation
+- Account: profile, RSVPs, registrations
+- Admin: dashboard, analytics snapshot, content moderation
 
 ---
 
-## 🔍 Example: Admin Event Lifecycle
-```
-Login → Receive JWT → Create Event → Update Details → Publish → Feature on Home
-```
-Request example:
-```
-POST /api/events
-Authorization: Bearer <token>
-Content-Type: application/json
-{
-  "title": "Hackathon",
-  "date": "2025-01-10",
-  "venue": "Main Auditorium",
-  "tags": ["tech", "coding"],
-  "description": "24-hour build sprint for freshers"
-}
-```
+## CI/CD
+
+- GitHub Actions
+  - Lint/Typecheck/Build on PRs
+  - Vercel preview deployments for frontend
+  - Optional: Render deploy hook for backend
 
 ---
 
-## 🧭 Frontend Pages
-- Home: Hero, highlights, CTA to register/explore
-- Events: Filterable list + detail views
-- Schedule: Day-wise agenda
-- Team: Organizers + roles
-- Sponsors: Tiers and logos
-- Gallery: Photos/videos from events
-- Contact: Form with validation
+## Roadmap
 
----
-
-## 🗺️ Roadmap
 - [ ] Admin dashboard UI polish and analytics
 - [ ] Rich text editor for event descriptions
 - [ ] Media upload with progress and moderation
-- [ ] Notifications and RSVP integration
+- [ ] Notifications and RSVP integration (email + in‑app)
 - [ ] i18n and accessibility audits
+- [ ] Offline‑first schedule and ticket wallet (PWA)
+- [ ] Basic Sentry integration for FE/BE
 
 ---
 
-## 🙌 Credits
-- Core: React, Vite, Express, MongoDB, JWT
-- Infra: Vercel (frontend), Render (backend)
+## Badges & Links
+
+- Issues: https://github.com/arpanpramanik2003/freshers-website/issues
+- Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
+- CI: GitHub Actions status badge (add once workflow is live)
+- Frontend: Vercel deployment link (add)
+- Backend: Render API link (add)
+
+---
+
+## Credits
+
+- Core: React, Vite, Express, PostgreSQL, JWT
+- Infra: Vercel (frontend), Render (backend), Supabase/Render Postgres (DB), Dropbox (storage)
 - Contributors: College organizing committee and volunteers
 
 ---
 
-## 💬 Support
-- Issues: https://github.com/arpanpramanik2003/freshers-website/issues
-- Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
-- Security: Please report privately via issues with [security] tag
+## Support
+
+- Bug reports: open an issue with repro steps and screenshots/logs
+- Security: please report privately via issues and mark with the security tag
+- Questions: start a discussion
 
 ---
 
-## 📄 License
+## License
+
 MIT License — see LICENSE if present. Content and assets belong to their respective owners.
 
 —
