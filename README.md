@@ -1,64 +1,118 @@
 # ABHIGRAHA 2K25 — Freshers Website
 
-A full-stack web application for ABHIGRAHA 2K25 to showcase events, schedules, team, sponsors, galleries, and registrations. The stack is optimized for fast iteration, modern DX, and cloud-native hosting.
+<p align="center">
+  <a href="https://vercel.com" target="_blank"><img alt="Vercel" src="https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white"></a>
+  <a href="https://render.com" target="_blank"><img alt="Render" src="https://img.shields.io/badge/Deploy-Render-2A7FFF?logo=render&logoColor=white"></a>
+  <a href="https://supabase.com" target="_blank"><img alt="Supabase" src="https://img.shields.io/badge/Database-Supabase-3FCF8E?logo=supabase&logoColor=white"></a>
+  <a href="https://dropbox.com" target="_blank"><img alt="Dropbox" src="https://img.shields.io/badge/Storage-Dropbox-0061FF?logo=dropbox&logoColor=white"></a>
+  <a href="https://github.com/arpanpramanik2003/freshers-website/actions" target="_blank"><img alt="CI" src="https://github.com/arpanpramanik2003/freshers-website/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="#license" target="_self"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+  <a href="https://github.com/arpanpramanik2003/freshers-website/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/arpanpramanik2003/freshers-website?style=social"></a>
+  <a href="https://github.com/arpanpramanik2003/freshers-website/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/arpanpramanik2003/freshers-website"></a>
+</p>
 
-## Tech Stack
-- Frontend: React + Vite + Tailwind CSS (deployed on Vercel)
-- Backend: Express.js + Node.js (deployed on Render)
-- Database: Supabase (PostgreSQL)
-- Storage: Dropbox (static assets/images)
-- Auth: JWT-based session handling (if applicable in backend)
+A production-ready, cloud-native platform for ABHIGRAHA 2K25 that showcases events, schedules, teams, sponsors, media galleries, and secure registrations. The system is designed for high reliability, low latency, and smooth content operations through a modular architecture deployed across Vercel (frontend) and Render (backend), with Supabase (PostgreSQL) for relational data and Dropbox for asset delivery.
 
-Note: This project uses PostgreSQL via Supabase. Any previous references to MongoDB are obsolete and have been removed.
+Highlights
+- Purpose: Provide a polished, scalable, and easily maintainable website for college freshers with admin workflows, analytics-ready data, and delightful UI/UX.
+- Cloud architecture: Edge-optimized static frontend on Vercel + containerized API on Render + managed PostgreSQL (Supabase) + Dropbox CDN-like delivery for media.
+- Modular design: Clear separation of concerns between frontend (React/Vite/Tailwind), backend (Express/Node), data access (pg/Supabase client), and storage (Dropbox SDK/links).
+- Advanced features: Admin dashboard foundations, secure registration (validation + server-side checks), media gallery with cloud image uploads, sponsor tiers, schedule planner, and extensible content types.
+
+Quick Links
+- Live site: https://<your-vercel-app>.vercel.app
+- Backend API: https://<your-render-service>.onrender.com/api
+- Issues: https://github.com/arpanpramanik2003/freshers-website/issues
+- Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
+
+## Technology Stack
+
+| Layer     | Technologies | Hosting |
+|---------- |--------------|---------|
+| Frontend  | React, Vite, Tailwind CSS | Vercel |
+| Backend   | Node.js, Express, pg, Zod/Joi (validation) | Render |
+| Database  | Supabase (PostgreSQL) | Supabase |
+| Storage   | Dropbox (raw links + API uploads) | Dropbox |
+| CI/CD     | GitHub Actions (lint/test/build) | GitHub |
+
+## Architecture Overview
+
+- Frontend (SPA): Static assets served by Vercel with environment-injected VITE_* vars; communicates with backend via REST.
+- Backend (API): Express server exposing /api routes; handles validation, auth (JWT-ready), and integrates with Supabase and Dropbox.
+- Database: Normalized tables for events, schedules, teams, sponsors, media, registrations; uses SQL migrations and indexes for performance.
+- Media: Dropbox shared links transformed to raw URLs for direct image hosting; optional backend upload endpoint with progress + moderation flags.
+- Security: CORS whitelisting, input validation, rate limiting (suggested), JWT for admin routes, secrets confined to server envs.
+
+### Logical Modules
+- Events: CRUD, tagging, schedule mapping.
+- Schedule: Day/time slots, stages/venues, highlights.
+- Team: Roles, departments, social links.
+- Sponsors: Tiered listing with logos and links.
+- Media: Gallery with pagination, lazy loading; supports image/video.
+- Registration: Public form -> server validation -> persistence -> optional email confirmation.
+- Admin: Role-based access (JWT), dashboards for content ops and review queues.
 
 ## Monorepo Structure
 - frontend/ — React app scaffolded with Vite, styled with Tailwind CSS
 - backend/ — Express API server, integrates with Supabase PostgreSQL and Dropbox
 
-## Features
-- Dynamic events listing with detail pages
-- Day-wise schedule and highlights
-- Team and sponsors sections
-- Media gallery (images/videos served via Dropbox links)
-- Contact and registration flows (forms with validation)
-- Admin-ready foundations (routes and components) for content management
-
 ## Environments and Deployments
+
 - Vercel (Frontend)
-  - Builds the frontend from frontend directory
-  - Exposes environment variables to the browser as VITE_*
-  - Configure project root to frontend and set build command: `npm run build` (inside frontend) and output: `dist`
+  - Root directory: frontend
+  - Build command: npm run build
+  - Output directory: dist
+  - Environment variables: VITE_* only
 - Render (Backend)
-  - Runs the Express server from backend
-  - Configure start command: `node server.js` or `npm start` (as defined)
-  - Add required environment variables
+  - Root directory: backend
+  - Start command: node server.js or npm start
+  - Env: DATABASE_URL, SUPABASE_*, DROPBOX_ACCESS_TOKEN, JWT_SECRET, CORS_ORIGIN
 - Supabase (PostgreSQL)
-  - Provides the Postgres database connection string and API keys
-  - Use Supabase JS client for any direct client-side reads (if needed) and secure server-side operations via the backend
-- Dropbox (Static Assets)
-  - Host images/media; store and reference shared/public links from the backend or frontend config
+  - Connection string (DATABASE_URL) with sslmode=require
+  - Prefer server-side queries; avoid exposing service role keys to client
+- Dropbox (Assets)
+  - Use transformed raw URLs for direct display
+  - Perform programmatic uploads from backend using access token
 
 ## Environment Variables
-Create .env files for each package. Do not commit secrets.
 
-Frontend (.env for Vite — variables must start with VITE_):
-- VITE_API_BASE_URL=https://<your-render-backend>.onrender.com
-- VITE_PUBLIC_ASSETS_BASE=https://dl.dropboxusercontent.com/… (or a folder link transformed for direct access)
-- VITE_SUPABASE_URL=https://<your-supabase-project>.supabase.co (optional if frontend uses client)
-- VITE_SUPABASE_ANON_KEY=<anon-key> (optional; use only if needed on client)
+Frontend (.env)
+- VITE_API_BASE_URL=https://<render-service>.onrender.com
+- VITE_PUBLIC_ASSETS_BASE=https://dl.dropboxusercontent.com/... (raw folder link)
+- VITE_SUPABASE_URL=https://<project>.supabase.co (optional)
+- VITE_SUPABASE_ANON_KEY= (optional)
 
-Backend (.env):
+Backend (.env)
 - PORT=8080
 - NODE_ENV=production
-- DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>?sslmode=require (from Supabase)
-- SUPABASE_URL=https://<your-supabase-project>.supabase.co
-- SUPABASE_SERVICE_ROLE_KEY=<service-role-key> (server-only)
-- DROPBOX_ACCESS_TOKEN=<dropbox-token> (server-only, if performing API operations)
-- JWT_SECRET=<strong-secret> (if JWT auth is used)
-- CORS_ORIGIN=https://<your-vercel-frontend>.vercel.app
+- DATABASE_URL=postgresql://user:pass@host:5432/db?sslmode=require
+- SUPABASE_URL=https://<project>.supabase.co
+- SUPABASE_SERVICE_ROLE_KEY=
+- DROPBOX_ACCESS_TOKEN=
+- JWT_SECRET=
+- CORS_ORIGIN=https://<your-vercel-app>.vercel.app
+
+## API Reference
+
+Base URL: /api
+
+Public endpoints
+- GET /api/events — List events
+- GET /api/events/:id — Event details
+- GET /api/schedule — Day-wise schedule
+- GET /api/team — Organizers and roles
+- GET /api/sponsors — Sponsors and tiers
+- GET /api/media — Gallery list (Dropbox URLs)
+- POST /api/register — Registration submission
+
+Admin (secured via JWT; suggest Authorization: Bearer <token>)
+- POST /api/admin/events
+- PATCH /api/admin/events/:id
+- DELETE /api/admin/events/:id
 
 ## Local Development
-Prerequisites: Node.js LTS, npm, Supabase project (for DB creds), optional Dropbox token.
+
+Prerequisites: Node.js LTS, npm, Supabase project, optional Dropbox token
 
 1) Install dependencies
 - npm install
@@ -66,56 +120,38 @@ Prerequisites: Node.js LTS, npm, Supabase project (for DB creds), optional Dropb
 - cd ../backend && npm install
 
 2) Configure env files
-- Create frontend/.env and backend/.env as shown above
+- Create frontend/.env and backend/.env as above
 
 3) Start services
-- Backend: in backend, run `npm run dev` or `npm start`
-- Frontend: in frontend, run `npm run dev` (Vite dev server)
+- Backend: cd backend && npm run dev (or npm start)
+- Frontend: cd frontend && npm run dev (Vite)
 
-4) Access app
-- Frontend: http://localhost:5173 (default Vite)
-- Backend: http://localhost:8080 (or PORT you set)
+4) Access
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8080
 
 ## Build and Deploy
-Frontend (Vercel):
-- Root directory: frontend
-- Build command: npm run build
-- Output directory: dist
-- Environment variables: add the VITE_* vars
 
-Backend (Render):
-- Root directory: backend
-- Build command (optional): npm install
-- Start command: node server.js or npm start
-- Environment variables: DATABASE_URL, SUPABASE_*, DROPBOX_ACCESS_TOKEN, JWT_SECRET, CORS_ORIGIN
+Frontend (Vercel)
+- Root: frontend
+- Build: npm run build
+- Output: dist
+- Env: VITE_* vars
 
-## Data and Storage Design
-- Database (Supabase/PostgreSQL):
-  - Tables: events, schedules, teams, sponsors, media, registrations (adjust to your schema)
-  - Access: Prefer server-side queries via backend using pg or @supabase/postgres-js. Avoid exposing service role keys to the client.
-- Storage (Dropbox):
-  - Use shared links transformed to raw URLs for direct image hosting
-  - For programmatic uploads, use Dropbox API via backend with token stored in env
+Backend (Render)
+- Root: backend
+- Build (optional): npm install
+- Start: node server.js or npm start
+- Env: DATABASE_URL, SUPABASE_*, DROPBOX_ACCESS_TOKEN, JWT_SECRET, CORS_ORIGIN
 
-## API Overview (Backend)
-- Base URL: /api
-- Examples:
-  - GET /api/events — list events
-  - GET /api/events/:id — event details
-  - GET /api/schedule — day-wise schedule
-  - GET /api/team — organizers and roles
-  - GET /api/sponsors — sponsors and tiers
-  - GET /api/media — gallery list (Dropbox URLs)
-  - POST /api/register — registration submission
-  - Admin routes can be secured with JWT if implemented
+## Workflows (CI/CD and Ops)
 
-## Frontend Overview
-- React + Vite app with Tailwind CSS
-- Pages: Home, Events, Schedule, Team, Sponsors, Gallery, Contact
-- State/data fetching via fetch/axios from backend API
-- Environment-driven API base URL (VITE_API_BASE_URL)
+- GitHub Actions: ci.yml to run install, lint, type-check, build, and optional tests on PRs and main.
+- Preview Deployments: Vercel auto-previews per PR for frontend; Render can deploy from main or branches for backend.
+- Release: Tag semantic versions; use conventional commits; docs changes use docs: prefix.
 
 ## Sample Event JSON
+
 ```json
 {
   "title": "Hackathon",
@@ -133,18 +169,29 @@ Backend (Render):
 - [ ] Notifications and RSVP integration
 - [ ] i18n and accessibility audits
 
+## Authors & Contributors
+
+- Maintainer: @arpanpramanik2003
+- Contributors: College organizing committee and volunteers
+
+Badges
+- Commits: https://img.shields.io/github/commit-activity/m/arpanpramanik2003/freshers-website
+- Issues: https://img.shields.io/github/issues/arpanpramanik2003/freshers-website
+- PRs: https://img.shields.io/github/issues-pr/arpanpramanik2003/freshers-website
+
 ## Credits
 - Core: React, Vite, Tailwind CSS, Express, pg, Supabase, JWT
 - Infra: Vercel (frontend), Render (backend), Dropbox (assets)
-- Contributors: College organizing committee and volunteers
+
+## Security
+- Report vulnerabilities privately via GitHub Issues tagged [security]
+- Never commit secrets. Rotate keys on suspicion. Enforce least privilege on Supabase and Dropbox tokens.
 
 ## Support
 - Issues: https://github.com/arpanpramanik2003/freshers-website/issues
 - Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
-- Security: Please report privately via issues with [security] tag
 
 ## License
 MIT License — see LICENSE if present. Content and assets belong to their respective owners.
 
-—
-Built with passion for ABHIGRAHA 2K25 🎉
+— Built with passion for ABHIGRAHA 2K25 🎉
