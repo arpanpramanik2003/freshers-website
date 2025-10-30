@@ -5,7 +5,7 @@
   <a href="https://render.com" target="_blank"><img alt="Render" src="https://img.shields.io/badge/Deploy-Render-2A7FFF?logo=render&logoColor=white"></a>
   <a href="https://supabase.com" target="_blank"><img alt="Supabase" src="https://img.shields.io/badge/Database-Supabase-3FCF8E?logo=supabase&logoColor=white"></a>
   <a href="https://dropbox.com" target="_blank"><img alt="Dropbox" src="https://img.shields.io/badge/Storage-Dropbox-0061FF?logo=dropbox&logoColor=white"></a>
-  <a href="https://github.com/arpanpramanik2003/freshers-website/actions" target="_blank"><img alt="CI" src="https://github.com/arpanpramanik2003/freshers-website/actions/workflows/ci.yml/badge.svg"></a>
+  <!-- <a href="https://github.com/arpanpramanik2003/freshers-website/actions" target="_blank"><img alt="CI" src="https://github.com/arpanpramanik2003/freshers-website/actions/workflows/ci.yml/badge.svg"></a> -->
   <a href="#license" target="_self"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
   <a href="https://github.com/arpanpramanik2003/freshers-website/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/arpanpramanik2003/freshers-website?style=social"></a>
   <a href="https://github.com/arpanpramanik2003/freshers-website/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/arpanpramanik2003/freshers-website"></a>
