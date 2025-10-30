@@ -1,170 +1,122 @@
 # ABHIGRAHA 2K25 — Freshers Website
 
-[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#) [![Deploy-Frontend](https://img.shields.io/badge/vercel-frontend-blue)](#) [![Deploy-Backend](https://img.shields.io/badge/render-backend-purple)](#) [![License](https://img.shields.io/badge/license-MIT-black)](#) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange)](#)
+A full-stack web application for ABHIGRAHA 2K25 to showcase events, schedules, team, sponsors, galleries, and registrations. The stack is optimized for fast iteration, modern DX, and cloud-native hosting.
 
-Inspire, inform, and onboard first-year students with a modern, responsive event portal. This mono-repo hosts a React SPA frontend and an Express.js API backend for managing events, schedule, team, gallery, sponsors, and goodies.
+## Tech Stack
+- Frontend: React + Vite + Tailwind CSS (deployed on Vercel)
+- Backend: Express.js + Node.js (deployed on Render)
+- Database: Supabase (PostgreSQL)
+- Storage: Dropbox (static assets/images)
+- Auth: JWT-based session handling (if applicable in backend)
 
----
+Note: This project uses PostgreSQL via Supabase. Any previous references to MongoDB are obsolete and have been removed.
 
-## ✨ Highlights
-- Full-stack JS: React (Vite) + Express + MongoDB (via models)
-- Clean separation: frontend/ and backend/ workspaces
-- Admin-ready: JWT-protected CRUD for all dynamic sections
-- Mobile-first UI with fast dev build (Vite) and SPA routing
-- Cloud-native deploys: Vercel (frontend) + Render (backend)
+## Monorepo Structure
+- frontend/ — React app scaffolded with Vite, styled with Tailwind CSS
+- backend/ — Express API server, integrates with Supabase PostgreSQL and Dropbox
 
----
+## Features
+- Dynamic events listing with detail pages
+- Day-wise schedule and highlights
+- Team and sponsors sections
+- Media gallery (images/videos served via Dropbox links)
+- Contact and registration flows (forms with validation)
+- Admin-ready foundations (routes and components) for content management
 
-## 🗂️ Repository Structure
-```
-freshers-website/
-├─ backend/
-│  ├─ app.js                 # Express app bootstrap (API + middleware)
-│  ├─ routes/
-│  │  ├─ admin.js            # Admin endpoints (protected)
-│  │  ├─ auth.js             # Login/reset for admin
-│  │  └─ public.js           # Public read endpoints
-│  ├─ models/                # Mongo/Mongoose models (Events, Team, etc.)
-│  └─ package.json
-├─ frontend/
-│  ├─ index.html             # SPA entry
-│  ├─ src/
-│  │  ├─ pages/              # Views (Home, Events, Schedule…)
-│  │  └─ components/         # Reusable UI blocks
-│  └─ package.json
-├─ package.json              # Root tooling
-└─ README.md
-```
+## Environments and Deployments
+- Vercel (Frontend)
+  - Builds the frontend from frontend directory
+  - Exposes environment variables to the browser as VITE_*
+  - Configure project root to frontend and set build command: `npm run build` (inside frontend) and output: `dist`
+- Render (Backend)
+  - Runs the Express server from backend
+  - Configure start command: `node server.js` or `npm start` (as defined)
+  - Add required environment variables
+- Supabase (PostgreSQL)
+  - Provides the Postgres database connection string and API keys
+  - Use Supabase JS client for any direct client-side reads (if needed) and secure server-side operations via the backend
+- Dropbox (Static Assets)
+  - Host images/media; store and reference shared/public links from the backend or frontend config
 
----
+## Environment Variables
+Create .env files for each package. Do not commit secrets.
 
-## 🧭 User Scenarios
-- Freshers browse events, schedule, team, sponsors, and gallery with smooth SPA navigation
-- Admin logs in, creates/updates events, uploads gallery items, manages team/sponsors
-- Visitors submit inquiries via contact; admins receive and respond efficiently
+Frontend (.env for Vite — variables must start with VITE_):
+- VITE_API_BASE_URL=https://<your-render-backend>.onrender.com
+- VITE_PUBLIC_ASSETS_BASE=https://dl.dropboxusercontent.com/… (or a folder link transformed for direct access)
+- VITE_SUPABASE_URL=https://<your-supabase-project>.supabase.co (optional if frontend uses client)
+- VITE_SUPABASE_ANON_KEY=<anon-key> (optional; use only if needed on client)
 
----
+Backend (.env):
+- PORT=8080
+- NODE_ENV=production
+- DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<db>?sslmode=require (from Supabase)
+- SUPABASE_URL=https://<your-supabase-project>.supabase.co
+- SUPABASE_SERVICE_ROLE_KEY=<service-role-key> (server-only)
+- DROPBOX_ACCESS_TOKEN=<dropbox-token> (server-only, if performing API operations)
+- JWT_SECRET=<strong-secret> (if JWT auth is used)
+- CORS_ORIGIN=https://<your-vercel-frontend>.vercel.app
 
-## 🔐 Authentication & Roles
-- Public: Read-only GET endpoints (events, schedule, team, sponsors, gallery)
-- Admin: JWT-protected CRUD on all content domains and admin session management
+## Local Development
+Prerequisites: Node.js LTS, npm, Supabase project (for DB creds), optional Dropbox token.
 
----
+1) Install dependencies
+- npm install
+- cd frontend && npm install
+- cd ../backend && npm install
 
-## 🔌 API Overview (Sample)
-Base URL: https://<your-backend-host>/api
+2) Configure env files
+- Create frontend/.env and backend/.env as shown above
 
-```
-GET   /events                # List events (public)
-GET   /events/:id            # Event details
-POST  /events                # Create (admin)
-PUT   /events/:id            # Update (admin)
-DELETE /events/:id            # Delete (admin)
+3) Start services
+- Backend: in backend, run `npm run dev` or `npm start`
+- Frontend: in frontend, run `npm run dev` (Vite dev server)
 
-GET   /schedule              # Daily/overall schedule
-GET   /team                  # Core team & volunteers
-GET   /sponsors              # Sponsor listings
-GET   /gallery               # Media gallery
+4) Access app
+- Frontend: http://localhost:5173 (default Vite)
+- Backend: http://localhost:8080 (or PORT you set)
 
-POST  /auth/login            # Admin login → JWT
-POST  /auth/reset            # Reset flow (if enabled)
-POST  /contact               # Send contact message
-```
+## Build and Deploy
+Frontend (Vercel):
+- Root directory: frontend
+- Build command: npm run build
+- Output directory: dist
+- Environment variables: add the VITE_* vars
 
-Notes:
-- Provide Authorization: Bearer <token> on admin routes
-- Validation errors return 4xx with details; unexpected errors return 5xx
+Backend (Render):
+- Root directory: backend
+- Build command (optional): npm install
+- Start command: node server.js or npm start
+- Environment variables: DATABASE_URL, SUPABASE_*, DROPBOX_ACCESS_TOKEN, JWT_SECRET, CORS_ORIGIN
 
----
+## Data and Storage Design
+- Database (Supabase/PostgreSQL):
+  - Tables: events, schedules, teams, sponsors, media, registrations (adjust to your schema)
+  - Access: Prefer server-side queries via backend using pg or @supabase/postgres-js. Avoid exposing service role keys to the client.
+- Storage (Dropbox):
+  - Use shared links transformed to raw URLs for direct image hosting
+  - For programmatic uploads, use Dropbox API via backend with token stored in env
 
-## 🧱 Data Flow (ASCII Diagram)
-```
-[Browser SPA]
-   |   fetch JSON (GET)
-   v
-[Frontend (React/Vite)]  -- axios/fetch -->  [Backend (Express)] -- ODM --> [DB]
-   ^                              |                    |
-   |             JWT (Bearer) on admin routes         |
-   +-------------- Protected admin UI <----------------+
-```
+## API Overview (Backend)
+- Base URL: /api
+- Examples:
+  - GET /api/events — list events
+  - GET /api/events/:id — event details
+  - GET /api/schedule — day-wise schedule
+  - GET /api/team — organizers and roles
+  - GET /api/sponsors — sponsors and tiers
+  - GET /api/media — gallery list (Dropbox URLs)
+  - POST /api/register — registration submission
+  - Admin routes can be secured with JWT if implemented
 
----
+## Frontend Overview
+- React + Vite app with Tailwind CSS
+- Pages: Home, Events, Schedule, Team, Sponsors, Gallery, Contact
+- State/data fetching via fetch/axios from backend API
+- Environment-driven API base URL (VITE_API_BASE_URL)
 
-## 🚀 Quick Start (Local)
-
-Prerequisites: Node 18+, npm, MongoDB URL
-
-1) Clone
-```
-git clone https://github.com/arpanpramanik2003/freshers-website
-cd freshers-website
-```
-
-2) Install
-```
-# root optional
-npm install
-
-# backend
-cd backend && npm install && cd ..
-
-# frontend
-cd frontend && npm install && cd ..
-```
-
-3) Environment
-Create .env files:
-```
-backend/.env
-  PORT=5000
-  MONGO_URI=mongodb+srv://...
-  JWT_SECRET=supersecret
-  CORS_ORIGIN=http://localhost:5173
-
-frontend/.env
-  VITE_API_BASE=http://localhost:5000/api
-```
-
-4) Run (two terminals)
-```
-# backend
-cd backend && npm run dev
-
-# frontend
-cd frontend && npm run dev
-```
-
-5) Open
-- Frontend: http://localhost:5173
-- API: http://localhost:5000/api
-
----
-
-## 🛠️ Scripts
-Check package.json in each workspace. Typical scripts:
-- Backend: dev, start, lint, test
-- Frontend: dev, build, preview, lint
-
----
-
-## 🧪 Advanced Usage
-- Seed data: add a seed script to populate events/team for demos
-- Image uploads: configure storage (e.g., Cloudinary or S3) in gallery routes
-- Role expansion: introduce roles (organizer, editor) via JWT claims
-- Caching: add HTTP cache headers for public GETs; CDN on Vercel for assets
-- Observability: add request logging and error tracking (pino/winston + Sentry)
-
----
-
-## 🔍 Example: Admin Event Lifecycle
-```
-Login → Receive JWT → Create Event → Update Details → Publish → Feature on Home
-```
-Request example:
-```
-POST /api/events
-Authorization: Bearer <token>
-Content-Type: application/json
+## Sample Event JSON
+```json
 {
   "title": "Hackathon",
   "date": "2025-01-10",
@@ -174,43 +126,24 @@ Content-Type: application/json
 }
 ```
 
----
-
-## 🧭 Frontend Pages
-- Home: Hero, highlights, CTA to register/explore
-- Events: Filterable list + detail views
-- Schedule: Day-wise agenda
-- Team: Organizers + roles
-- Sponsors: Tiers and logos
-- Gallery: Photos/videos from events
-- Contact: Form with validation
-
----
-
-## 🗺️ Roadmap
+## Roadmap
 - [ ] Admin dashboard UI polish and analytics
 - [ ] Rich text editor for event descriptions
-- [ ] Media upload with progress and moderation
+- [ ] Media upload with progress and moderation (Dropbox API)
 - [ ] Notifications and RSVP integration
 - [ ] i18n and accessibility audits
 
----
-
-## 🙌 Credits
-- Core: React, Vite, Express, MongoDB, JWT
-- Infra: Vercel (frontend), Render (backend)
+## Credits
+- Core: React, Vite, Tailwind CSS, Express, pg, Supabase, JWT
+- Infra: Vercel (frontend), Render (backend), Dropbox (assets)
 - Contributors: College organizing committee and volunteers
 
----
-
-## 💬 Support
+## Support
 - Issues: https://github.com/arpanpramanik2003/freshers-website/issues
 - Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
 - Security: Please report privately via issues with [security] tag
 
----
-
-## 📄 License
+## License
 MIT License — see LICENSE if present. Content and assets belong to their respective owners.
 
 —
