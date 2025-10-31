@@ -1,197 +1,373 @@
-# ABHIGRAHA 2K25 — Freshers Website
+# 🎓 ABHIGRAHA 2K25 — Freshers Website
 
-<p align="center">
-  <a href="https://vercel.com" target="_blank"><img alt="Vercel" src="https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white"></a>
-  <a href="https://render.com" target="_blank"><img alt="Render" src="https://img.shields.io/badge/Deploy-Render-2A7FFF?logo=render&logoColor=white"></a>
-  <a href="https://supabase.com" target="_blank"><img alt="Supabase" src="https://img.shields.io/badge/Database-Supabase-3FCF8E?logo=supabase&logoColor=white"></a>
-  <a href="https://dropbox.com" target="_blank"><img alt="Dropbox" src="https://img.shields.io/badge/Storage-Dropbox-0061FF?logo=dropbox&logoColor=white"></a>
-  <!-- <a href="https://github.com/arpanpramanik2003/freshers-website/actions" target="_blank"><img alt="CI" src="https://github.com/arpanpramanik2003/freshers-website/actions/workflows/ci.yml/badge.svg"></a> -->
-  <a href="#license" target="_self"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
-  <a href="https://github.com/arpanpramanik2003/freshers-website/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/arpanpramanik2003/freshers-website?style=social"></a>
-  <a href="https://github.com/arpanpramanik2003/freshers-website/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/arpanpramanik2003/freshers-website"></a>
-</p>
+<div align="center">
 
-A production-ready, cloud-native platform for ABHIGRAHA 2K25 that showcases events, schedules, teams, sponsors, media galleries, and secure registrations. The system is designed for high reliability, low latency, and smooth content operations through a modular architecture deployed across Vercel (frontend) and Render (backend), with Supabase (PostgreSQL) for relational data and Dropbox for asset delivery.
+[![Node.js](https://img.shields.io/badge/Node.js-v18.0+-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat-square&logo=react)](https://react.dev/)
+[![Express](https://img.shields.io/badge/Express-4.18.2-000000?style=flat-square&logo=express)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat-square&logo=postgresql)](https://www.postgresql.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.2-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.13-06B6D4?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-Highlights
-- Purpose: Provide a polished, scalable, and easily maintainable website for college freshers with admin workflows, analytics-ready data, and delightful UI/UX.
-- Cloud architecture: Edge-optimized static frontend on Vercel + containerized API on Render + managed PostgreSQL (Supabase) + Dropbox CDN-like delivery for media.
-- Modular design: Clear separation of concerns between frontend (React/Vite/Tailwind), backend (Express/Node), data access (pg/Supabase client), and storage (Dropbox SDK/links).
-- Advanced features: Admin dashboard foundations, secure registration (validation + server-side checks), media gallery with cloud image uploads, sponsor tiers, schedule planner, and extensible content types.
+**A modern, full-stack web application for managing freshers orientation events with real-time updates, admin dashboard, and comprehensive event management features.**
 
-Quick Links
-- Live site: https://<your-vercel-app>.vercel.app
-- Backend API: https://<your-render-service>.onrender.com/api
-- Issues: https://github.com/arpanpramanik2003/freshers-website/issues
-- Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
+[📖 Documentation](#features) • [🚀 Quick Start](#quick-start) • [📁 Project Structure](#project-structure) • [🛠️ Tech Stack](#tech-stack)
 
-## Technology Stack
+</div>
 
-| Layer     | Technologies | Hosting |
-|---------- |--------------|---------|
-| Frontend  | React, Vite, Tailwind CSS | Vercel |
-| Backend   | Node.js, Express, pg, Zod/Joi (validation) | Render |
-| Database  | Supabase (PostgreSQL) | Supabase |
-| Storage   | Dropbox (raw links + API uploads) | Dropbox |
-| CI/CD     | GitHub Actions (lint/test/build) | GitHub |
+---
 
-## Architecture Overview
+## ✨ Features
 
-- Frontend (SPA): Static assets served by Vercel with environment-injected VITE_* vars; communicates with backend via REST.
-- Backend (API): Express server exposing /api routes; handles validation, auth (JWT-ready), and integrates with Supabase and Dropbox.
-- Database: Normalized tables for events, schedules, teams, sponsors, media, registrations; uses SQL migrations and indexes for performance.
-- Media: Dropbox shared links transformed to raw URLs for direct image hosting; optional backend upload endpoint with progress + moderation flags.
-- Security: CORS whitelisting, input validation, rate limiting (suggested), JWT for admin routes, secrets confined to server envs.
+### 🎯 Core Functionality
+- **Event Management** - Create, update, and manage freshers orientation events
+- **Admin Dashboard** - Comprehensive admin panel for event and user management
+- **User Authentication** - Secure JWT-based authentication with role-based access control
+- **File Upload Support** - Seamless file upload capabilities with Multer
+- **Real-time Updates** - Responsive frontend with React and Vite
+- **Modern UI** - Beautiful, responsive design using Tailwind CSS
+- **API Analytics** - Integrated Vercel Analytics for performance tracking
 
-### Logical Modules
-- Events: CRUD, tagging, schedule mapping.
-- Schedule: Day/time slots, stages/venues, highlights.
-- Team: Roles, departments, social links.
-- Sponsors: Tiered listing with logos and links.
-- Media: Gallery with pagination, lazy loading; supports image/video.
-- Registration: Public form -> server validation -> persistence -> optional email confirmation.
-- Admin: Role-based access (JWT), dashboards for content ops and review queues.
+### 🔐 Security Features
+- Password hashing with bcryptjs
+- JWT-based authentication
+- CORS enabled
+- Environment variable management
+- Role-based access control (RBAC)
 
-## Monorepo Structure
-- frontend/ — React app scaffolded with Vite, styled with Tailwind CSS
-- backend/ — Express API server, integrates with Supabase PostgreSQL and Dropbox
+### 📱 Responsive Design
+- Mobile-first approach
+- Fully responsive UI components
+- Progressive web app ready
 
-## Environments and Deployments
+---
 
-- Vercel (Frontend)
-  - Root directory: frontend
-  - Build command: npm run build
-  - Output directory: dist
-  - Environment variables: VITE_* only
-- Render (Backend)
-  - Root directory: backend
-  - Start command: node server.js or npm start
-  - Env: DATABASE_URL, SUPABASE_*, DROPBOX_ACCESS_TOKEN, JWT_SECRET, CORS_ORIGIN
-- Supabase (PostgreSQL)
-  - Connection string (DATABASE_URL) with sslmode=require
-  - Prefer server-side queries; avoid exposing service role keys to client
-- Dropbox (Assets)
-  - Use transformed raw URLs for direct display
-  - Perform programmatic uploads from backend using access token
+## 🚀 Quick Start
 
-## Environment Variables
+### Prerequisites
+- Node.js (v18.0 or higher)
+- PostgreSQL (v12 or higher)
+- npm or yarn package manager
 
-Frontend (.env)
-- VITE_API_BASE_URL=https://<render-service>.onrender.com
-- VITE_PUBLIC_ASSETS_BASE=https://dl.dropboxusercontent.com/... (raw folder link)
-- VITE_SUPABASE_URL=https://<project>.supabase.co (optional)
-- VITE_SUPABASE_ANON_KEY= (optional)
+### Installation
 
-Backend (.env)
-- PORT=8080
-- NODE_ENV=production
-- DATABASE_URL=postgresql://user:pass@host:5432/db?sslmode=require
-- SUPABASE_URL=https://<project>.supabase.co
-- SUPABASE_SERVICE_ROLE_KEY=
-- DROPBOX_ACCESS_TOKEN=
-- JWT_SECRET=
-- CORS_ORIGIN=https://<your-vercel-app>.vercel.app
-
-## API Reference
-
-Base URL: /api
-
-Public endpoints
-- GET /api/events — List events
-- GET /api/events/:id — Event details
-- GET /api/schedule — Day-wise schedule
-- GET /api/team — Organizers and roles
-- GET /api/sponsors — Sponsors and tiers
-- GET /api/media — Gallery list (Dropbox URLs)
-- POST /api/register — Registration submission
-
-Admin (secured via JWT; suggest Authorization: Bearer <token>)
-- POST /api/admin/events
-- PATCH /api/admin/events/:id
-- DELETE /api/admin/events/:id
-
-## Local Development
-
-Prerequisites: Node.js LTS, npm, Supabase project, optional Dropbox token
-
-1) Install dependencies
-- npm install
-- cd frontend && npm install
-- cd ../backend && npm install
-
-2) Configure env files
-- Create frontend/.env and backend/.env as above
-
-3) Start services
-- Backend: cd backend && npm run dev (or npm start)
-- Frontend: cd frontend && npm run dev (Vite)
-
-4) Access
-- Frontend: http://localhost:5173
-- Backend: http://localhost:8080
-
-## Build and Deploy
-
-Frontend (Vercel)
-- Root: frontend
-- Build: npm run build
-- Output: dist
-- Env: VITE_* vars
-
-Backend (Render)
-- Root: backend
-- Build (optional): npm install
-- Start: node server.js or npm start
-- Env: DATABASE_URL, SUPABASE_*, DROPBOX_ACCESS_TOKEN, JWT_SECRET, CORS_ORIGIN
-
-## Workflows (CI/CD and Ops)
-
-- GitHub Actions: ci.yml to run install, lint, type-check, build, and optional tests on PRs and main.
-- Preview Deployments: Vercel auto-previews per PR for frontend; Render can deploy from main or branches for backend.
-- Release: Tag semantic versions; use conventional commits; docs changes use docs: prefix.
-
-## Sample Event JSON
-
-```json
-{
-  "title": "Hackathon",
-  "date": "2025-01-10",
-  "venue": "Main Auditorium",
-  "tags": ["tech", "coding"],
-  "description": "24-hour build sprint for freshers"
-}
+#### Clone the Repository
+```bash
+git clone https://github.com/aritramukhopadhyay2004/freshers-website.git
+cd freshers-website
 ```
 
-## Roadmap
-- [ ] Admin dashboard UI polish and analytics
+#### Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev      # Start development server
+# or
+npm run build    # Build for production
+```
+
+#### Backend Setup
+```bash
+cd ../backend
+npm install
+
+# Create a .env file
+echo "DATABASE_URL=postgresql://user:password@localhost:5432/freshers_db" > .env
+echo "JWT_SECRET=your_secret_key_here" >> .env
+echo "PORT=5000" >> .env
+
+npm run dev      # Start development server with nodemon
+# or
+npm start        # Start production server
+```
+
+#### Initialize Database
+```bash
+# Create admin user
+cd backend
+npm run create-admin
+
+# Seed sample data
+npm run seed-sample
+```
+
+---
+
+## 📁 Project Structure
+
+```
+freshers-website/
+├── 📦 backend/
+│   ├── 📁 routes/
+│   │   ├── admin.js          # Admin endpoints
+│   │   ├── auth.js           # Authentication endpoints
+│   │   └── public.js         # Public/General endpoints
+│   ├── 📁 middleware/        # Authentication & validation middleware
+│   ├── 📁 models/            # Sequelize database models
+│   ├── 📁 migrations/        # Database migrations
+│   ├── 📁 scripts/           # Utility scripts
+│   ├── 📁 instance/          # Database instance config
+│   ├── app.js                # Express server entry point
+│   └── package.json
+│
+├── 📦 frontend/
+│   └── 📁 src/
+│       ├── 📁 admin/         # Admin dashboard components
+│       ├── 📁 components/    # Reusable React components
+│       ├── 📁 pages/         # Page components
+│       ├── 📁 assets/        # Images, icons, styles
+│       ├── 📁 config/        # Configuration files
+│       ├── App.jsx
+│       └── main.jsx
+│
+├── package.json              # Root dependencies (if any)
+├── package-lock.json
+├── README.md                 # This file
+└── .gitignore
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Version | Purpose |
+|------------|---------|----------|
+| **React** | ^19.1.1 | UI library |
+| **Vite** | ^7.1.2 | Build tool & dev server |
+| **React Router** | ^7.8.2 | Client-side routing |
+| **Tailwind CSS** | ^3.4.13 | Styling & responsive design |
+| **ESLint** | ^9.33.0 | Code quality |
+| **PostCSS** | ^8.5.6 | CSS transformation |
+| **Vercel Analytics** | ^1.4.1 | Performance tracking |
+
+### Backend
+| Technology | Version | Purpose |
+|------------|---------|----------|
+| **Express.js** | ^4.18.2 | Web framework |
+| **PostgreSQL** | (via Sequelize) | Database |
+| **Sequelize** | ^6.32.1 | ORM |
+| **JWT** | ^9.0.2 | Authentication |
+| **bcryptjs** | ^2.4.3 | Password hashing |
+| **Multer** | ^1.4.5 | File uploads |
+| **CORS** | ^2.8.5 | Cross-origin requests |
+| **Nodemon** | ^3.0.1 | Dev auto-reload |
+| **dotenv** | ^16.3.1 | Environment variables |
+
+---
+
+## 🔌 API Endpoints
+
+### Authentication Routes (`/api/auth`)
+- `POST /login` - User login
+- `POST /register` - User registration
+- `POST /logout` - User logout
+- `POST /refresh` - Refresh JWT token
+
+### Public Routes (`/api/public`)
+- `GET /events` - Get all public events
+- `GET /events/:id` - Get event details
+- `GET /about` - Get event information
+
+### Admin Routes (`/api/admin`) - ⚠️ Requires Authentication
+- `POST /events` - Create new event
+- `PUT /events/:id` - Update event
+- `DELETE /events/:id` - Delete event
+- `GET /dashboard` - Admin dashboard stats
+- `GET /users` - Manage users
+- `POST /uploads` - Handle file uploads
+
+---
+
+## 📝 Environment Variables
+
+### Backend (.env)
+```env
+# Database Configuration
+DATABASE_URL=postgresql://user:password@localhost:5432/freshers_db
+
+# JWT Configuration
+JWT_SECRET=your_super_secret_jwt_key_here
+JWT_EXPIRY=7d
+
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# CORS
+CORS_ORIGIN=http://localhost:5173
+```
+
+### Frontend (.env)
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+---
+
+## 🚦 Running the Application
+
+### Development Mode
+```bash
+# Terminal 1 - Backend
+cd backend
+npm run dev
+
+# Terminal 2 - Frontend
+cd frontend
+npm run dev
+```
+
+Frontend will run at: `http://localhost:5173`
+Backend API will run at: `http://localhost:5000`
+
+### Production Build
+```bash
+# Frontend
+cd frontend
+npm run build
+npm run preview
+
+# Backend
+cd backend
+npm start
+```
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Admin dashboard UI polish and analytics enhancements
 - [ ] Rich text editor for event descriptions
-- [ ] Media upload with progress and moderation (Dropbox API)
-- [ ] Notifications and RSVP integration
-- [ ] i18n and accessibility audits
+- [ ] Media upload with progress tracking and moderation
+- [ ] Push notifications and RSVP integration
+- [ ] Internationalization (i18n) support
+- [ ] Accessibility audit and WCAG compliance
+- [ ] Email notifications system
+- [ ] Event calendar integration
+- [ ] QR code generation for events
+- [ ] Real-time participant count updates
 
-## Authors & Contributors
+---
 
-- Maintainer: @arpanpramanik2003
-- Contributors: College organizing committee and volunteers
+## 🤝 Contributing
 
-Badges
-- Commits: https://img.shields.io/github/commit-activity/m/arpanpramanik2003/freshers-website
-- Issues: https://img.shields.io/github/issues/arpanpramanik2003/freshers-website
-- PRs: https://img.shields.io/github/issues-pr/arpanpramanik2003/freshers-website
+We welcome contributions! Please follow these steps:
 
-## Credits
-- Core: React, Vite, Tailwind CSS, Express, pg, Supabase, JWT
-- Infra: Vercel (frontend), Render (backend), Dropbox (assets)
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
 
-## Security
-- Report vulnerabilities privately via GitHub Issues tagged [security]
-- Never commit secrets. Rotate keys on suspicion. Enforce least privilege on Supabase and Dropbox tokens.
+### Commit Convention
+Use conventional commits for clear history:
+- `feat:` New feature
+- `fix:` Bug fix
+- `docs:` Documentation changes
+- `style:` Code style changes
+- `refactor:` Code refactoring
+- `test:` Test additions/changes
+- `chore:` Dependency/config changes
 
-## Support
-- Issues: https://github.com/arpanpramanik2003/freshers-website/issues
-- Discussions: https://github.com/arpanpramanik2003/freshers-website/discussions
+---
 
-## License
-MIT License — see LICENSE if present. Content and assets belong to their respective owners.
+## 👥 Team & Contributors
 
-— Built with passion for ABHIGRAHA 2K25 🎉
+<div align="center">
+
+### 👨‍💻 **Developer & DevOps**
+**Arpan Pramanik** ([@arpanpramanik2003](https://github.com/arpanpramanik2003))
+
+*Full-stack development, backend architecture, DevOps infrastructure, and system administration*
+
+---
+
+### 🎨 **UI/UX Designer & Operator**
+**Aritra Mukhopadhyay** ([@aritramukhopadhyay2004](https://github.com/aritramukhopadhyay2004))
+
+*User interface design, user experience optimization, and project operations*
+
+</div>
+
+---
+
+## 🔒 Security
+
+Security is a top priority. Please follow these guidelines:
+
+### Reporting Vulnerabilities
+- **DO NOT** create public issues for security vulnerabilities
+- Report privately via GitHub Security Advisory
+- Include steps to reproduce and potential impact
+- Allow reasonable time for a fix before disclosure
+
+### Security Best Practices
+- Never commit secrets or API keys to the repository
+- Use `.env` files for sensitive configuration (included in `.gitignore`)
+- Rotate keys and tokens regularly
+- Enforce least privilege on database and API access
+- Keep dependencies updated (`npm audit`, `npm update`)
+- Use HTTPS in production
+- Validate and sanitize all user inputs
+
+---
+
+## 📊 Project Statistics
+
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/aritramukhopadhyay2004/freshers-website?style=flat-square&label=commits)
+![GitHub issues](https://img.shields.io/github/issues/aritramukhopadhyay2004/freshers-website?style=flat-square&label=issues)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/aritramukhopadhyay2004/freshers-website?style=flat-square&label=pull%20requests)
+![GitHub repo size](https://img.shields.io/github/repo-size/aritramukhopadhyay2004/freshers-website?style=flat-square)
+
+---
+
+## 📚 Resources & Documentation
+
+- [React Documentation](https://react.dev/)
+- [Express.js Guide](https://expressjs.com/)
+- [Sequelize ORM](https://sequelize.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vite Guide](https://vitejs.dev/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+
+---
+
+## 💬 Support & Questions
+
+- **Issues**: [GitHub Issues](https://github.com/aritramukhopadhyay2004/freshers-website/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/aritramukhopadhyay2004/freshers-website/discussions)
+- **Email**: Contact the team directly
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+### License Summary
+- ✅ You can use this code commercially
+- ✅ You can modify the code
+- ✅ You can distribute the code
+- ⚠️ You must include the license and copyright notice
+- ❌ The code is provided "as-is" without warranty
+
+---
+
+## 🙏 Acknowledgments
+
+- **ABHIGRAHA 2K25** organizing committee
+- **All contributors and volunteers** who made this project possible
+- **Open source community** for amazing tools and libraries
+- **React**, **Express.js**, **PostgreSQL**, **Tailwind CSS** communities
+
+---
+
+<div align="center">
+
+**Built with ❤️ for ABHIGRAHA 2K25**
+
+[⬆ Back to Top](#-abhigraha-2k25--freshers-website)
+
+</div>
