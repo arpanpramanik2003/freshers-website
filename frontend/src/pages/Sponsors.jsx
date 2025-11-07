@@ -153,7 +153,7 @@ export default function Sponsors() {
               </div>
             </div>
           ) : (
-      {/* No Sponsors State - Similar to Events/Team/Gallery */}
+      /* No Sponsors State - Similar to Events/Team/Gallery */
             <div className="text-center py-20">
               <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
                 <div className="text-6xl sm:text-8xl mb-8 animate-bounce">🤝</div>
