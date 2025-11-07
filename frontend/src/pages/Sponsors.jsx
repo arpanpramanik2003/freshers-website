@@ -89,16 +89,20 @@ export default function Sponsors() {
             /* Main Sponsors Container */
             <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
               
-              {/* Sponsors Grid - FIXED ALIGNMENT */}
-              <div className="flex flex-wrap justify-center gap-8 sm:gap-12 lg:gap-16">
+              {/* MODIFIED: Sponsors Grid - Using CSS Grid for balanced distribution */}
+              <div 
+                className="grid justify-items-center gap-8 sm:gap-12 lg:gap-16"
+                style={{
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 160px))',
+                  justifyContent: 'center'
+                }}
+              >
                 {sponsors.map((sponsor, index) => (
                   <div 
                     key={sponsor.id} 
-                    className="group cursor-pointer transform hover:scale-110 transition-all duration-500 text-center"
+                    className="group cursor-pointer transform hover:scale-110 transition-all duration-500 text-center w-full"
                     style={{
-                      animationDelay: `${index * 0.15}s`,
-                      minWidth: '120px',
-                      maxWidth: '160px'
+                      animationDelay: `${index * 0.15}s`
                     }}
                   >
                     {/* FIXED: Circular Logo Container with Perfect Alignment */}
@@ -149,7 +153,7 @@ export default function Sponsors() {
               </div>
             </div>
           ) : (
-            /* No Sponsors State - Similar to Events/Team/Gallery */
+            /* No Sponsors State - Similar to Events/Team/Gallery */}
             <div className="text-center py-20">
               <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
                 <div className="text-6xl sm:text-8xl mb-8 animate-bounce">🤝</div>
