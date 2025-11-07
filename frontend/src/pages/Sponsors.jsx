@@ -86,10 +86,9 @@ export default function Sponsors() {
         {/* Sponsors Content */}
         <div className="pb-16">
           {sponsors.length > 0 ? (
-            /* Main Sponsors Container */
             <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
               
-              {/* MODIFIED: Sponsors Grid - Using CSS Grid for balanced distribution */}
+              {/* Sponsors Grid - Using CSS Grid for balanced distribution */}
               <div 
                 className="grid justify-items-center gap-8 sm:gap-12 lg:gap-16"
                 style={{
@@ -105,13 +104,13 @@ export default function Sponsors() {
                       animationDelay: `${index * 0.15}s`
                     }}
                   >
-                    {/* FIXED: Circular Logo Container with Perfect Alignment */}
+                    {/* Circular Logo Container with Perfect Alignment */}
                     <div className="relative mb-4 mx-auto w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                       
-                      {/* FIXED: Outer Glow Ring - Perfectly Centered */}
+                      {/* Outer Glow Ring - Perfectly Centered */}
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse blur-sm scale-110"></div>
                       
-                      {/* FIXED: Outer Ring - Perfectly Aligned */}
+                      {/* Outer Ring - Perfectly Aligned */}
                       <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 rounded-full transition-colors duration-500 scale-105"></div>
                       
                       {/* Main Circle Container - Base Size */}
@@ -153,7 +152,6 @@ export default function Sponsors() {
               </div>
             </div>
           ) : (
-      /* No Sponsors State - Similar to Events/Team/Gallery */
             <div className="text-center py-20">
               <div className="bg-black/15 backdrop-blur-md rounded-3xl p-12 sm:p-16 border border-white/10 shadow-2xl max-w-2xl mx-auto">
                 <div className="text-6xl sm:text-8xl mb-8 animate-bounce">🤝</div>
