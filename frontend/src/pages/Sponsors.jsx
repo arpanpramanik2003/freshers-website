@@ -28,6 +28,19 @@ export default function Sponsors() {
     }
   };
 
+  // Calculate balanced rows based on total sponsors
+  const getBalancedLayout = (total) => {
+    if (total <= 4) return { firstRow: total, secondRow: 0 };
+    
+    const avgPerRow = Math.ceil(total / 2);
+    const firstRow = Math.ceil(total / 2);
+    const secondRow = total - firstRow;
+    
+    return { firstRow, secondRow };
+  };
+
+  const layout = getBalancedLayout(sponsors.length);
+
   if (loading) {
     return (
       <section 
@@ -88,67 +101,128 @@ export default function Sponsors() {
           {sponsors.length > 0 ? (
             <div className="bg-black/15 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/10 shadow-2xl">
               
-              {/* Sponsors Grid - Using CSS Grid for balanced distribution */}
-              <div 
-                className="grid justify-items-center gap-8 sm:gap-12 lg:gap-16"
-                style={{
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 160px))',
-                  justifyContent: 'center'
-                }}
-              >
-                {sponsors.map((sponsor, index) => (
-                  <div 
-                    key={sponsor.id} 
-                    className="group cursor-pointer transform hover:scale-110 transition-all duration-500 text-center w-full"
-                    style={{
-                      animationDelay: `${index * 0.15}s`
-                    }}
-                  >
-                    {/* Circular Logo Container with Perfect Alignment */}
-                    <div className="relative mb-4 mx-auto w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
-                      
-                      {/* Outer Glow Ring - Perfectly Centered */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse blur-sm scale-110"></div>
-                      
-                      {/* Outer Ring - Perfectly Aligned */}
-                      <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 rounded-full transition-colors duration-500 scale-105"></div>
-                      
-                      {/* Main Circle Container - Base Size */}
-                      <div className="relative w-full h-full bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-lg rounded-full border-2 border-white/20 group-hover:border-purple-400/60 shadow-2xl group-hover:shadow-purple-500/30 transition-all duration-500 flex items-center justify-center overflow-hidden">
+              {/* Sponsors Grid - Balanced Layout with Manual Control */}
+              <div className="flex flex-col gap-8 sm:gap-12 lg:gap-16">
+                
+                {/* First Row */}
+                <div className="flex flex-wrap justify-center gap-8 sm:gap-12 lg:gap-16">
+                  {sponsors.slice(0, layout.firstRow).map((sponsor, index) => (
+                    <div 
+                      key={sponsor.id} 
+                      className="group cursor-pointer transform hover:scale-110 transition-all duration-500 text-center"
+                      style={{
+                        animationDelay: `${index * 0.15}s`,
+                        minWidth: '120px',
+                        maxWidth: '160px'
+                      }}
+                    >
+                      {/* Circular Logo Container with Perfect Alignment */}
+                      <div className="relative mb-4 mx-auto w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                         
-                        {/* Logo Image */}
-                        <img 
-                          src={sponsor.logo_url} 
-                          alt={sponsor.name}
-                          loading="lazy"
-                          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain group-hover:scale-110 transition-transform duration-500 filter brightness-90 group-hover:brightness-110"
-                          onError={(e) => {
-                            // Fallback to company initial if image fails
-                            e.target.style.display = 'none';
-                            const fallback = e.target.nextElementSibling;
-                            if (fallback) fallback.style.display = 'flex';
-                          }}
-                        />
+                        {/* Outer Glow Ring - Perfectly Centered */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse blur-sm scale-110"></div>
                         
-                        {/* Fallback Text (hidden by default) */}
-                        <div className="hidden w-full h-full items-center justify-center text-white font-black text-base sm:text-lg lg:text-xl">
-                          {sponsor.name.charAt(0)}
+                        {/* Outer Ring - Perfectly Aligned */}
+                        <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 rounded-full transition-colors duration-500 scale-105"></div>
+                        
+                        {/* Main Circle Container - Base Size */}
+                        <div className="relative w-full h-full bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-lg rounded-full border-2 border-white/20 group-hover:border-purple-400/60 shadow-2xl group-hover:shadow-purple-500/30 transition-all duration-500 flex items-center justify-center overflow-hidden">
+                          
+                          {/* Logo Image */}
+                          <img 
+                            src={sponsor.logo_url} 
+                            alt={sponsor.name}
+                            loading="lazy"
+                            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain group-hover:scale-110 transition-transform duration-500 filter brightness-90 group-hover:brightness-110"
+                            onError={(e) => {
+                              // Fallback to company initial if image fails
+                              e.target.style.display = 'none';
+                              const fallback = e.target.nextElementSibling;
+                              if (fallback) fallback.style.display = 'flex';
+                            }}
+                          />
+                          
+                          {/* Fallback Text (hidden by default) */}
+                          <div className="hidden w-full h-full items-center justify-center text-white font-black text-base sm:text-lg lg:text-xl">
+                            {sponsor.name.charAt(0)}
+                          </div>
+                          
+                          {/* Hover overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                        </div>
+                      </div>
+                      
+                      {/* Company Name */}
+                      <h4 className="font-bold text-white text-sm sm:text-base lg:text-lg group-hover:text-purple-200 transition-colors duration-300 drop-shadow-lg px-2">
+                        {sponsor.name}
+                      </h4>
+                      
+                      {/* Animated underline */}
+                      <div className="mt-2 h-0.5 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 mx-auto w-0 group-hover:w-full"></div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Second Row (if needed) */}
+                {layout.secondRow > 0 && (
+                  <div className="flex flex-wrap justify-center gap-8 sm:gap-12 lg:gap-16">
+                    {sponsors.slice(layout.firstRow).map((sponsor, index) => (
+                      <div 
+                        key={sponsor.id} 
+                        className="group cursor-pointer transform hover:scale-110 transition-all duration-500 text-center"
+                        style={{
+                          animationDelay: `${(layout.firstRow + index) * 0.15}s`,
+                          minWidth: '120px',
+                          maxWidth: '160px'
+                        }}
+                      >
+                        {/* Circular Logo Container with Perfect Alignment */}
+                        <div className="relative mb-4 mx-auto w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
+                          
+                          {/* Outer Glow Ring - Perfectly Centered */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse blur-sm scale-110"></div>
+                          
+                          {/* Outer Ring - Perfectly Aligned */}
+                          <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 rounded-full transition-colors duration-500 scale-105"></div>
+                          
+                          {/* Main Circle Container - Base Size */}
+                          <div className="relative w-full h-full bg-gradient-to-br from-purple-600/30 via-blue-500/30 to-purple-800/30 backdrop-blur-lg rounded-full border-2 border-white/20 group-hover:border-purple-400/60 shadow-2xl group-hover:shadow-purple-500/30 transition-all duration-500 flex items-center justify-center overflow-hidden">
+                            
+                            {/* Logo Image */}
+                            <img 
+                              src={sponsor.logo_url} 
+                              alt={sponsor.name}
+                              loading="lazy"
+                              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain group-hover:scale-110 transition-transform duration-500 filter brightness-90 group-hover:brightness-110"
+                              onError={(e) => {
+                                // Fallback to company initial if image fails
+                                e.target.style.display = 'none';
+                                const fallback = e.target.nextElementSibling;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                            
+                            {/* Fallback Text (hidden by default) */}
+                            <div className="hidden w-full h-full items-center justify-center text-white font-black text-base sm:text-lg lg:text-xl">
+                              {sponsor.name.charAt(0)}
+                            </div>
+                            
+                            {/* Hover overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                          </div>
                         </div>
                         
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                        {/* Company Name */}
+                        <h4 className="font-bold text-white text-sm sm:text-base lg:text-lg group-hover:text-purple-200 transition-colors duration-300 drop-shadow-lg px-2">
+                          {sponsor.name}
+                        </h4>
+                        
+                        {/* Animated underline */}
+                        <div className="mt-2 h-0.5 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 mx-auto w-0 group-hover:w-full"></div>
                       </div>
-                    </div>
-                    
-                    {/* Company Name */}
-                    <h4 className="font-bold text-white text-sm sm:text-base lg:text-lg group-hover:text-purple-200 transition-colors duration-300 drop-shadow-lg px-2">
-                      {sponsor.name}
-                    </h4>
-                    
-                    {/* Animated underline */}
-                    <div className="mt-2 h-0.5 bg-gradient-to-r from-purple-500 via-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 mx-auto w-0 group-hover:w-full"></div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
             </div>
           ) : (
