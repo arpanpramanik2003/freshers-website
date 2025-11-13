@@ -12,7 +12,7 @@ export default function Hero() {
   const words = ["WELCOME", "FRESHERS"];
 
   useEffect(() => {
-    const target = new Date("2025-11-13T15:30:00");
+    const target = new Date("2025-11-13T16:00:00");
 
     const calculateTime = () => {
       const now = new Date();
