@@ -12,7 +12,7 @@ export default function Hero() {
   const words = ["WELCOME", "FRESHERS"];
 
   useEffect(() => {
-    const target = new Date("2025-11-13T16:00:00");
+    const target = new Date("2025-11-14T15:10:00");
 
     const calculateTime = () => {
       const now = new Date();
@@ -160,7 +160,7 @@ export default function Hero() {
               <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 backdrop-blur-sm text-white py-3 px-6 sm:py-4 sm:px-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-400/50">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-black flex items-center gap-3">
                   {/* <span className="text-2xl animate-spin">🎭</span> */}
-                  FLASHMOB IS LIVE!
+                  EVENT IS LIVE!
                   {/* <span className="text-2xl animate-spin">🎉</span> */}
                 </h2>
               </div>
