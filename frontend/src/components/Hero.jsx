@@ -160,7 +160,7 @@ export default function Hero() {
               <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 backdrop-blur-sm text-white py-3 px-6 sm:py-4 sm:px-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-400/50">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-black flex items-center gap-3">
                   {/* <span className="text-2xl animate-spin">🎭</span> */}
-                  EVENT IS LIVE!
+                  THANK YOU TO ALL!
                   {/* <span className="text-2xl animate-spin">🎉</span> */}
                 </h2>
               </div>
